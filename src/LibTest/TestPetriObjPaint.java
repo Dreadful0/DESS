@@ -22,6 +22,8 @@ public class TestPetriObjPaint {  //Результати співпадають 
       public static void main(String[] args) throws ExceptionInvalidTimeDelay, ExceptionInvalidNetStructure {
       
      // цей фрагмент для запуску імітації моделі з заданною мережею Петрі на інтервалі часу timeModeling  
+         
+          
           PetriObjModel model = getModel();
           model.setIsProtokol(false);
           double timeModeling = 1000000;
