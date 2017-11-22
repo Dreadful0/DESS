@@ -2,10 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="65dd0fcd-6bc1-4214-b6ad-fde69338d869" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/AbsoluteLayout.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/DESS.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/EvolutionaryAlgorithmOptimization/Mutable.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/utils/OptimizationUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/EvolutionaryAlgorithmOptimization/EAOptimizer.java" afterPath="$PROJECT_DIR$/src/EvolutionaryAlgorithmOptimization/EAOptimizer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/PetriObj/ArcIn.java" afterPath="$PROJECT_DIR$/src/PetriObj/ArcIn.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/PetriObj/ArcOut.java" afterPath="$PROJECT_DIR$/src/PetriObj/ArcOut.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/PetriObj/NetLibrary.java" afterPath="$PROJECT_DIR$/src/PetriObj/NetLibrary.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/PetriObj/PetriNet.java" afterPath="$PROJECT_DIR$/src/PetriObj/PetriNet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/PetriObj/PetriP.java" afterPath="$PROJECT_DIR$/src/PetriObj/PetriP.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/PetriObj/PetriSim.java" afterPath="$PROJECT_DIR$/src/PetriObj/PetriSim.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/PetriObj/PetriT.java" afterPath="$PROJECT_DIR$/src/PetriObj/PetriT.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -18,162 +25,134 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="EAOptimizer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/EvolutionaryAlgorithmOptimization/EAOptimizer.java">
+      <file leaf-file-name="PetriNet.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/PetriObj/PetriNet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="531">
-              <caret line="51" column="0" lean-forward="false" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#4958#0" expanded="false" />
-                <element signature="imports" expanded="false" />
-                <element signature="e#1434#1435#0" expanded="false" />
-                <element signature="e#1471#1472#0" expanded="false" />
-                <element signature="e#1528#1529#0" expanded="false" />
-                <element signature="e#1580#1581#0" expanded="false" />
-                <element signature="e#1621#1622#0" expanded="false" />
-                <element signature="e#1661#1662#0" expanded="false" />
-                <element signature="e#1724#1725#0" expanded="false" />
-                <element signature="e#1782#1783#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EAOptimizerUsingExample.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/EvolutionaryAlgorithmOptimization/EAOptimizerUsingExample.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
+            <state relative-caret-position="210">
               <caret line="17" column="13" lean-forward="false" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
               <folding>
-                <element signature="e#0#1331#0" expanded="false" />
-                <element signature="imports" expanded="false" />
-                <element signature="e#1063#1064#0" expanded="false" />
-                <element signature="e#1103#1104#0" expanded="false" />
+                <element signature="e#3446#3447#0" expanded="true" />
+                <element signature="e#3465#3466#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PetriNetsFrame.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/graphpresentation/PetriNetsFrame.java">
+      <file leaf-file-name="PetriP.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/PetriObj/PetriP.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-241">
-              <caret line="47" column="39" lean-forward="false" selection-start-line="47" selection-start-column="39" selection-end-line="47" selection-end-column="39" />
+            <state relative-caret-position="2700">
+              <caret line="204" column="40" lean-forward="true" selection-start-line="204" selection-start-column="40" selection-end-line="204" selection-end-column="40" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PetriSim.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/PetriObj/PetriSim.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="646">
+              <caret line="671" column="5" lean-forward="true" selection-start-line="671" selection-start-column="5" selection-end-line="671" selection-end-column="5" />
               <folding>
-                <element signature="e#0#84575#0" expanded="false" />
-                <element signature="imports" expanded="false" />
-                <element signature="e#2187#2188#0" expanded="false" />
-                <element signature="e#2244#2245#0" expanded="false" />
-                <element signature="e#4714#4744#0" expanded="false" />
-                <element signature="e#4749#4838#0" expanded="false" />
-                <element signature="e#10706#10893#0" expanded="false" />
-                <element signature="e#10892#10893#0" expanded="false" />
-                <element signature="e#11452#11644#0" expanded="false" />
-                <element signature="e#11643#11644#0" expanded="false" />
-                <element signature="e#12152#12337#0" expanded="false" />
-                <element signature="e#12336#12337#0" expanded="false" />
-                <element signature="e#15926#16115#0" expanded="false" />
-                <element signature="e#16114#16115#0" expanded="false" />
-                <element signature="e#16616#16803#0" expanded="false" />
-                <element signature="e#16802#16803#0" expanded="false" />
-                <element signature="e#24518#24706#0" expanded="false" />
-                <element signature="e#24705#24706#0" expanded="false" />
-                <element signature="e#25282#25475#0" expanded="false" />
-                <element signature="e#25474#25475#0" expanded="false" />
-                <element signature="e#25992#26178#0" expanded="false" />
-                <element signature="e#26177#26178#0" expanded="false" />
-                <element signature="e#26729#26920#0" expanded="false" />
-                <element signature="e#26919#26920#0" expanded="false" />
-                <element signature="e#27455#27643#0" expanded="false" />
-                <element signature="e#27642#27643#0" expanded="false" />
-                <element signature="e#31082#31272#0" expanded="false" />
-                <element signature="e#31271#31272#0" expanded="false" />
-                <element signature="e#31781#31969#0" expanded="false" />
-                <element signature="e#31968#31969#0" expanded="false" />
-                <element signature="e#39179#39367#0" expanded="false" />
-                <element signature="e#39366#39367#0" expanded="false" />
-                <element signature="e#39844#40037#0" expanded="false" />
-                <element signature="e#40036#40037#0" expanded="false" />
-                <element signature="e#40462#40648#0" expanded="false" />
-                <element signature="e#40647#40648#0" expanded="false" />
-                <element signature="e#41102#41293#0" expanded="false" />
-                <element signature="e#41292#41293#0" expanded="false" />
-                <element signature="e#41734#41922#0" expanded="false" />
-                <element signature="e#41921#41922#0" expanded="false" />
-                <element signature="e#45361#45551#0" expanded="false" />
-                <element signature="e#45550#45551#0" expanded="false" />
-                <element signature="e#46060#46248#0" expanded="false" />
-                <element signature="e#46247#46248#0" expanded="false" />
-                <element signature="e#53851#54036#0" expanded="false" />
-                <element signature="e#54035#54036#0" expanded="false" />
-                <element signature="e#54289#54473#0" expanded="false" />
-                <element signature="e#54472#54473#0" expanded="false" />
-                <element signature="e#54761#54952#0" expanded="false" />
-                <element signature="e#54951#54952#0" expanded="false" />
-                <element signature="e#55389#55579#0" expanded="false" />
-                <element signature="e#55578#55579#0" expanded="false" />
-                <element signature="e#55893#56090#0" expanded="false" />
-                <element signature="e#56089#56090#0" expanded="false" />
-                <element signature="e#56505#56690#0" expanded="false" />
-                <element signature="e#56689#56690#0" expanded="false" />
-                <element signature="e#56989#57172#0" expanded="false" />
-                <element signature="e#57171#57172#0" expanded="false" />
-                <element signature="e#57443#57630#0" expanded="false" />
-                <element signature="e#57629#57630#0" expanded="false" />
-                <element signature="e#57908#58096#0" expanded="false" />
-                <element signature="e#58095#58096#0" expanded="false" />
-                <element signature="e#58442#58637#0" expanded="false" />
-                <element signature="e#58636#58637#0" expanded="false" />
-                <element signature="e#58900#59083#0" expanded="false" />
-                <element signature="e#59082#59083#0" expanded="false" />
-                <element signature="e#59201#59386#0" expanded="false" />
-                <element signature="e#59385#59386#0" expanded="false" />
-                <element signature="e#72013#72023#0" expanded="false" />
-                <element signature="e#77805#77806#0" expanded="false" />
-                <element signature="e#77853#77854#0" expanded="false" />
-                <element signature="e#77905#77906#0" expanded="false" />
-                <element signature="e#77942#77943#0" expanded="false" />
-                <element signature="e#78001#78002#0" expanded="false" />
-                <element signature="e#78047#78048#0" expanded="false" />
-                <element signature="e#78217#78304#0" expanded="false" />
-                <element signature="e#79806#79955#0" expanded="false" />
-                <element signature="e#79954#79955#0" expanded="false" />
+                <element signature="e#1997#1998#0" expanded="true" />
+                <element signature="e#2014#2015#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PetriNetsPanel.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/graphpresentation/PetriNetsPanel.java">
+      <file leaf-file-name="PetriT.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/PetriObj/PetriT.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="177">
-              <caret line="696" column="22" lean-forward="false" selection-start-line="696" selection-start-column="22" selection-end-line="696" selection-end-column="47" />
+            <state relative-caret-position="9840">
+              <caret line="725" column="14" lean-forward="true" selection-start-line="725" selection-start-column="14" selection-end-line="725" selection-end-column="14" />
+              <folding>
+                <element signature="e#17854#17855#0" expanded="true" />
+                <element signature="e#17929#17930#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EAOptimizer.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/EvolutionaryAlgorithmOptimization/EAOptimizer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="214">
+              <caret line="117" column="18" lean-forward="false" selection-start-line="117" selection-start-column="18" selection-end-line="117" selection-end-column="18" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="build.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/build.xml">
+      <file leaf-file-name="Utils.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/utils/Utils.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-23">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="90">
+              <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TestPetriObjPaint.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/LibTest/TestPetriObjPaint.java">
+      <file leaf-file-name="OptimizationUtils.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/utils/OptimizationUtils.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="300">
-              <caret line="29" column="38" lean-forward="false" selection-start-line="29" selection-start-column="38" selection-end-line="29" selection-end-column="38" />
+              <caret line="20" column="1" lean-forward="true" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PetriObjModel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/PetriObj/PetriObjModel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="260">
+              <caret line="60" column="27" lean-forward="false" selection-start-line="60" selection-start-column="27" selection-end-line="60" selection-end-column="27" />
+              <folding>
+                <element signature="e#1630#1631#0" expanded="true" />
+                <element signature="e#1660#1661#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ArcIn.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/PetriObj/ArcIn.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="691">
+              <caret line="274" column="0" lean-forward="true" selection-start-line="274" selection-start-column="0" selection-end-line="274" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#5252#5253#0" expanded="true" />
+                <element signature="e#5307#5308#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ArcOut.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/PetriObj/ArcOut.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="646">
+              <caret line="209" column="56" lean-forward="false" selection-start-line="209" selection-start-column="56" selection-end-line="209" selection-end-column="56" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#4498#4499#0" expanded="true" />
+                <element signature="e#4561#4562#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -181,6 +160,23 @@
   <component name="GradleLocalSettings">
     <option name="externalProjectsViewState">
       <projects_view />
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/PetriObj/PetriP.java" />
+        <option value="$PROJECT_DIR$/src/LibTest/TestPetriObjPaint.java" />
+        <option value="$PROJECT_DIR$/src/PetriObj/NetLibrary.java" />
+        <option value="$PROJECT_DIR$/src/PetriObj/PetriNet.java" />
+        <option value="$PROJECT_DIR$/src/EvolutionaryAlgorithmOptimization/Mutable.java" />
+        <option value="$PROJECT_DIR$/src/PetriObj/ArcIn.java" />
+        <option value="$PROJECT_DIR$/src/utils/OptimizationUtils.java" />
+        <option value="$PROJECT_DIR$/src/PetriObj/ArcOut.java" />
+        <option value="$PROJECT_DIR$/src/PetriObj/PetriT.java" />
+        <option value="$PROJECT_DIR$/src/PetriObj/PetriSim.java" />
+        <option value="$PROJECT_DIR$/src/EvolutionaryAlgorithmOptimization/EAOptimizer.java" />
+      </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
@@ -240,7 +236,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
+              <option name="myItemId" value="AbsoluteLayout.jar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="awtextra" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -258,7 +258,39 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="LibTest" />
+              <option name="myItemId" value="utils" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DESS" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DESS" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PetriObj" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DESS" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DESS" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -304,7 +336,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.TestPetriObjPaint">
+  <component name="RunManager" selected="Application.EAOptimizerUsingExample">
     <configuration default="false" name="EAOptimizerUsingExample" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -586,13 +618,14 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32891566" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32891566" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24964234" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32891566" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -603,7 +636,6 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -619,38 +651,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/EvolutionaryAlgorithmOptimization/EAOptimizer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="531">
-          <caret line="51" column="0" lean-forward="false" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#4958#0" expanded="false" />
-            <element signature="imports" expanded="false" />
-            <element signature="e#1434#1435#0" expanded="false" />
-            <element signature="e#1471#1472#0" expanded="false" />
-            <element signature="e#1528#1529#0" expanded="false" />
-            <element signature="e#1580#1581#0" expanded="false" />
-            <element signature="e#1621#1622#0" expanded="false" />
-            <element signature="e#1661#1662#0" expanded="false" />
-            <element signature="e#1724#1725#0" expanded="false" />
-            <element signature="e#1782#1783#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/EvolutionaryAlgorithmOptimization/EAOptimizerUsingExample.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="17" column="13" lean-forward="false" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-          <folding>
-            <element signature="e#0#1331#0" expanded="false" />
-            <element signature="imports" expanded="false" />
-            <element signature="e#1063#1064#0" expanded="false" />
-            <element signature="e#1103#1104#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/graphpresentation/PetriNetsFrame.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-241">
@@ -754,10 +754,150 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/EvolutionaryAlgorithmOptimization/EAOptimizerUsingExample.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="17" column="13" lean-forward="false" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/src.zip!/java/util/ArrayList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="232">
+          <caret line="430" column="32" lean-forward="false" selection-start-line="430" selection-start-column="32" selection-end-line="430" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/LibTest/TestPetriObjPaint.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="45" column="67" lean-forward="false" selection-start-line="45" selection-start-column="67" selection-end-line="45" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PetriObj/PetriMainElement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/EvolutionaryAlgorithmOptimization/Mutable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PetriObj/NetLibrary.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="316">
+          <caret line="30" column="48" lean-forward="false" selection-start-line="30" selection-start-column="48" selection-end-line="30" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/Utils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/OptimizationUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
-          <caret line="29" column="38" lean-forward="false" selection-start-line="29" selection-start-column="38" selection-end-line="29" selection-end-column="38" />
+          <caret line="20" column="1" lean-forward="true" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PetriObj/ArcIn.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="691">
+          <caret line="274" column="0" lean-forward="true" selection-start-line="274" selection-start-column="0" selection-end-line="274" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#5252#5253#0" expanded="true" />
+            <element signature="e#5307#5308#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PetriObj/PetriNet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="17" column="13" lean-forward="false" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+          <folding>
+            <element signature="e#3446#3447#0" expanded="true" />
+            <element signature="e#3465#3466#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PetriObj/PetriObjModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="60" column="27" lean-forward="false" selection-start-line="60" selection-start-column="27" selection-end-line="60" selection-end-column="27" />
+          <folding>
+            <element signature="e#1630#1631#0" expanded="true" />
+            <element signature="e#1660#1661#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PetriObj/PetriT.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9840">
+          <caret line="725" column="14" lean-forward="true" selection-start-line="725" selection-start-column="14" selection-end-line="725" selection-end-column="14" />
+          <folding>
+            <element signature="e#17854#17855#0" expanded="true" />
+            <element signature="e#17929#17930#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PetriObj/PetriP.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2700">
+          <caret line="204" column="40" lean-forward="true" selection-start-line="204" selection-start-column="40" selection-end-line="204" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PetriObj/ArcOut.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="209" column="56" lean-forward="false" selection-start-line="209" selection-start-column="56" selection-end-line="209" selection-end-column="56" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4498#4499#0" expanded="true" />
+            <element signature="e#4561#4562#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PetriObj/PetriSim.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="671" column="5" lean-forward="true" selection-start-line="671" selection-start-column="5" selection-end-line="671" selection-end-column="5" />
+          <folding>
+            <element signature="e#1997#1998#0" expanded="true" />
+            <element signature="e#2014#2015#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/EvolutionaryAlgorithmOptimization/EAOptimizer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="117" column="18" lean-forward="false" selection-start-line="117" selection-start-column="18" selection-end-line="117" selection-end-column="18" />
           <folding />
         </state>
       </provider>

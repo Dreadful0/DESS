@@ -16,7 +16,7 @@ public class PetriP extends PetriMainElement implements Cloneable, Serializable 
     private int mark;
     private String name;
     private int number;
-    private double mean;
+    private double mean; // for fitness
     private static int next = 0;//додано 1.10.2012, лічильник об"єктів
     private int observedMax;
     private int observedMin;

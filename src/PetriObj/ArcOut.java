@@ -1,5 +1,8 @@
 package PetriObj;
 
+import EvolutionaryAlgorithmOptimization.Mutable;
+import utils.OptimizationUtils;
+
 import java.io.Serializable;
 
 /*
@@ -12,11 +15,11 @@ import java.io.Serializable;
  *
  * @author Стеценко Інна
  */
-public class ArcOut implements Cloneable, Serializable {
+public class ArcOut implements Cloneable, Serializable, Mutable {
 
     private int numP;
     private int numT;
-    private int k;
+    private int k; // for mutation
     private String nameT;
     private String nameP;
     private static int next = 0;
@@ -201,5 +204,9 @@ public class ArcOut implements Cloneable, Serializable {
         System.out.println("This arc has direction from  transition  with number " + numT + " to place with number " + numP
                 + " and has " + k + " value of multiplicity");
     }
-
+    
+    @Override
+    public void mutate(double mutableRange) {
+       k = OptimizationUtils.mutateInt(k, mutableRange);
+    }
 }
