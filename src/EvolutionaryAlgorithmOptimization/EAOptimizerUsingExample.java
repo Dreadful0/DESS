@@ -32,7 +32,7 @@ public class EAOptimizerUsingExample {
         };
         optimizer.setPopulationSize(10);
         optimizer.setGenerationsNumber(10);
-        optimizer.setProbabilities(0.2, 0.8, 0);
+        optimizer.setProbabilities(0.2, 0.8, 0, 0.75);
         
         PetriObjModel best = optimizer.evolve();
         

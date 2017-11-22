@@ -21,6 +21,7 @@ public abstract class EAOptimizer {
     private int generationsNumber;
     
     private double elitismProbability;
+    private double tournamentWinnerProbability;
     private double mutationProbability;
     private double crossoverProbability;
 
@@ -32,8 +33,13 @@ public abstract class EAOptimizer {
      */
     public EAOptimizer(PetriObjModel initialModel) {
         this.initialModel = initialModel;
+        // set default parameters
         this.populationSize = 10;
         this.generationsNumber = 10;
+        this.elitismProbability = 0.2;
+        this.tournamentWinnerProbability = 0.75;
+        this.mutationProbability = 0.8;
+        this.crossoverProbability = 0;
     }
 
     public PetriObjModel getInitialModel() {
@@ -63,11 +69,12 @@ public abstract class EAOptimizer {
      * @param crossoverProbability
      * @throws Exception if sum of probabilities doesn't equal to 1.00
      */
-    public void setProbabilities(double elitismProbability, double mutationProbability, double crossoverProbability) throws Exception{
+    public void setProbabilities(double elitismProbability, double mutationProbability, double crossoverProbability, double tournamentWinnerProbability) throws Exception{
         if (elitismProbability + mutationProbability + crossoverProbability != 1){
             throw new Exception("Sum of probabilities doesn't equal to 1.00");
         }
         this.elitismProbability = elitismProbability;
+        this.tournamentWinnerProbability = tournamentWinnerProbability;
         this.mutationProbability = mutationProbability;
         this.crossoverProbability = crossoverProbability;
     }
