@@ -102,10 +102,7 @@ public abstract class EAOptimizer {
     
     protected abstract ArrayList<PetriObjModel> crossover();
     
-    private double fitness_function(PetriObjModel model){
-        // TODO
-        return 0;
-    }
+    public abstract double fitness_function(PetriObjModel model);
     
     public PetriObjModel evolve(){
         generatePopulation();

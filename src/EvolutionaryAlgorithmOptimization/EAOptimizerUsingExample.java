@@ -24,6 +24,11 @@ public class EAOptimizerUsingExample {
             protected ArrayList<PetriObjModel> crossover() {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }            
+
+            @Override
+            public double fitness_function(PetriObjModel model) {
+                return 0;
+            }
         };
         optimizer.setPopulationSize(10);
         optimizer.setGenerationsNumber(10);
