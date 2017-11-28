@@ -1034,7 +1034,11 @@ public class PetriNetsFrame extends javax.swing.JFrame {
         itemRunNet.setText("Run Petri net");
         itemRunNet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemRunNetActionPerformed(evt);
+                try {
+                    itemRunNetActionPerformed(evt);
+                } catch (CloneNotSupportedException e) {
+                    e.printStackTrace();
+                }
             }
         });
         jMenu1.add(itemRunNet);
@@ -1042,7 +1046,11 @@ public class PetriNetsFrame extends javax.swing.JFrame {
         itemRunEvent.setText("Run event");
         itemRunEvent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemRunEventActionPerformed(evt);
+                try {
+                    itemRunEventActionPerformed(evt);
+                } catch (CloneNotSupportedException e) {
+                    e.printStackTrace();
+                }
             }
         });
         jMenu1.add(itemRunEvent);
@@ -1240,7 +1248,7 @@ public class PetriNetsFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_timeStartField2ActionPerformed
 
-    private void itemRunNetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemRunNetActionPerformed
+    private void itemRunNetActionPerformed(java.awt.event.ActionEvent evt) throws CloneNotSupportedException {//GEN-FIRST:event_itemRunNetActionPerformed
         protokolTextArea.setText("---------Events protocol----------");
         protokolTextArea.setText("---------STATISTICS---------");
         if (petriNetsPanel.getGraphNet() == null) {
@@ -1294,7 +1302,7 @@ public class PetriNetsFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_itemRunNetActionPerformed
 
-    private void itemRunEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemRunEventActionPerformed
+    private void itemRunEventActionPerformed(java.awt.event.ActionEvent evt) throws CloneNotSupportedException {//GEN-FIRST:event_itemRunEventActionPerformed
        if (petriNetsPanel.getGraphNet() == null) {
             errorFrame.setErrorMessage(" Petri Net does not exist yet. Paint it or read it from file.");
             errorFrame.setVisible(true);

@@ -284,8 +284,7 @@ public class PetriNet implements Cloneable, Serializable {
 		}
 		System.out.println();
 	}
-	
-	@Override
+
 	public PetriNet clone() throws CloneNotSupportedException //14.11.2012
 	{
 		super.clone();

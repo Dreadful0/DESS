@@ -41,6 +41,7 @@ public class PetriSim implements Serializable, Mutable {
 	private ArcOut[] listOut = new ArcOut[numOut];
 	private PetriT eventMin;
 	private PetriNet net;
+	private PetriNet initialNet = net;
 	private ArrayList<PetriP> listPositionsForStatistica = new ArrayList<PetriP>();
 	//..... з таким списком статистика спільних позицій працює правильно...
 	
@@ -49,8 +50,9 @@ public class PetriSim implements Serializable, Mutable {
 	 *
 	 * @param pNet Petri net that describes the dynamics of object
 	 */
-	public PetriSim(PetriNet pNet) {
+	public PetriSim(PetriNet pNet) throws CloneNotSupportedException {
 		net = pNet;
+//		initialNet = net.clone();
 		name = net.getName();
 		numObj = next;
 		next++;
@@ -69,7 +71,17 @@ public class PetriSim implements Serializable, Mutable {
 		listPositionsForStatistica.addAll(Arrays.asList(listP));
 		
 	}
-	
+
+	public PetriSim clone() throws CloneNotSupportedException {
+		PetriSim petriSim = new PetriSim(initialNet);
+		petriSim.setNumObj(numObj);
+		return petriSim;
+	}
+
+	public void setNumObj(int numObj) {
+		this.numObj = numObj;
+	}
+
 	/**
 	 * @return PetriNet
 	 */

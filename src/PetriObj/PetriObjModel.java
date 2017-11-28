@@ -23,6 +23,7 @@ import javax.swing.JTextArea;
 public class PetriObjModel implements Serializable {
 
     private ArrayList<PetriSim> listObj = new ArrayList<PetriSim>();
+    private ArrayList<PetriSim> initialListObj = new ArrayList<PetriSim>();
     private double t;
     private boolean isProtokolPrint = true;
     private boolean isStatistica = true;
@@ -32,10 +33,16 @@ public class PetriObjModel implements Serializable {
      *
      * @param List list of Petri objects
      */
-    public PetriObjModel(ArrayList<PetriSim> List) {
+    public PetriObjModel(ArrayList<PetriSim> List) throws CloneNotSupportedException {
         listObj = List;
+//        for (PetriSim petriSim : listObj){
+//            initialListObj.add(petriSim.clone());
+//        }
     }
 
+    public PetriObjModel clone() throws CloneNotSupportedException {
+        return new PetriObjModel(initialListObj);
+    }
     /**
      * Set need in protocol
      *

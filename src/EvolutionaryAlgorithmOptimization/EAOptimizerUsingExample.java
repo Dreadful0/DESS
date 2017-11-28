@@ -18,6 +18,7 @@ import java.util.ArrayList;
 public class EAOptimizerUsingExample {
     public static void main(String[] args) throws ExceptionInvalidTimeDelay, ExceptionInvalidNetStructure, Exception {
         PetriObjModel model = TestPetriObjPaint.getModel();
+        model.setIsProtokol(false);
         int timeModeling = 1000000;
 
         EAOptimizer optimizer = new EAOptimizer(model, timeModeling) {
@@ -31,6 +32,13 @@ public class EAOptimizerUsingExample {
                 return 0;
             }
         };
+
+        model.go(timeModeling);
+        System.out.println("Mean value of queue");
+        for (int j = 1; j < 5; j++) {
+            System.out.println(model.getListObj().get(j).getNet().getListP()[0].getMean());
+        }
+
         optimizer.setPopulationSize(10);
         optimizer.setGenerationsNumber(10);
         optimizer.setProbabilities(0.2, 0.8, 0, 0.5);
