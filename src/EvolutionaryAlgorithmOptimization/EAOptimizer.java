@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public abstract class EAOptimizer {
 
     private final PetriObjModel initialModel;
+    private int timeModeling;
 
     private ArrayList<PetriObjModel> population;
     private int populationSize;
@@ -31,9 +32,11 @@ public abstract class EAOptimizer {
      * In order to use crossover method override it.
      *
      * @param initialModel
+     * @param timeModeling
      */
-    public EAOptimizer(PetriObjModel initialModel) {
+    public EAOptimizer(PetriObjModel initialModel, int timeModeling) {
         this.initialModel = initialModel;
+        this.timeModeling = timeModeling;
         // set default parameters
         this.populationSize = 10;
         this.generationsNumber = 10;

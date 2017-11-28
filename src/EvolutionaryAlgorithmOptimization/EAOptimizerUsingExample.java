@@ -18,8 +18,9 @@ import java.util.ArrayList;
 public class EAOptimizerUsingExample {
     public static void main(String[] args) throws ExceptionInvalidTimeDelay, ExceptionInvalidNetStructure, Exception {
         PetriObjModel model = TestPetriObjPaint.getModel();
+        int timeModeling = 1000000;
 
-        EAOptimizer optimizer = new EAOptimizer(model) {
+        EAOptimizer optimizer = new EAOptimizer(model, timeModeling) {
             @Override
             protected ArrayList<PetriObjModel> crossover() {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
