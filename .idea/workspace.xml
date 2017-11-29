@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="65dd0fcd-6bc1-4214-b6ad-fde69338d869" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/PetriObj/FunRand.java" afterPath="$PROJECT_DIR$/src/PetriObj/FunRand.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/PetriObj/NetLibrary.java" afterPath="$PROJECT_DIR$/src/PetriObj/NetLibrary.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/PetriObj/PetriObjModel.java" afterPath="$PROJECT_DIR$/src/PetriObj/PetriObjModel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/PetriObj/PetriP.java" afterPath="$PROJECT_DIR$/src/PetriObj/PetriP.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -40,6 +38,23 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="PetriP.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/PetriObj/PetriP.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="28" column="22" lean-forward="true" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
+              <folding>
+                <element signature="e#1353#1354#0" expanded="true" />
+                <element signature="e#1368#1369#0" expanded="true" />
+                <element signature="e#1583#1584#0" expanded="true" />
+                <element signature="e#1621#1622#0" expanded="true" />
+                <element signature="e#2870#2871#0" expanded="true" />
+                <element signature="e#2887#2888#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="NetLibrary.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/PetriObj/NetLibrary.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -56,6 +71,35 @@
             <state relative-caret-position="90">
               <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="13" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PetriSim.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/PetriObj/PetriSim.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="387">
+              <caret line="84" column="0" lean-forward="false" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2964#2965#0" expanded="true" />
+                <element signature="e#2991#2992#0" expanded="true" />
+                <element signature="e#3052#3053#0" expanded="true" />
+                <element signature="e#3069#3070#0" expanded="true" />
+                <element signature="e#3141#3142#0" expanded="true" />
+                <element signature="e#3159#3160#0" expanded="true" />
+                <element signature="e#3298#3299#0" expanded="true" />
+                <element signature="e#3338#3339#0" expanded="true" />
+                <element signature="e#3445#3446#0" expanded="true" />
+                <element signature="e#3467#3468#0" expanded="true" />
+                <element signature="e#3538#3539#0" expanded="true" />
+                <element signature="e#3558#3559#0" expanded="true" />
+                <element signature="e#3672#3673#0" expanded="true" />
+                <element signature="e#3691#3692#0" expanded="true" />
+                <element signature="e#4627#4628#0" expanded="true" />
+                <element signature="e#4648#4649#0" expanded="true" />
+                <element signature="e#4927#4935#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -103,37 +147,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PetriObjModel.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PetriObjModel.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/PetriObj/PetriObjModel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1053">
+            <state relative-caret-position="4035">
               <caret line="273" column="53" lean-forward="false" selection-start-line="273" selection-start-column="53" selection-end-line="273" selection-end-column="53" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1794#1795#0" expanded="true" />
                 <element signature="e#1847#1848#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NetLibrary.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/LibNet/NetLibrary.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="169">
-              <caret line="260" column="14" lean-forward="false" selection-start-line="260" selection-start-column="14" selection-end-line="260" selection-end-column="14" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PetriNetsPanel.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/graphpresentation/PetriNetsPanel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="595" column="4" lean-forward="true" selection-start-line="595" selection-start-column="4" selection-end-line="595" selection-end-column="4" />
-              <folding>
-                <element signature="e#21087#21176#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -159,7 +181,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/PetriObj/PetriP.java" />
         <option value="$PROJECT_DIR$/src/LibTest/TestPetriObjPaint.java" />
         <option value="$PROJECT_DIR$/src/EvolutionaryAlgorithmOptimization/Mutable.java" />
         <option value="$PROJECT_DIR$/src/utils/OptimizationUtils.java" />
@@ -177,6 +198,7 @@
         <option value="$PROJECT_DIR$/src/PetriObj/NetLibrary.java" />
         <option value="$PROJECT_DIR$/src/PetriObj/PetriNet.java" />
         <option value="$PROJECT_DIR$/src/PetriObj/PetriObjModel.java" />
+        <option value="$PROJECT_DIR$/src/PetriObj/PetriP.java" />
       </list>
     </option>
   </component>
@@ -877,14 +899,6 @@
             <element signature="e#4627#4628#0" expanded="true" />
             <element signature="e#4648#4649#0" expanded="true" />
             <element signature="e#4927#4935#0" expanded="true" />
-            <marker date="1511976283164" expanded="false" signature="17323:17328" ph=" { " />
-            <marker date="1511976283164" expanded="false" signature="17344:17347" ph=" }" />
-            <marker date="1511976283164" expanded="false" signature="17450:17455" ph=" { " />
-            <marker date="1511976283164" expanded="false" signature="17476:17479" ph=" }" />
-            <marker date="1511976283164" expanded="false" signature="17550:17555" ph=" { " />
-            <marker date="1511976283164" expanded="false" signature="17570:17573" ph=" }" />
-            <marker date="1511976283164" expanded="false" signature="17672:17677" ph=" { " />
-            <marker date="1511976283164" expanded="false" signature="17696:17699" ph=" }" />
           </folding>
         </state>
       </provider>
@@ -1225,14 +1239,6 @@
             <element signature="e#4627#4628#0" expanded="true" />
             <element signature="e#4648#4649#0" expanded="true" />
             <element signature="e#4927#4935#0" expanded="true" />
-            <marker date="1511976283164" expanded="false" signature="17323:17328" ph=" { " />
-            <marker date="1511976283164" expanded="false" signature="17344:17347" ph=" }" />
-            <marker date="1511976283164" expanded="false" signature="17450:17455" ph=" { " />
-            <marker date="1511976283164" expanded="false" signature="17476:17479" ph=" }" />
-            <marker date="1511976283164" expanded="false" signature="17550:17555" ph=" { " />
-            <marker date="1511976283164" expanded="false" signature="17570:17573" ph=" }" />
-            <marker date="1511976283164" expanded="false" signature="17672:17677" ph=" { " />
-            <marker date="1511976283164" expanded="false" signature="17696:17699" ph=" }" />
           </folding>
         </state>
       </provider>
@@ -1473,49 +1479,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/PetriObj/PetriP.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/PetriObj/PetriSim.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="387">
-          <caret line="84" column="0" lean-forward="false" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2964#2965#0" expanded="true" />
-            <element signature="e#2991#2992#0" expanded="true" />
-            <element signature="e#3052#3053#0" expanded="true" />
-            <element signature="e#3069#3070#0" expanded="true" />
-            <element signature="e#3141#3142#0" expanded="true" />
-            <element signature="e#3159#3160#0" expanded="true" />
-            <element signature="e#3298#3299#0" expanded="true" />
-            <element signature="e#3338#3339#0" expanded="true" />
-            <element signature="e#3445#3446#0" expanded="true" />
-            <element signature="e#3467#3468#0" expanded="true" />
-            <element signature="e#3538#3539#0" expanded="true" />
-            <element signature="e#3558#3559#0" expanded="true" />
-            <element signature="e#3672#3673#0" expanded="true" />
-            <element signature="e#3691#3692#0" expanded="true" />
-            <element signature="e#4627#4628#0" expanded="true" />
-            <element signature="e#4648#4649#0" expanded="true" />
-            <element signature="e#4927#4935#0" expanded="true" />
-            <marker date="1511976283164" expanded="false" signature="17323:17328" ph=" { " />
-            <marker date="1511976283164" expanded="false" signature="17344:17347" ph=" }" />
-            <marker date="1511976283164" expanded="false" signature="17450:17455" ph=" { " />
-            <marker date="1511976283164" expanded="false" signature="17476:17479" ph=" }" />
-            <marker date="1511976283164" expanded="false" signature="17550:17555" ph=" { " />
-            <marker date="1511976283164" expanded="false" signature="17570:17573" ph=" }" />
-            <marker date="1511976283164" expanded="false" signature="17672:17677" ph=" { " />
-            <marker date="1511976283164" expanded="false" signature="17696:17699" ph=" }" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/EvolutionaryAlgorithmOptimization/EAOptimizer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="214">
@@ -1663,12 +1626,54 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/PetriObj/PetriObjModel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1053">
+        <state relative-caret-position="4035">
           <caret line="273" column="53" lean-forward="false" selection-start-line="273" selection-start-column="53" selection-end-line="273" selection-end-column="53" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1794#1795#0" expanded="true" />
             <element signature="e#1847#1848#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PetriObj/PetriSim.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="387">
+          <caret line="84" column="0" lean-forward="false" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2964#2965#0" expanded="true" />
+            <element signature="e#2991#2992#0" expanded="true" />
+            <element signature="e#3052#3053#0" expanded="true" />
+            <element signature="e#3069#3070#0" expanded="true" />
+            <element signature="e#3141#3142#0" expanded="true" />
+            <element signature="e#3159#3160#0" expanded="true" />
+            <element signature="e#3298#3299#0" expanded="true" />
+            <element signature="e#3338#3339#0" expanded="true" />
+            <element signature="e#3445#3446#0" expanded="true" />
+            <element signature="e#3467#3468#0" expanded="true" />
+            <element signature="e#3538#3539#0" expanded="true" />
+            <element signature="e#3558#3559#0" expanded="true" />
+            <element signature="e#3672#3673#0" expanded="true" />
+            <element signature="e#3691#3692#0" expanded="true" />
+            <element signature="e#4627#4628#0" expanded="true" />
+            <element signature="e#4648#4649#0" expanded="true" />
+            <element signature="e#4927#4935#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PetriObj/PetriP.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" column="22" lean-forward="true" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
+          <folding>
+            <element signature="e#1353#1354#0" expanded="true" />
+            <element signature="e#1368#1369#0" expanded="true" />
+            <element signature="e#1583#1584#0" expanded="true" />
+            <element signature="e#1621#1622#0" expanded="true" />
+            <element signature="e#2870#2871#0" expanded="true" />
+            <element signature="e#2887#2888#0" expanded="true" />
           </folding>
         </state>
       </provider>
