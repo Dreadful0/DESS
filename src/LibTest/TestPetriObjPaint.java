@@ -23,7 +23,7 @@ public class TestPetriObjPaint {  //Результати співпадають 
       
      // цей фрагмент для запуску імітації моделі з заданною мережею Петрі на інтервалі часу timeModeling  
           PetriObjModel model = getModel();
-          model.setIsProtokol(false);
+          model.setIsProtoсol(false);
           double timeModeling = 1000000;
           model.go(timeModeling);
           

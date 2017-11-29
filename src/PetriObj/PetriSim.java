@@ -24,7 +24,6 @@ public class PetriSim implements Serializable, Mutable {
 	private static double timeCurr = 0;
 	private static double timeMod = Double.MAX_VALUE - 1;
 	
-	
 	private String name;
 	private int numObj; //поточний номер створюваного об"єкта
 	private static int next = 1; //лічильник створених об"єктів
@@ -42,8 +41,12 @@ public class PetriSim implements Serializable, Mutable {
 	private PetriT eventMin;
 	private PetriNet net;
 	private PetriNet initialNet = net;
-	private ArrayList<PetriP> listPositionsForStatistica = new ArrayList<PetriP>();
+	private ArrayList<PetriP> listPositionsForStatistica = new ArrayList<>();
 	//..... з таким списком статистика спільних позицій працює правильно...
+	
+	public PetriSim() {
+	
+	}
 	
 	/**
 	 * Constructs the Petri simulator with given Petri net and time modeling
@@ -73,18 +76,35 @@ public class PetriSim implements Serializable, Mutable {
 		listPositionsForStatistica.addAll(Arrays.asList(listP));
 		
 	}
-
+	
 	public PetriSim clone() throws CloneNotSupportedException {
 //		System.out.println("\nPetriSim clone()");
-		PetriSim petriSim = new PetriSim(initialNet);
-		petriSim.setNumObj(numObj);
+		PetriSim petriSim = new PetriSim();
+		petriSim.name = name;
+		petriSim.numObj = numObj; //поточний номер створюваного об"єкта
+		petriSim.priority = priority; // for mutation
+		petriSim.timeMin = timeMin;
+		
+		petriSim.numP = numP;
+		petriSim.numT = numT;
+		petriSim.numIn = numIn;
+		petriSim.numOut = numOut;
+		petriSim.listP = listP.clone();
+		petriSim.listT = listT.clone();
+		petriSim.listIn = listIn.clone();
+		petriSim.listOut = listOut.clone();
+		petriSim.eventMin = eventMin;
+		petriSim.net = net;
+		petriSim.initialNet = net.clone();
+		petriSim.listPositionsForStatistica = new ArrayList<>(listPositionsForStatistica);
+		
 		return petriSim;
 	}
-
+	
 	public void setNumObj(int numObj) {
 		this.numObj = numObj;
 	}
-
+	
 	/**
 	 * @return PetriNet
 	 */
@@ -655,16 +675,13 @@ public class PetriSim implements Serializable, Mutable {
 	
 	
 	public static Comparator<PetriSim> getComparatorByPriority() { //added by Inna 12.10.2017
-		return new Comparator<PetriSim>() {
-			@Override
-			public int compare(PetriSim o1, PetriSim o2) {
-				if (o1.getPriority() < o2.getPriority()) {
-					return 1;
-				} else if (o1.getPriority() == o2.getPriority()) {
-					return 0;
-				} else {
-					return -1;
-				}
+		return (o1, o2) -> {
+			if (o1.getPriority() < o2.getPriority()) {
+				return 1;
+			} else if (o1.getPriority() == o2.getPriority()) {
+				return 0;
+			} else {
+				return -1;
 			}
 		};
 	}

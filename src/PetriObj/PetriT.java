@@ -61,7 +61,7 @@ public class PetriT extends PetriMainElement implements Cloneable, Serializable,
 	private double mean;  // спостережуване середнє значення кількості активних каналів переходу for fitness
 	private int observedMax;
 	private int observedMin;
-	private static int next = 0; //додано 1.10.2012
+	public static int next = 0; //додано 1.10.2012
 	
 	// whether parametr, distribution, priority & probability are parameters; added by Katya 08.12.2016
 	private boolean parametrIsParam = false;
