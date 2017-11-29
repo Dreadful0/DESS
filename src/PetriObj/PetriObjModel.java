@@ -107,7 +107,7 @@ public class PetriObjModel implements Serializable, Cloneable {
 			
 			if (shouldGetStatistics) {
 				for (PetriSim e : listObj) {
-					e.doStatistica((min - t) / min); //статистика за час "дельта т", для спільних позицій потрібно статистику збирати тільки один раз!!!
+					e.doStatistics((min - t) / min); //статистика за час "дельта т", для спільних позицій потрібно статистику збирати тільки один раз!!!
 					
 				}
 			}
@@ -248,7 +248,7 @@ public class PetriObjModel implements Serializable, Cloneable {
 			if (shouldGetStatistics) {
 				for (PetriSim e : listObj) {
 					if (min > 0) {
-						e.doStatistica((min - t) / min); //статистика за час "дельта т", для спільних позицій потрібно статистику збирати тільки один раз!!!
+						e.doStatistics((min - t) / min); //статистика за час "дельта т", для спільних позицій потрібно статистику збирати тільки один раз!!!
 					}
 				}
 			}
@@ -328,7 +328,7 @@ public class PetriObjModel implements Serializable, Cloneable {
 		for (PetriSim e : listObj) {
 			area.append("\n Petri-object " + e.getName());
 			area.append("\n Mean values of the quantity of markers in places : ");
-			for (PetriP P : e.getListPositionsForStatistica()) {
+			for (PetriP P : e.getListPositionsForStatistics()) {
 				area.append("\n  Place '" + P.getName() + "'  " + Double.toString(P.getMean()));
 			}
 			area.append("\n Mean values of the quantity of active transition channels : ");
