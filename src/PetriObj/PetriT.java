@@ -12,7 +12,6 @@ import java.io.Serializable;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 /**
  * This class for creating the transition of Petri net

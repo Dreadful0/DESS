@@ -584,11 +584,10 @@ public class PetriNetsPanel extends javax.swing.JPanel {
         id = 0;
         PetriP.initNext(); //ось тут і обнуляється, а я шукаю...
         PetriT.initNext(); //навіть коли читаємо з файлу...
-        ArcIn.initNext(); //додано Інна 20.11.2012
         ArcOut.initNext(); //додано Інна 20.11.2012
         GraphPetriPlace.setNullSimpleName();
         GraphPetriTransition.setNullSimpleName();
-        graphNetList = new ArrayList(); // 15.01.13
+        graphNetList = new ArrayList<>(); // 15.01.13
         graphNet = new GraphPetriNet();
         repaint();
     }

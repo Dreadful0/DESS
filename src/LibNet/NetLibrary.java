@@ -37,7 +37,6 @@ public static PetriNet CreateNetSMOwithoutQueue(int numChannel, double timeMean,
 	PetriNet d_Net = new PetriNet("SMOwithoutQueue"+name,d_P,d_T,d_In,d_Out);
 	PetriP.initNext();
 	PetriT.initNext();
-	ArcIn.initNext();
 	ArcOut.initNext();
 
 	return d_Net;
@@ -67,7 +66,6 @@ public static PetriNet CreateNetGenerator(double timeMean) throws ExceptionInval
 	PetriNet d_Net = new PetriNet("Generator",d_P,d_T,d_In,d_Out);
 	PetriP.initNext();
 	PetriT.initNext();
-	ArcIn.initNext();
 	ArcOut.initNext();
 
 	return d_Net;
@@ -111,7 +109,6 @@ public static PetriNet CreateNetFork(double p1, double p2, double p3) throws Exc
 	PetriNet d_Net = new PetriNet("Fork",d_P,d_T,d_In,d_Out);
 	PetriP.initNext();
 	PetriT.initNext();
-	ArcIn.initNext();
 	ArcOut.initNext();
 
 	return d_Net;
@@ -156,7 +153,6 @@ public static PetriNet CreateNetFork(double p1, double p2, double p3) throws Exc
 
         PetriP.initNext();
         PetriT.initNext();
-        ArcIn.initNext();
         ArcOut.initNext();
 
         return d_Net;
@@ -262,7 +258,6 @@ public static PetriNet CreateNetMalware() throws ExceptionInvalidNetStructure {
 	PetriNet d_Net = new PetriNet("malware",d_P,d_T,d_In,d_Out);
 	PetriP.initNext();
 	PetriT.initNext();
-	ArcIn.initNext();
 	ArcOut.initNext();
 
 	return d_Net;
@@ -312,7 +307,6 @@ public static PetriNet CreateNetAdmin() throws ExceptionInvalidNetStructure {
 	PetriNet d_Net = new PetriNet("admin",d_P,d_T,d_In,d_Out);
 	PetriP.initNext();
 	PetriT.initNext();
-	ArcIn.initNext();
 	ArcOut.initNext();
 
 	return d_Net;

@@ -5,11 +5,6 @@ import utils.OptimizationUtils;
 
 import java.io.Serializable;
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * This class for creating the arc between place and transition of Petri net
  * (and directed from place to transion) numP - number of place numT - number of
@@ -22,11 +17,9 @@ public class ArcIn implements Cloneable, Serializable, Mutable {
 	private int numP;
 	private int numT;
 	private int k; // for mutation
-	boolean inf;
+	private boolean inf;
 	private String nameP;
 	private String nameT;
-	private static int next = 0;
-	private int number;
 	
 	// whether k and inf are parameters; added by Katya 08.12.2016
 	private boolean kIsParam = false;
@@ -40,8 +33,6 @@ public class ArcIn implements Cloneable, Serializable, Mutable {
 	 */
 	public ArcIn() {
 		k = 1;
-		number = next;
-		next++;
 	}
 	
 	/**
@@ -54,8 +45,6 @@ public class ArcIn implements Cloneable, Serializable, Mutable {
 		numT = T;
 		k = K;
 		inf = false;
-		number = next;
-		next++;
 	}
 	
 	/**
@@ -69,8 +58,6 @@ public class ArcIn implements Cloneable, Serializable, Mutable {
 		inf = false;
 		nameP = P.getName();
 		nameT = T.getName();
-		number = next;
-		next++;
 	}
 	
 	/**
@@ -85,8 +72,6 @@ public class ArcIn implements Cloneable, Serializable, Mutable {
 		inf = false;
 		nameP = P.getName();
 		nameT = T.getName();
-		number = next;
-		next++;
 	}
 	
 	/**
@@ -102,8 +87,6 @@ public class ArcIn implements Cloneable, Serializable, Mutable {
 		inf = isInf;
 		nameP = P.getName();
 		nameT = T.getName();
-		number = next;
-		next++;
 	}
 	
 	public boolean kIsParam() {
@@ -142,13 +125,6 @@ public class ArcIn implements Cloneable, Serializable, Mutable {
 			infParamName = paramName;
 			inf = false;
 		}
-	}
-	
-	/**
-	 * Set the counter of input arcs to zero.
-	 */
-	public static void initNext() { //ініціалізація лічильника нульовим значенням
-		next = 0;
 	}
 	
 	/**
@@ -238,7 +214,7 @@ public class ArcIn implements Cloneable, Serializable, Mutable {
 	/**
 	 *
 	 */
-	public void print() {
+	void print() {
 		if (nameP != null && nameT != null) {
 			System.out.println(" P=  " + nameP + ", T=  " + nameT + ", inf= " + getIsInf() + ", k= " + getQuantity());
 		} else {
@@ -249,7 +225,7 @@ public class ArcIn implements Cloneable, Serializable, Mutable {
 	public void printParameters() {
 		System.out.println("This arc has direction from  place with number " + numP + " to transition with number " + numT
 				+ " and has " + k + " value of multiplicity, ");
-		if (inf == true) {
+		if (inf) {
 			System.out.println(" and is informational.");
 		}
 	}
@@ -262,8 +238,7 @@ public class ArcIn implements Cloneable, Serializable, Mutable {
 	@Override
 	public ArcIn clone() throws CloneNotSupportedException {
 		super.clone();
-		ArcIn arc = new ArcIn(numP, numT, k);  // коректніть номерів дуже важлива!!!
-		return arc;
+		return new ArcIn(numP, numT, k);
 		
 	}
 	
