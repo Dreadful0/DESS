@@ -59,7 +59,7 @@ public class PetriObjModel implements Serializable, Cloneable {
 	 *
 	 * @param shouldGetStatistics is true if should get statistics, false otherwise
 	 */
-	private void setShouldGetStatistics(boolean shouldGetStatistics) {
+	public void setShouldGetStatistics(boolean shouldGetStatistics) {
 		this.shouldGetStatistics = shouldGetStatistics;
 	}
 	

@@ -8,6 +8,8 @@ package EvolutionaryAlgorithmOptimization;
 import PetriObj.PetriObjModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * @author masha
@@ -16,6 +18,7 @@ public abstract class EAOptimizer {
 
     private final PetriObjModel initialModel;
     private int timeModeling;
+    private OptType optType;
 
     private ArrayList<PetriObjModel> population;
     private int populationSize;
@@ -38,6 +41,7 @@ public abstract class EAOptimizer {
         this.initialModel = initialModel;
         this.timeModeling = timeModeling;
         // set default parameters
+        this.optType = OptType.OPT_MAX;
         this.populationSize = 10;
         this.generationsNumber = 10;
         this.elitismProbability = 0.2;
@@ -48,6 +52,14 @@ public abstract class EAOptimizer {
 
     public PetriObjModel getInitialModel() {
         return initialModel;
+    }
+
+    public OptType getOptType() {
+        return optType;
+    }
+
+    public void setOptType(OptType optType) {
+        this.optType = optType;
     }
 
     public int getPopulationSize() {
@@ -87,20 +99,21 @@ public abstract class EAOptimizer {
         this.mutationRange = mutationRange;
     }
 
-    private void generatePopulation() {
+    private void generatePopulation() throws CloneNotSupportedException {
         population = new ArrayList<>();
-        // TODO
         for (int i = 0; i < populationSize; i++) {
-            population.add(initialModel);
+            population.add(initialModel.clone());
         }
     }
 
-    private ArrayList<PetriObjModel> elitism() {
+    private ArrayList<PetriObjModel> elitism(Comparator<PetriObjModel> comparator) throws CloneNotSupportedException {
         ArrayList<PetriObjModel> eliteIndividuums = new ArrayList<>();
         int number = (int) (population.size() * elitismProbability);
-        // TODO
+
+        Collections.sort(population, comparator);
+
         for (int i = 0; i < number; i++) {
-            eliteIndividuums.add(initialModel);
+            eliteIndividuums.add(population.get(i).clone());
         }
         return eliteIndividuums;
     }
@@ -120,12 +133,25 @@ public abstract class EAOptimizer {
 
     public abstract double fitnessFunction(PetriObjModel model);
 
-    public PetriObjModel evolve() {
+    public PetriObjModel evolve() throws CloneNotSupportedException {
+
+        Comparator<PetriObjModel> comparator = (left, right) -> {
+            if (optType == OptType.OPT_MAX) {
+                if ((fitnessFunction(left) - fitnessFunction(right)) > 0) return 1;
+                else return 0;
+            } else {
+                if ((fitnessFunction(left) - fitnessFunction(right)) < 0) return 1;
+                else return 0;
+            }
+        };
+
         generatePopulation();
 
         for (int i = 0; i < generationsNumber; i++) {
 
-            ArrayList<PetriObjModel> eliteIndividuums = elitism();
+            population.forEach(model -> model.go(timeModeling));
+
+            ArrayList<PetriObjModel> eliteIndividuums = elitism(comparator);
 //            System.out.format("Elite size: %d\n", eliteIndividuums.size());
             System.out.format("Generation: %d. Best result: %f\n", i, fitnessFunction(eliteIndividuums.get(0)));
 
