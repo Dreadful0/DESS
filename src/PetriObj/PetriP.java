@@ -32,10 +32,14 @@ public class PetriP extends PetriMainElement implements Cloneable, Serializable 
      * @param m quantity of markers
      */
     public PetriP(String n, int m) {
+//        System.out.println("PetriP constructor (name, m)");
         name = n;
+//        System.out.println("PetriP name " + name);
         mark = m;
+//        System.out.println("PetriP mark " + mark);
         mean = 0;
         number = next; //додано 1.10.2012
+//        System.out.println("PetriP number " + number);
         next++;
         observedMax = m;
         observedMin = m;
@@ -46,10 +50,13 @@ public class PetriP extends PetriMainElement implements Cloneable, Serializable 
      * @param n - the name of place
      */
     public PetriP(String n) {
+//        System.out.println("PetriP constructor (name)");
         name = n;
+//        System.out.println("PetriP name " + name);
         mark = 0;
         mean = 0;
         number = next; //додано 1.10.2012
+//        System.out.println("PetriP number " + number);
         next++;
         observedMax = 0;
         observedMin = 0;
@@ -78,7 +85,7 @@ public class PetriP extends PetriMainElement implements Cloneable, Serializable 
      * Set the counter of places to zero.
      */
     public static void initNext(){ //ініціалізація лічильника нульовим значенням
-    
+//        System.out.println("PetriP initNext");
         next = 0;
     }
 
@@ -91,6 +98,7 @@ public class PetriP extends PetriMainElement implements Cloneable, Serializable 
      */
     public void changeMean(double a) {
         mean = mean + (mark - mean) * a;
+//        System.out.println("changeMean " + mean);
     }
 
     /**
@@ -184,7 +192,9 @@ public class PetriP extends PetriMainElement implements Cloneable, Serializable 
      * @param n - the new number of place
      */
     public void setNumber(int n) {
+//        System.out.println("PetriP setNumber");
         number = n;
+//        System.out.println("PetriP number " + number);
     }
 
     /**
@@ -195,7 +205,7 @@ public class PetriP extends PetriMainElement implements Cloneable, Serializable 
      */
     @Override
     public PetriP clone() throws CloneNotSupportedException {
-        super.clone();
+//        System.out.println("PetriP clone");
         PetriP P = new PetriP(name, this.getMark()); // 14.11.2012
         P.setNumber(number); //номер зберігається для відтворення зв"язків між копіями позицій та переходів
         return P;

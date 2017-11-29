@@ -35,13 +35,16 @@ public class PetriObjModel implements Serializable {
      */
     public PetriObjModel(ArrayList<PetriSim> List) throws CloneNotSupportedException {
         listObj = List;
-//        for (PetriSim petriSim : listObj){
-//            initialListObj.add(petriSim.clone());
-//        }
+        for (PetriSim petriSim : listObj){
+            initialListObj.add(petriSim.clone());
+        }
     }
 
     public PetriObjModel clone() throws CloneNotSupportedException {
-        return new PetriObjModel(initialListObj);
+        PetriObjModel petriObjModel = new PetriObjModel(initialListObj);
+        petriObjModel.setIsProtokol(isProtokolPrint);
+        petriObjModel.setIsStatistica(isStatistica);
+        return petriObjModel;
     }
     /**
      * Set need in protocol
@@ -90,6 +93,12 @@ public class PetriObjModel implements Serializable {
         t = 0;
         double min;
         listObj.sort(PetriSim.getComparatorByPriority());
+
+//        for (PetriSim e :  listObj) {
+//            System.out.print(e.getTimeMin() + " ");
+//        }
+//        System.out.println();
+
         for (PetriSim e :  listObj) { //виправлено 9.11.2015
             e.input();
         }
@@ -101,11 +110,15 @@ public class PetriObjModel implements Serializable {
         ArrayList<PetriSim> conflictObj = new ArrayList<PetriSim>();
         Random r = new Random();
 
+//        System.out.println(t + " " + timeModeling);
         while (t < timeModeling) {
+
+//            System.out.println(t + " " + timeModeling);
 
             conflictObj.clear();
 
             min = listObj.get(0).getTimeMin();  //пошук найближчої події
+//            System.out.println(min);
 
             for (PetriSim e : listObj) {
                 if (e.getTimeMin() < min) {
@@ -150,6 +163,7 @@ public class PetriObjModel implements Serializable {
 
                 if (conflictObj.size() > 1) { //вибір обєкта, що запускається
                     max = conflictObj.size();
+                    System.out.println(max);
                     
                     conflictObj.sort(PetriSim.getComparatorByPriority());
                     

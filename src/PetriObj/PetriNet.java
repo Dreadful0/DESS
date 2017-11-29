@@ -288,6 +288,7 @@ public class PetriNet implements Cloneable, Serializable {
 	public PetriNet clone() throws CloneNotSupportedException //14.11.2012
 	{
 		super.clone();
+//		System.out.println("PetriNet clone");
 		PetriP[] copyListP = new PetriP[numP];
 		PetriT[] copyListT = new PetriT[numT];
 		ArcIn[] copyListIn = new ArcIn[numIn];
@@ -311,7 +312,13 @@ public class PetriNet implements Cloneable, Serializable {
 		}
 		
 		PetriNet net = new PetriNet(name, copyListP, copyListT, copyListIn, copyListOut);
-		
+
+		// fixes exception but might break net creation logic
+		PetriP.initNext();
+		PetriT.initNext();
+		ArcIn.initNext();
+		ArcOut.initNext();
+
 		return net;
 	}
 	

@@ -51,8 +51,10 @@ public class PetriSim implements Serializable, Mutable {
 	 * @param pNet Petri net that describes the dynamics of object
 	 */
 	public PetriSim(PetriNet pNet) throws CloneNotSupportedException {
+//		System.out.println("\nPetriSim constructor");
 		net = pNet;
-//		initialNet = net.clone();
+//		System.out.println("\nPetriNet clone() in PetriSim");
+		initialNet = net.clone();
 		name = net.getName();
 		numObj = next;
 		next++;
@@ -73,6 +75,7 @@ public class PetriSim implements Serializable, Mutable {
 	}
 
 	public PetriSim clone() throws CloneNotSupportedException {
+//		System.out.println("\nPetriSim clone()");
 		PetriSim petriSim = new PetriSim(initialNet);
 		petriSim.setNumObj(numObj);
 		return petriSim;
