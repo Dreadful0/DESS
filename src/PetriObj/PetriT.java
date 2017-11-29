@@ -1,10 +1,5 @@
 package PetriObj;
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 import EvolutionaryAlgorithmOptimization.Mutable;
 import utils.OptimizationUtils;
 
@@ -18,56 +13,41 @@ import java.util.logging.Logger;
  *
  * @author Стеценко Інна
  */
-public class PetriT extends PetriMainElement implements Cloneable, Serializable, Mutable { // inheritance added by Katya 20.11.2016
+public class PetriT extends PetriMainElement implements Cloneable, Serializable, Mutable {
 	
 	private static double timeModeling = Double.MAX_VALUE - 1;
-	
-	/**
-	 * @return the timeModeling
-	 */
-	public static double getTimeModeling() {
-		return timeModeling;
-	}
-	
-	/**
-	 * @param aTimeModeling the timeModeling to set
-	 */
-	public static void setTimeModeling(double aTimeModeling) {
-		timeModeling = aTimeModeling;
-	}
 	
 	private String name;
 	
 	private int buffer;
-	private int priority; // for mutation
-	private double probability; // for mutation
+	private int priority;
+	private double probability;
 	
 	private double minTime;
 	private double timeServ;
-	private double parametr; //середнє значення часу обслуговування for mutation
-	private double paramDeviation; //середнє квадратичне відхилення часу обслуговування for mutation
+	private double parametr; //середнє значення часу обслуговування
+	private double paramDeviation; //середнє квадратичне відхилення часу обслуговування
 	private String distribution;
-	private ArrayList<Double> timeOut = new ArrayList<Double>();
-	private ArrayList<Integer> inP = new ArrayList<Integer>();
-	private ArrayList<Integer> inPwithInf = new ArrayList<Integer>();
-	private ArrayList<Integer> quantIn = new ArrayList<Integer>();
-	private ArrayList<Integer> quantInwithInf = new ArrayList<Integer>();
-	private ArrayList<Integer> outP = new ArrayList<Integer>();
-	private ArrayList<Integer> quantOut = new ArrayList<Integer>();
+	private ArrayList<Double> timeOut = new ArrayList<>();
+	private ArrayList<Integer> inP = new ArrayList<>();
+	private ArrayList<Integer> inPwithInf = new ArrayList<>();
+	private ArrayList<Integer> quantIn = new ArrayList<>();
+	private ArrayList<Integer> quantInwithInf = new ArrayList<>();
+	private ArrayList<Integer> outP = new ArrayList<>();
+	private ArrayList<Integer> quantOut = new ArrayList<>();
 	
 	private int num;  // номер каналу багатоканального переходу, що відповідає найближчий події
 	private int number; // номер переходу за списком
 	private double mean;  // спостережуване середнє значення кількості активних каналів переходу for fitness
 	private int observedMax;
 	private int observedMin;
-	public static int next = 0; //додано 1.10.2012
+	private static int next = 0;
 	
-	// whether parametr, distribution, priority & probability are parameters; added by Katya 08.12.2016
 	private boolean parametrIsParam = false;
 	private boolean distributionIsParam = false;
 	private boolean priorityIsParam = false;
 	private boolean probabilityIsParam = false;
-	// param names
+
 	private String parametrParamName = null;
 	private String distributionParamName = null;
 	private String priorityParamName = null;
@@ -263,8 +243,7 @@ public class PetriT extends PetriMainElement implements Cloneable, Serializable,
 	 * @param a value for recalculate of mean value (value equals product of
 	 *          buffer and time divided by time modeling)
 	 */
-	public void changeMean(double a) {//if(buffer>0)
-		// mean=mean+buffer*a;
+	void changeMean(double a) {
 		mean = mean + (buffer - mean) * a;
 	}
 	
@@ -377,17 +356,17 @@ public class PetriT extends PetriMainElement implements Cloneable, Serializable,
 	 *
 	 * @return value of service time which has been generated
 	 */
-	public double generateTimeServ() throws ExceptionInvalidTimeDelay {
+	private double generateTimeServ() throws ExceptionInvalidTimeDelay {
 		if (distribution != null) {
 			if (distribution.equalsIgnoreCase("exp")) {
 				timeServ = FunRand.exp(parametr);
 			} else if (distribution.equalsIgnoreCase("unif")) {
-				timeServ = FunRand.unif(parametr - paramDeviation, parametr + paramDeviation);// 18.01.2013
+				timeServ = FunRand.unif(parametr - paramDeviation, parametr + paramDeviation);
 			} else if (distribution.equalsIgnoreCase("norm")) {
-				timeServ = FunRand.norm(parametr, paramDeviation);// added 18.01.2013
-			} else ;
+				timeServ = FunRand.norm(parametr, paramDeviation);
+			}
 		} else {
-			timeServ = parametr; // 20.11.2012 тобто детерміноване значення
+			timeServ = parametr;
 		}
 		return timeServ;
 	}
@@ -409,7 +388,7 @@ public class PetriT extends PetriMainElement implements Cloneable, Serializable,
 	/**
 	 * @return the time of nearest event
 	 */
-	public double getMinTime() {
+	double getMinTime() {
 		this.minEvent();
 		return minTime;
 	}
@@ -449,22 +428,20 @@ public class PetriT extends PetriMainElement implements Cloneable, Serializable,
 	 * The class PetriNet use this method for creating net with given arrays of
 	 * places, transitions, input arcs and output arcs.
 	 *
-	 * @param inPP array of places
 	 * @param arcs array of input arcs
 	 * @throws PetriObj.ExceptionInvalidNetStructure if Petri net has invalid structure
 	 */
-	public void createInP(PetriP[] inPP, ArcIn[] arcs) throws ExceptionInvalidNetStructure {
-		inPwithInf.clear();    //додано 28.11.2012  список має бути порожнім!!!
-		quantInwithInf.clear(); //додано 28.11.2012
-		inP.clear();            //додано 28.11.2012
-		quantIn.clear();        //додано 28.11.2012
+	void createInP(ArcIn[] arcs) throws ExceptionInvalidNetStructure {
+		inPwithInf.clear();
+		quantInwithInf.clear();
+		inP.clear();
+		quantIn.clear();
 		for (ArcIn arc : arcs) {
 			if (arc.getNumT() == this.getNumber()) {
-				if (arc.getIsInf() == true) {
+				if (arc.getIsInf()) {
 					inPwithInf.add(arc.getNumP());
 					quantInwithInf.add(arc.getQuantity());
 				} else {
-					//if (arcs[j].getQuantity() > 0) { //вхідна позиція додається у разі позитивної кількості зв'язків, 9.11.2015
 					inP.add(arc.getNumP());
 					quantIn.add(arc.getQuantity());
 					// }
@@ -483,13 +460,12 @@ public class PetriT extends PetriMainElement implements Cloneable, Serializable,
 	 * The class PetriNet use this method for creating net with given arrays of
 	 * places, transitions, input arcs and output arcs.
 	 *
-	 * @param inPP array of places
 	 * @param arcs array of output arcs
 	 * @throws PetriObj.ExceptionInvalidNetStructure if Petri net has invalid structure
 	 */
-	public void createOutP(PetriP[] inPP, ArcOut[] arcs) throws ExceptionInvalidNetStructure {
-		outP.clear(); //додано 28.11.2012
-		quantOut.clear();   //додано 28.11.2012
+	void createOutP(ArcOut[] arcs) throws ExceptionInvalidNetStructure {
+		outP.clear();
+		quantOut.clear();
 		for (ArcOut arc : arcs) {
 			if (arc.getNumT() == this.getNumber()) {
 				outP.add(arc.getNumP());
@@ -506,7 +482,6 @@ public class PetriT extends PetriMainElement implements Cloneable, Serializable,
 	 */
 	public void setNum(int n) {
 		num = n;
-		
 	}
 	
 	/**
@@ -514,7 +489,6 @@ public class PetriT extends PetriMainElement implements Cloneable, Serializable,
 	 */
 	public void setNumber(int n) {
 		number = n;
-		
 	}
 	
 	/**
@@ -524,7 +498,7 @@ public class PetriT extends PetriMainElement implements Cloneable, Serializable,
 	 * @param pp array of places of Petri net
 	 * @return true if firing condition is executed
 	 */
-	public boolean condition(PetriP[] pp) { //Нумерація позицій тут відносна!!!  inP.get(i) - номер позиції у списку позицій, який побудований при конструюванні мережі Петрі,
+	boolean condition(PetriP[] pp) { //Нумерація позицій тут відносна!!!  inP.get(i) - номер позиції у списку позицій, який побудований при конструюванні мережі Петрі,
 		
 		boolean a = true;
 		boolean b = true;  // Саме тому при з"єднанні спільних позицій зміна номера не призводить до трагічних наслідків (руйнування зв"язків)!!!
@@ -540,8 +514,7 @@ public class PetriT extends PetriMainElement implements Cloneable, Serializable,
 				break;
 			}
 		}
-		return a == true && b == true;
-		
+		return a && b;
 	}
 	
 	/**
@@ -552,27 +525,24 @@ public class PetriT extends PetriMainElement implements Cloneable, Serializable,
 	 * @param pp          array of Petri net places
 	 * @param currentTime current time
 	 */
-	public void actIn(PetriP[] pp, double currentTime) {
-		if (this.condition(pp) == true) {
-			for (int i = 0; i < inP.size(); i++) {
-				pp[inP.get(i)].decreaseMark(quantIn.get(i));
-			}
-			if (buffer == 0) {
-				timeOut.set(0, currentTime + this.getTimeServ());
-			} else {
-				timeOut.add(currentTime + this.getTimeServ());
-			}
-			
-			buffer++;
-			if (observedMax < buffer) {
-				observedMax = buffer;
-			}
-			
-			this.minEvent();
-			
-		} else {
-			//  System.out.println("Condition not true");
+	void actIn(PetriP[] pp, double currentTime) {
+		if (!this.condition(pp)) return;
+		for (int i = 0; i < inP.size(); i++) {
+			pp[inP.get(i)].decreaseMark(quantIn.get(i));
 		}
+		if (buffer == 0) {
+			timeOut.set(0, currentTime + this.getTimeServ());
+		} else {
+			timeOut.add(currentTime + this.getTimeServ());
+		}
+		
+		buffer++;
+		if (observedMax < buffer) {
+			observedMax = buffer;
+		}
+		
+		this.minEvent();
+		
 	}
 	
 	/**
@@ -582,32 +552,30 @@ public class PetriT extends PetriMainElement implements Cloneable, Serializable,
 	 *
 	 * @param pp array of Petri net places
 	 */
-	public void actOut(PetriP[] pp) {
-		if (buffer > 0) {
-			for (int j = 0; j < outP.size(); j++) {
-				pp[outP.get(j)].increaseMark(quantOut.get(j));
-			}
-			if (num == 0 && (timeOut.size() == 1)) {
-				timeOut.set(0, Double.MAX_VALUE);
-			} else {
-				timeOut.remove(num);
-			}
-			
-			buffer--;
-			if (observedMin > buffer) {
-				observedMin = buffer;
-			}
+	void actOut(PetriP[] pp) {
+		if (buffer < 0) return;
+		
+		for (int j = 0; j < outP.size(); j++) {
+			pp[outP.get(j)].increaseMark(quantOut.get(j));
+		}
+		if (num == 0 && (timeOut.size() == 1)) {
+			timeOut.set(0, Double.MAX_VALUE);
 		} else {
-			// System.out.println("Buffer is null");
+			timeOut.remove(num);
 		}
 		
+		buffer--;
+		if (observedMin > buffer) {
+			observedMin = buffer;
+		}
 	}
+	
 	
 	/**
 	 * Determines the transition nearest event among the events of its tokens
 	 * outputs. and the number of transition channel
 	 */
-	public final void minEvent() {
+	final void minEvent() {
 		minTime = Double.MAX_VALUE;
 		if (timeOut.size() > 0) {
 			for (int i = 0; i < timeOut.size(); i++) {
@@ -620,9 +588,6 @@ public class PetriT extends PetriMainElement implements Cloneable, Serializable,
 		
 	}
 	
-	/**
-	 *
-	 */
 	public void print() {
 		for (double time : timeOut) {
 			System.out.println(time + "   " + this.getName());
@@ -648,7 +613,7 @@ public class PetriT extends PetriMainElement implements Cloneable, Serializable,
 	/**
 	 * @return list of transition input places
 	 */
-	public ArrayList<Integer> getInP() {
+	ArrayList<Integer> getInP() {
 		return inP;
 	}
 	
@@ -672,7 +637,6 @@ public class PetriT extends PetriMainElement implements Cloneable, Serializable,
 	 */
 	public boolean isEmptyOutputPlacesList() {
 		return outP.isEmpty();
-		
 	}
 	
 	/**
@@ -681,22 +645,22 @@ public class PetriT extends PetriMainElement implements Cloneable, Serializable,
 	 * @throws java.lang.CloneNotSupportedException if Petri net has invalid structure
 	 */
 	@Override
-	public PetriT clone() throws CloneNotSupportedException { // 30.11.2015
-		
+	public PetriT clone() throws CloneNotSupportedException {
 		super.clone();
-		PetriT T = new PetriT(name, parametr);
-		T.setDistribution(distribution, parametr);
-		T.setPriority(priority);
-		T.setProbability(probability);
-		T.setNumber(number); //номер зберігається для відтворення зв"язків між копіями позицій та переходів
-		T.setBuffer(buffer);
-		T.setParamDeviation(paramDeviation);
 		
-		return T;
+		PetriT transition = new PetriT(name, parametr);
+		transition.setDistribution(distribution, parametr);
+		transition.setPriority(priority);
+		transition.setProbability(probability);
+		transition.setNumber(number);
+		transition.setBuffer(buffer);
+		transition.setParamDeviation(paramDeviation);
+		
+		return transition;
 		
 	}
 	
-	public void setBuffer(int buff) {
+	private void setBuffer(int buff) {
 		buffer = buff;
 	}
 	
@@ -710,6 +674,21 @@ public class PetriT extends PetriMainElement implements Cloneable, Serializable,
 	
 	public void setParamDeviation(double parameter) {
 		paramDeviation = parameter;
+	}
+	
+	
+	/**
+	 * @return the timeModeling
+	 */
+	public static double getTimeModeling() {
+		return timeModeling;
+	}
+	
+	/**
+	 * @param aTimeModeling the timeModeling to set
+	 */
+	public static void setTimeModeling(double aTimeModeling) {
+		timeModeling = aTimeModeling;
 	}
 	
 	@Override

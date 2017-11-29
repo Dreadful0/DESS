@@ -50,8 +50,8 @@ public class PetriNet implements Cloneable, Serializable {
 		
 		for (PetriT transition : ListT) {
 			try {
-				transition.createInP(ListP, ListIn);
-				transition.createOutP(ListP, ListOut);
+				transition.createInP(ListIn);
+				transition.createOutP(ListOut);
 				if (transition.getInP().isEmpty()) {
 					throw new ExceptionInvalidNetStructure("Error: Transition " + transition.getName() + " has empty list of input places "); //генерувати виключення???
 				}
@@ -103,8 +103,8 @@ public class PetriNet implements Cloneable, Serializable {
 		}
 		
 		for (PetriT transition : ListT) {
-			transition.createInP(ListP, ListIn);
-			transition.createOutP(ListP, ListOut);
+			transition.createInP(ListIn);
+			transition.createOutP(ListOut);
 		}
 	}
 	
