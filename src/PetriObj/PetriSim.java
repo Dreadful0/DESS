@@ -15,7 +15,7 @@ import javax.swing.JTextArea;
  *
  * @author Стеценко Інна
  */
-public class PetriSim implements Serializable {
+public class PetriSim implements Serializable, Cloneable {
    
     private static double timeCurr=0;
     private static double timeMod = Double.MAX_VALUE - 1;
@@ -64,6 +64,14 @@ public class PetriSim implements Serializable {
         priority = 0;
         listPositionsForStatistica.addAll(Arrays.asList(listP));
 
+    }
+    
+    @Override
+    public PetriSim clone() throws CloneNotSupportedException{ //added 29.11.2017 by Inna
+        
+        super.clone();
+            
+       return new PetriSim(this.getNet().clone());
     }
 
     /**
