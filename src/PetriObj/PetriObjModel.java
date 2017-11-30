@@ -20,12 +20,13 @@ import javax.swing.JTextArea;
  *
  * @author Инна
  */
-public class PetriObjModel implements Serializable {
+public class PetriObjModel implements Serializable, Cloneable {
 
     private ArrayList<PetriSim> listObj = new ArrayList<PetriSim>();
     private double t;
     private boolean isProtokolPrint = true;
     private boolean isStatistica = true;
+    private ArrayList<LinkByPlaces> links; //added 29.11.2017 by Inna
 
     /**
      * Constructs model with given list of Petri objects
@@ -34,7 +35,91 @@ public class PetriObjModel implements Serializable {
      */
     public PetriObjModel(ArrayList<PetriSim> List) {
         listObj = List;
+        links = new ArrayList<>(); //added 29.11.2017 by Inna
     }
+     @Override
+    public PetriObjModel clone() throws CloneNotSupportedException {  //added 29.11.2017 by Inna
+        super.clone();
+        ArrayList<PetriSim> copyList = new ArrayList<>();
+
+        for (PetriSim sim : this.listObj) {
+            copyList.add(sim.clone());  //  error: we must reproduce shared places
+        }
+        PetriObjModel clone = new PetriObjModel(copyList);
+        //  reproduce combine places
+ 
+        for (LinkByPlaces li : links) {
+            int one = this.getNumInList(li.getOne());
+            int other = this.getNumInList(li.getOther());
+ 
+            if (one >= 0 && other >= 0) {
+                PetriSim oneClone = clone.getListObj().get(one);
+                PetriSim otherClone = clone.getListObj().get(other);
+                clone.linkObjectsCombiningPlaces(oneClone, li.getNumPlaceOne(),
+                        otherClone, li.getNumPlaceOther());
+            }
+        }
+        return clone;
+    }
+    public int getNumInList(PetriSim sim){
+       int num=-1;
+        for(int j=0;j<listObj.size();j++){
+            if(sim==listObj.get(j)){
+                num=j;
+                break;
+            }
+       }
+        if(num <0 ) System.out.println("No such PetriSim "+sim.getName()+ " in model's list of objects.");
+       
+        return num;
+    }
+    
+     public void linkObjectsCombiningPlaces(PetriSim one, int numberOne, PetriSim other, int numberOther) { //added 29.11.2017 by Inna
+        
+         if (listObj.contains(one) && listObj.contains(other)) {
+             one.getNet().getListP()[numberOne] = other.getNet().getListP()[numberOther];   // combine places
+             links.add(new LinkByPlaces(one, numberOne, other, numberOther));
+         } else {
+             System.out.println("ERROR: no such PetriSim objects in model's list of objects");
+         }
+     }
+   
+     public void clearLinks(){ //added 29.11.2017 by Inna
+         links.clear();
+     }
+     
+    private class LinkByPlaces{ //added 29.11.2017 by Inna
+        PetriSim one, other;
+        int numOne, numOther;
+        LinkByPlaces(PetriSim simOne, int nOne, PetriSim simOther, int nOther){
+            one = simOne;
+            other = simOther;
+            numOne = nOne;
+            numOther = nOther;
+            
+        }
+        private PetriSim getOne(){
+            return one;
+        }
+         private PetriSim getOther(){
+            return other;
+        }
+         private int getNumPlaceOne(){
+             return numOne;
+         }
+         private int getNumPlaceOther(){
+             return numOther;
+         }
+     
+    }
+     public void printLinks(){ //added 29.11.2017 by Inna
+        System.out.println(" number of links "+links.size());
+        for(LinkByPlaces li:links ){
+            System.out.println(li.getOne().getName()+".p["+ li.getNumPlaceOne()+"] -> "+
+                                li.getOther().getName()+".p["+ li.getNumPlaceOther()+"] ");
+        }
+    }
+
 
     /**
      * Set need in protocol
