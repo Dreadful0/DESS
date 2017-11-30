@@ -19,15 +19,19 @@ import java.util.ArrayList;
  * @author Inna V. Stetsenko
  */
 public class TestPetriObjPaint {  //Результати співпадають з аналітичними обрахунками
-      public static void main(String[] args) throws ExceptionInvalidTimeDelay, ExceptionInvalidNetStructure {
+      public static void main(String[] args) throws ExceptionInvalidTimeDelay, ExceptionInvalidNetStructure, CloneNotSupportedException {
       
      // цей фрагмент для запуску імітації моделі з заданною мережею Петрі на інтервалі часу timeModeling  
          
           
           PetriObjModel model = getModel();
+          model.printLinks();
+          
           model.setIsProtokol(false);
           double timeModeling = 1000000;
           model.go(timeModeling);
+          
+          
           
          //Цей фрагмент для виведення результатів моделювання на консоль
           System.out.println("Mean value of queue");
@@ -93,18 +97,19 @@ public class TestPetriObjPaint {  //Результати співпадають 
      //     System.out.println(list.get(0).getNet().getListP()[1].getName() + " == " + list.get(1).getNet().getListP()[0].getName());
      //     System.out.println(list.get(1).getNet().getListP()[2].getName() + " == " + list.get(5).getNet().getListP()[0].getName());
 
-          list.get(0).getNet().getListP()[1] = list.get(1).getNet().getListP()[0]; //gen = > SMO1
-          list.get(1).getNet().getListP()[2] = list.get(5).getNet().getListP()[0]; //SMO1 = > fork
-
-          list.get(5).getNet().getListP()[1] = list.get(2).getNet().getListP()[0]; //fork =>SMO2
-          list.get(5).getNet().getListP()[2] = list.get(3).getNet().getListP()[0]; //fork =>SMO3
-          list.get(5).getNet().getListP()[3] = list.get(4).getNet().getListP()[0]; //fork =>SMO4
-
-          list.get(2).getNet().getListP()[2] = list.get(1).getNet().getListP()[0]; //SMO2 => SMO1
-          list.get(3).getNet().getListP()[2] = list.get(1).getNet().getListP()[0];//SMO3 => SMO1
-          list.get(4).getNet().getListP()[2] = list.get(1).getNet().getListP()[0];//SMO4 => SMO1
-
-          PetriObjModel model = new PetriObjModel(list);
+            PetriObjModel model = new PetriObjModel(list); 
+          model.linkObjectsCombiningPlaces(list.get(0), 1, list.get(1), 0);//gen = > SMO1  modified 29.11.2017 by Inna
+          model.linkObjectsCombiningPlaces(list.get(1), 2, list.get(5), 0);//SMO1 = > fork
+          
+          model.linkObjectsCombiningPlaces(list.get(5), 1, list.get(2), 0);//fork =>SMO2
+          model.linkObjectsCombiningPlaces(list.get(5), 2, list.get(3), 0); //fork =>SMO3 
+          model.linkObjectsCombiningPlaces(list.get(5), 3, list.get(4), 0);//fork =>SMO4
+          
+          model.linkObjectsCombiningPlaces(list.get(2), 2, list.get(1), 0);//SMO2 => SMO1
+          model.linkObjectsCombiningPlaces(list.get(3), 2, list.get(1), 0);//SMO3 => SMO1
+          model.linkObjectsCombiningPlaces(list.get(4), 2, list.get(1), 0);//SMO4 => SMO1
+          
+          
           return model;
       }
     
