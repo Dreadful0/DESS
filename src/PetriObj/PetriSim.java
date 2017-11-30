@@ -72,6 +72,7 @@ public class PetriSim implements Serializable, Cloneable {
         super.clone();
             
        return new PetriSim(this.getNet().clone());
+
     }
 
     /**

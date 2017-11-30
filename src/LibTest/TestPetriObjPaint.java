@@ -108,8 +108,7 @@ public class TestPetriObjPaint {  //Результати співпадають 
           model.linkObjectsCombiningPlaces(list.get(2), 2, list.get(1), 0);//SMO2 => SMO1
           model.linkObjectsCombiningPlaces(list.get(3), 2, list.get(1), 0);//SMO3 => SMO1
           model.linkObjectsCombiningPlaces(list.get(4), 2, list.get(1), 0);//SMO4 => SMO1
-          
-          
+  
           return model;
       }
     

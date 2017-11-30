@@ -61,6 +61,7 @@ public class PetriObjModel implements Serializable, Cloneable {
         }
         return clone;
     }
+    
     public int getNumInList(PetriSim sim){
        int num=-1;
         for(int j=0;j<listObj.size();j++){
