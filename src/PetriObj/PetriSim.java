@@ -38,9 +38,6 @@ public class PetriSim implements Serializable, Mutable, Cloneable {
 	private PetriNet initialNet = net;
 	private ArrayList<PetriP> listPositionsForStatistics = new ArrayList<>();
 
-	private PetriSim() {
-
-	}
 
     /**
      * Constructs the Petri simulator with given Petri net and time modeling
@@ -64,7 +61,7 @@ public class PetriSim implements Serializable, Mutable, Cloneable {
         numOut = listOut.length;
         eventMin = this.getEventMin();
         priority = 0;
-        listPositionsForStatistica.addAll(Arrays.asList(listP));
+        listPositionsForStatistics.addAll(Arrays.asList(listP));
 
     }
 

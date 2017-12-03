@@ -20,7 +20,7 @@ public class PetriObjModel implements Serializable, Cloneable {
 	private ArrayList<PetriSim> listObj = new ArrayList<>();
 	private ArrayList<PetriSim> initialListObj = new ArrayList<>();
 	private double t;
-	private boolean isProtokolPrint = true;
+	private boolean isProtocolPrint = true;
 	private boolean shouldGetStatistics = true;
     private ArrayList<LinkByPlaces> links; //added 29.11.2017 by Inna
 
@@ -55,6 +55,8 @@ public class PetriObjModel implements Serializable, Cloneable {
                         otherClone, li.getNumPlaceOther());
             }
         }
+        clone.setIsProtoсol(isProtocolPrint);
+        clone.setShouldGetStatistics(shouldGetStatistics);
         return clone;
     }
 
@@ -124,7 +126,7 @@ public class PetriObjModel implements Serializable, Cloneable {
 	 * @param b is true if protocol is needed
 	 */
 	public void setIsProtoсol(boolean b) {
-		isProtokolPrint = b;
+		isProtocolPrint = b;
 	}
 
 	/**
@@ -159,7 +161,7 @@ public class PetriObjModel implements Serializable, Cloneable {
 			e.input();
 		}
 
-		if (isProtokolPrint) {
+		if (isProtocolPrint) {
 			for (PetriSim e : listObj) {
 				e.printMark();
 			}
@@ -189,7 +191,7 @@ public class PetriObjModel implements Serializable, Cloneable {
 
 			PetriSim.setTimeCurr(t); // просування часу //3.12.2015
 
-			if (isProtokolPrint) {
+			if (isProtocolPrint) {
 				System.out.println(" Time progress: time = " + t + "\n");
 			}
 			if (t <= timeModeling) {
@@ -202,7 +204,7 @@ public class PetriObjModel implements Serializable, Cloneable {
 				}
 				int num;
 				int max;
-				if (isProtokolPrint) {
+				if (isProtocolPrint) {
 					System.out.println(" List of conflicting objects  " + "\n");
 					for (int ii = 0; ii < conflictObj.size(); ii++) {
 						System.out.println(" K [ " + ii + "  ] = " + conflictObj.get(ii).getName() + "\n");
@@ -231,13 +233,13 @@ public class PetriObjModel implements Serializable, Cloneable {
 					num = 0;
 				}
 
-				if (isProtokolPrint) {
+				if (isProtocolPrint) {
 					System.out.println(" Selected object  " + conflictObj.get(num).getName() + "\n" + " NextEvent " + "\n");
 				}
 
 				for (PetriSim e : listObj) {
 					if (e.getNumObj() == conflictObj.get(num).getNumObj()) {
-						if (isProtokolPrint) {
+						if (isProtocolPrint) {
 							System.out.println(" time =   " + t + "Event '" + e.getEventMin().getName() + "'\n"
 									+ "is occuring for the object   " + e.getName() + "\n");
 						}
@@ -247,7 +249,7 @@ public class PetriObjModel implements Serializable, Cloneable {
 					}
 
 				}
-				if (isProtokolPrint) {
+				if (isProtocolPrint) {
 					System.out.println("Markers leave transitions:");
 					for (PetriSim e : listObj) //ДРУК поточного маркірування
 					{
@@ -260,7 +262,7 @@ public class PetriObjModel implements Serializable, Cloneable {
 					e.input(); //вхід маркерів в переходи Петрі-об'єкта
 
 				}
-				if (isProtokolPrint) {
+				if (isProtocolPrint) {
 					System.out.println("Markers enter transitions:");
 					for (PetriSim e : listObj) { //ДРУК поточного маркірування
 						e.printMark();
@@ -277,7 +279,7 @@ public class PetriObjModel implements Serializable, Cloneable {
 	 * @param area specifies where simulation protokol is printed
 	 */
 	private void printInfo(String info, JTextArea area) {
-		if (isProtokolPrint)
+		if (isProtocolPrint)
 			area.append(info);
 	}
 
@@ -287,7 +289,7 @@ public class PetriObjModel implements Serializable, Cloneable {
 	 * @param area specifies where simulation protokol is printed
 	 */
 	private void printMark(JTextArea area) {
-		if (isProtokolPrint) {
+		if (isProtocolPrint) {
 			for (PetriSim e : listObj) {
 				e.printMark(area);
 			}
@@ -343,7 +345,7 @@ public class PetriObjModel implements Serializable, Cloneable {
 				}
 				int num;
 				int max;
-				if (isProtokolPrint) {
+				if (isProtocolPrint) {
 					area.append("  List of conflicting objects " + "\n");
 					for (int ii = 0; ii < conflictObj.size(); ii++) {
 						area.append("  K [ " + ii + "  ] = " + conflictObj.get(ii).getName() + "\n");

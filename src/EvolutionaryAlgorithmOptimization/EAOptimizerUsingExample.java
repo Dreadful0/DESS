@@ -21,13 +21,13 @@ public class EAOptimizerUsingExample {
 
 		int timeModeling = 1000000;
 
-//		PetriObjModel model2 = model.clone();
-//		model2.go(timeModeling);
-//		getResults(model2);
-//
-//		PetriObjModel model3 = model.clone();
-//		model3.go(timeModeling);
-//		getResults(model3);
+		PetriObjModel model2 = model.clone();
+		model2.go(timeModeling);
+		getResults(model2);
+
+		PetriObjModel model3 = model.clone();
+		model3.go(timeModeling);
+		getResults(model3);
 
 		EAOptimizer optimizer = new EAOptimizer(model, timeModeling) {
 			@Override
