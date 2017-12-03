@@ -42,63 +42,48 @@ public class PetriSim implements Serializable, Mutable, Cloneable {
 
 	}
 
-	/**
-	 * Constructs the Petri simulator with given Petri net and time modeling
-	 *
-	 * @param pNet Petri net that describes the dynamics of object
-	 */
-	public PetriSim(PetriNet pNet) throws CloneNotSupportedException {
-		net = pNet;
-		initialNet = net.clone();
-		name = net.getName();
-		numObj = next;
-		next++;
-		timeMin = Double.MAX_VALUE;
+    /**
+     * Constructs the Petri simulator with given Petri net and time modeling
+     *
+     * @param pNet Petri net that describes the dynamics of object
+     */
+    public PetriSim(PetriNet pNet) {
+        net = pNet;
+        name = net.getName();
+        numObj = next; 
+        next++;        
+        timeMin = Double.MAX_VALUE;
+      
+        listP = net.getListP();
+        listT = net.getListT();
+        listIn = net.getArcIn();
+        listOut = net.getArcOut();
+        numP = listP.length;
+        numT = listT.length;
+        numIn = listIn.length;
+        numOut = listOut.length;
+        eventMin = this.getEventMin();
+        priority = 0;
+        listPositionsForStatistica.addAll(Arrays.asList(listP));
 
-		listP = net.getListP();
-		listT = net.getListT();
-		listIn = net.getArcIn();
-		listOut = net.getArcOut();
-		numP = listP.length;
-		numT = listT.length;
-		numIn = listIn.length;
-		numOut = listOut.length;
-		eventMin = this.getEventMin();
-		priority = 0;
-		listPositionsForStatistics.addAll(Arrays.asList(listP));
-	}
+    }
 
-	@Override
-	public PetriSim clone() throws CloneNotSupportedException {
-		super.clone();
-		PetriSim petriSim = new PetriSim();
-		petriSim.name = name;
-		petriSim.numObj = numObj;
-		petriSim.priority = priority;
-		petriSim.timeMin = timeMin;
+    @Override
+    public PetriSim clone() throws CloneNotSupportedException{ //added 29.11.2017 by Inna
 
-		petriSim.numP = numP;
-		petriSim.numT = numT;
-		petriSim.numIn = numIn;
-		petriSim.numOut = numOut;
-		petriSim.listP = listP.clone();
-		petriSim.listT = listT.clone();
-		petriSim.listIn = listIn.clone();
-		petriSim.listOut = listOut.clone();
-		petriSim.eventMin = eventMin;
-		petriSim.net = net;
-		petriSim.initialNet = net.clone();
-		petriSim.listPositionsForStatistics = new ArrayList<>(listPositionsForStatistics);
+        super.clone();
 
-		return petriSim;
-	}
+       return new PetriSim(this.getNet().clone());
 
-	/**
-	 * @return PetriNet
-	 */
-	public PetriNet getNet() {
-		return net;
-	}
+    }
+
+    /**
+     *
+     * @return PetriNet
+     */
+    public PetriNet getNet() {
+        return net;
+    }
 
 	/**
 	 * @return name of Petri-object
