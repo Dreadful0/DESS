@@ -16,13 +16,13 @@ import javax.swing.JTextArea;
  * @author Инна
  */
 public class PetriObjModel implements Serializable, Cloneable {
-	
+
 	private ArrayList<PetriSim> listObj = new ArrayList<>();
 	private ArrayList<PetriSim> initialListObj = new ArrayList<>();
 	private double t;
 	private boolean isProtokolPrint = true;
 	private boolean shouldGetStatistics = true;
-	
+
 	/**
 	 * Constructs model with given list of Petri objects
 	 *
@@ -34,17 +34,17 @@ public class PetriObjModel implements Serializable, Cloneable {
 			initialListObj.add(petriSim.clone());
 		}
 	}
-	
+
 	@Override
 	public PetriObjModel clone() throws CloneNotSupportedException {
 		super.clone();
-		
+
 		PetriObjModel petriObjModel = new PetriObjModel(initialListObj);
 		petriObjModel.setIsProtoсol(isProtokolPrint);
 		petriObjModel.setShouldGetStatistics(shouldGetStatistics);
 		return petriObjModel;
 	}
-	
+
 	/**
 	 * Set need in protocol
 	 *
@@ -53,7 +53,7 @@ public class PetriObjModel implements Serializable, Cloneable {
 	public void setIsProtoсol(boolean b) {
 		isProtokolPrint = b;
 	}
-	
+
 	/**
 	 * Set need in statistics
 	 *
@@ -62,14 +62,14 @@ public class PetriObjModel implements Serializable, Cloneable {
 	public void setShouldGetStatistics(boolean shouldGetStatistics) {
 		this.shouldGetStatistics = shouldGetStatistics;
 	}
-	
+
 	/**
 	 * @return the list of Petri objects of model
 	 */
 	public ArrayList<PetriSim> getListObj() {
 		return listObj;
 	}
-	
+
 	/**
 	 * Simulating from zero time until the time equal time modeling
 	 *
@@ -77,15 +77,15 @@ public class PetriObjModel implements Serializable, Cloneable {
 	 */
 	public void go(double timeModeling) {
 		PetriSim.setTimeMod(timeModeling);
-		
+
 		t = 0;
 		double min;
 		listObj.sort(PetriSim.getComparatorByPriority());
-		
+
 		for (PetriSim e : listObj) {
 			e.input();
 		}
-		
+
 		if (isProtokolPrint) {
 			for (PetriSim e : listObj) {
 				e.printMark();
@@ -93,34 +93,34 @@ public class PetriObjModel implements Serializable, Cloneable {
 		}
 		ArrayList<PetriSim> conflictObj = new ArrayList<>();
 		Random r = new Random();
-		
+
 		while (t < timeModeling) {
 			conflictObj.clear();
-			
+
 			min = listObj.get(0).getTimeMin();  //пошук найближчої події
-			
+
 			for (PetriSim e : listObj) {
 				if (e.getTimeMin() < min) {
 					min = e.getTimeMin();
 				}
 			}
-			
+
 			if (shouldGetStatistics) {
 				for (PetriSim e : listObj) {
 					e.doStatistics((min - t) / min); //статистика за час "дельта т", для спільних позицій потрібно статистику збирати тільки один раз!!!
-					
+
 				}
 			}
-			
+
 			t = min; // просування часу
-			
+
 			PetriSim.setTimeCurr(t); // просування часу //3.12.2015
-			
+
 			if (isProtokolPrint) {
 				System.out.println(" Time progress: time = " + t + "\n");
 			}
 			if (t <= timeModeling) {
-				
+
 				for (PetriSim e : listObj) {
 					if (t == e.getTimeMin()) // розв'язання конфлікту об'єктів рівноймовірнісним способом
 					{
@@ -135,19 +135,19 @@ public class PetriObjModel implements Serializable, Cloneable {
 						System.out.println(" K [ " + ii + "  ] = " + conflictObj.get(ii).getName() + "\n");
 					}
 				}
-				
+
 				if (conflictObj.size() > 1) { //вибір обєкта, що запускається
 					max = conflictObj.size();
 					System.out.println(max);
-					
+
 					conflictObj.sort(PetriSim.getComparatorByPriority());
-					
+
 					for (int i = 1; i < conflictObj.size(); i++) {
 						if (conflictObj.get(i).getPriority() < conflictObj.get(i - 1).getPriority()) {
 							max = i - 1;
 							break;
 						}
-						
+
 					}
 					if (max == 0) {
 						num = 0;
@@ -157,11 +157,11 @@ public class PetriObjModel implements Serializable, Cloneable {
 				} else {
 					num = 0;
 				}
-				
+
 				if (isProtokolPrint) {
 					System.out.println(" Selected object  " + conflictObj.get(num).getName() + "\n" + " NextEvent " + "\n");
 				}
-				
+
 				for (PetriSim e : listObj) {
 					if (e.getNumObj() == conflictObj.get(num).getNumObj()) {
 						if (isProtokolPrint) {
@@ -170,9 +170,9 @@ public class PetriObjModel implements Serializable, Cloneable {
 						}
 						e.doT();
 						e.stepEvent();
-						
+
 					}
-					
+
 				}
 				if (isProtokolPrint) {
 					System.out.println("Markers leave transitions:");
@@ -185,7 +185,7 @@ public class PetriObjModel implements Serializable, Cloneable {
 				for (PetriSim e : listObj) {
 					//можливо змінились умови для інших обєктів
 					e.input(); //вхід маркерів в переходи Петрі-об'єкта
-					
+
 				}
 				if (isProtokolPrint) {
 					System.out.println("Markers enter transitions:");
@@ -196,7 +196,7 @@ public class PetriObjModel implements Serializable, Cloneable {
 			}
 		}
 	}
-	
+
 	/**
 	 * Prints the string in given JTextArea object
 	 *
@@ -207,7 +207,7 @@ public class PetriObjModel implements Serializable, Cloneable {
 		if (isProtokolPrint)
 			area.append(info);
 	}
-	
+
 	/**
 	 * Prints the quantity for each position of Petri net
 	 *
@@ -220,7 +220,7 @@ public class PetriObjModel implements Serializable, Cloneable {
 			}
 		}
 	}
-	
+
 	public void go(double timeModeling, JTextArea area) { //виведення протоколу подій та результатів моделювання у об"єкт класу JTextArea
 		area.setText(" Events protocol ");
 		PetriSim.setTimeMod(timeModeling);
@@ -233,13 +233,13 @@ public class PetriObjModel implements Serializable, Cloneable {
 		this.printMark(area);
 		ArrayList<PetriSim> conflictObj = new ArrayList<>();
 		Random r = new Random();
-		
+
 		while (t < timeModeling) {
-			
+
 			conflictObj.clear();
-			
+
 			min = Double.MAX_VALUE;  //пошук найближчої події
-			
+
 			for (PetriSim e : listObj) {
 				if (e.getTimeMin() < min) {
 					min = e.getTimeMin();
@@ -252,19 +252,19 @@ public class PetriObjModel implements Serializable, Cloneable {
 					}
 				}
 			}
-			
+
 			t = min; // просування часу
-			
+
 			PetriSim.setTimeCurr(t); // просування часу
-			
-			
+
+
 			this.printInfo(" \n Time progress: time = " + t + "\n", area);
-			
+
 			if (t <= timeModeling) {
-				
+
 				for (PetriSim e : listObj) {
 					if (t == e.getTimeMin()) { // розв'язання конфлікту об'єктів рівноймовірнісним способом
-						
+
 						conflictObj.add(e);      // список конфліктних обєктів
 					}
 				}
@@ -276,7 +276,7 @@ public class PetriObjModel implements Serializable, Cloneable {
 						area.append("  K [ " + ii + "  ] = " + conflictObj.get(ii).getName() + "\n");
 					}
 				}
-				
+
 				if (conflictObj.size() > 1) // вибір обєкта, що запускається
 				{
 					max = conflictObj.size();
@@ -284,10 +284,10 @@ public class PetriObjModel implements Serializable, Cloneable {
 					for (int i = 1; i < conflictObj.size(); i++) {
 						if (conflictObj.get(i).getPriority() < conflictObj.get(i - 1).getPriority()) {
 							max = i - 1;
-							
+
 							break;
 						}
-						
+
 					}
 					if (max == 0) {
 						num = 0;
@@ -297,11 +297,11 @@ public class PetriObjModel implements Serializable, Cloneable {
 				} else {
 					num = 0;
 				}
-				
-				
+
+
 				this.printInfo(" Selected object  " + conflictObj.get(num).getName() + "\n" + " NextEvent " + "\n", area);
-				
-				
+
+
 				for (PetriSim list : listObj) {
 					if (list.getNumObj() == conflictObj.get(num).getNumObj()) {
 						this.printInfo(" time = " + t + "   Event '" + list.getEventMin().getName() +
@@ -316,15 +316,15 @@ public class PetriObjModel implements Serializable, Cloneable {
 				for (PetriSim e : listObj) {
 					//можливо змінились умови для інших обєктів
 					e.input(); //вхід маркерів в переходи Петрі-об'єкта
-					
+
 				}
-				
+
 				this.printInfo("Markers enter transitions:", area);
 				this.printMark(area);
 			}
 		}
 		area.append("\n Modeling results: \n");
-		
+
 		for (PetriSim e : listObj) {
 			area.append("\n Petri-object " + e.getName());
 			area.append("\n Mean values of the quantity of markers in places : ");
@@ -337,5 +337,5 @@ public class PetriObjModel implements Serializable, Cloneable {
 			}
 		}
 	}
-	
+
 }
