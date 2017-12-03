@@ -11,7 +11,7 @@ import PetriObj.ExceptionInvalidTimeDelay;
 import java.util.ArrayList;
 
 public class NetLibrary {
-	
+
 	/**
 	 * Creates Petri net that describes the dynamics of system of the mass
 	 * service (with unlimited queue)
@@ -40,10 +40,10 @@ public class NetLibrary {
 		PetriNet d_Net = new PetriNet("SMOwithoutQueue" + name, d_P, d_T, d_In, d_Out);
 		PetriP.initNext();
 		PetriT.initNext();
-		
+
 		return d_Net;
 	}
-	
+
 	/**
 	 * Creates Petri net that describes the dynamics of arrivals of demands for
 	 * service
@@ -68,10 +68,10 @@ public class NetLibrary {
 		PetriNet d_Net = new PetriNet("Generator", d_P, d_T, d_In, d_Out);
 		PetriP.initNext();
 		PetriT.initNext();
-		
+
 		return d_Net;
 	}
-	
+
 	/**
 	 * Creates Petri net that describes the route choice with given
 	 * probabilities
@@ -111,10 +111,10 @@ public class NetLibrary {
 		PetriNet d_Net = new PetriNet("Fork", d_P, d_T, d_In, d_Out);
 		PetriP.initNext();
 		PetriT.initNext();
-		
+
 		return d_Net;
 	}
-	
+
 	/**
 	 * Creates Petri net that describes the route choice with given
 	 * probabilities
@@ -125,40 +125,40 @@ public class NetLibrary {
 	 * @throws PetriObj.ExceptionInvalidTimeDelay if Petri net has invalid structure
 	 */
 	public static PetriNet CreateNetFork(int numOfWay, double[] probabilities) throws ExceptionInvalidTimeDelay, ExceptionInvalidNetStructure {
-		
+
 		ArrayList<PetriP> d_P = new ArrayList<PetriP>();
 		ArrayList<PetriT> d_T = new ArrayList<PetriT>();
 		ArrayList<ArcIn> d_In = new ArrayList<ArcIn>();
 		ArrayList<ArcOut> d_Out = new ArrayList<ArcOut>();
-		
+
 		d_P.add(new PetriP("P0", 0));
 		for (int j = 0; j < numOfWay; j++) {
 			d_P.add(new PetriP("P" + (j + 1), 0));
 		}
-		
+
 		for (int j = 0; j < numOfWay; j++) {
 			d_T.add(new PetriT("вибір маршруту " + (j + 1), 0));
 		}
 		for (int j = 0; j < numOfWay; j++) {
 			d_T.get(j).setProbability(probabilities[j]);
 		}
-		
+
 		for (int j = 0; j < numOfWay; j++) {
 			d_In.add(new ArcIn(d_P.get(0), d_T.get(j), 1));
 		}
-		
+
 		for (int j = 0; j < numOfWay; j++) {
 			d_Out.add(new ArcOut(d_T.get(j), d_P.get(j + 1), 1));
 		}
-		
+
 		PetriNet d_Net = new PetriNet("Fork ", d_P, d_T, d_In, d_Out);
-		
+
 		PetriP.initNext();
 		PetriT.initNext();
-		
+
 		return d_Net;
 	}
-	
+
 	public static PetriNet CreateNetMalware() throws ExceptionInvalidNetStructure {
 		ArrayList<PetriP> d_P = new ArrayList<>();
 		ArrayList<PetriT> d_T = new ArrayList<>();
@@ -259,10 +259,10 @@ public class NetLibrary {
 		PetriNet d_Net = new PetriNet("malware", d_P, d_T, d_In, d_Out);
 		PetriP.initNext();
 		PetriT.initNext();
-		
+
 		return d_Net;
 	}
-	
+
 	public static PetriNet CreateNetAdmin() throws ExceptionInvalidNetStructure {
 		ArrayList<PetriP> d_P = new ArrayList<>();
 		ArrayList<PetriT> d_T = new ArrayList<>();
@@ -308,8 +308,8 @@ public class NetLibrary {
 		PetriNet d_Net = new PetriNet("admin", d_P, d_T, d_In, d_Out);
 		PetriP.initNext();
 		PetriT.initNext();
-		
+
 		return d_Net;
 	}
-	
+
 }

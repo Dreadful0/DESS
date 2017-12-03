@@ -15,16 +15,16 @@ import javax.swing.JTextArea;
  * @author Стеценко Інна
  */
 public class PetriSim implements Serializable, Mutable, Cloneable {
-	
+
 	private static double timeCurr = 0;
 	private static double timeMod = Double.MAX_VALUE - 1;
-	
+
 	private String name;
 	private int numObj;
 	private static int next = 1;
 	private int priority;
 	private double timeMin;
-	
+
 	private int numP;
 	private int numT;
 	private int numIn;
@@ -37,11 +37,11 @@ public class PetriSim implements Serializable, Mutable, Cloneable {
 	private PetriNet net;
 	private PetriNet initialNet = net;
 	private ArrayList<PetriP> listPositionsForStatistics = new ArrayList<>();
-	
+
 	private PetriSim() {
-	
+
 	}
-	
+
 	/**
 	 * Constructs the Petri simulator with given Petri net and time modeling
 	 *
@@ -54,7 +54,7 @@ public class PetriSim implements Serializable, Mutable, Cloneable {
 		numObj = next;
 		next++;
 		timeMin = Double.MAX_VALUE;
-		
+
 		listP = net.getListP();
 		listT = net.getListT();
 		listIn = net.getArcIn();
@@ -67,7 +67,7 @@ public class PetriSim implements Serializable, Mutable, Cloneable {
 		priority = 0;
 		listPositionsForStatistics.addAll(Arrays.asList(listP));
 	}
-	
+
 	@Override
 	public PetriSim clone() throws CloneNotSupportedException {
 		super.clone();
@@ -76,7 +76,7 @@ public class PetriSim implements Serializable, Mutable, Cloneable {
 		petriSim.numObj = numObj;
 		petriSim.priority = priority;
 		petriSim.timeMin = timeMin;
-		
+
 		petriSim.numP = numP;
 		petriSim.numT = numT;
 		petriSim.numIn = numIn;
@@ -89,31 +89,31 @@ public class PetriSim implements Serializable, Mutable, Cloneable {
 		petriSim.net = net;
 		petriSim.initialNet = net.clone();
 		petriSim.listPositionsForStatistics = new ArrayList<>(listPositionsForStatistics);
-		
+
 		return petriSim;
 	}
-	
+
 	/**
 	 * @return PetriNet
 	 */
 	public PetriNet getNet() {
 		return net;
 	}
-	
+
 	/**
 	 * @return name of Petri-object
 	 */
 	public String getName() {
 		return name;
 	}
-	
+
 	/**
 	 * @return list of places for statistics which use for statistics
 	 */
 	ArrayList<PetriP> getListPositionsForStatistics() {
 		return listPositionsForStatistics;
 	}
-	
+
 	/**
 	 * Get priority of Petri-object
 	 *
@@ -122,14 +122,14 @@ public class PetriSim implements Serializable, Mutable, Cloneable {
 	int getPriority() {
 		return priority;
 	}
-	
+
 	/**
 	 * @return the number of object
 	 */
 	int getNumObj() {
 		return numObj;
 	}
-	
+
 	/**
 	 * Set priority of Petri-object
 	 *
@@ -138,7 +138,7 @@ public class PetriSim implements Serializable, Mutable, Cloneable {
 	public void setPriority(int a) {
 		priority = a;
 	}
-	
+
 	/**
 	 * This method uses for describing other actions associated with transition
 	 * markers output.<br>
@@ -146,9 +146,9 @@ public class PetriSim implements Serializable, Mutable, Cloneable {
 	 * The method is overridden in subclass.
 	 */
 	void doT() {
-	
+
 	}
-	
+
 	/**
 	 * Determines the next event and its moment.
 	 */
@@ -166,14 +166,14 @@ public class PetriSim implements Serializable, Mutable, Cloneable {
 		timeMin = min;
 		eventMin = event;
 	}
-	
+
 	/**
 	 * @return moment of next event
 	 */
 	double getTimeMin() {
 		return timeMin;
 	}
-	
+
 	/**
 	 * Finds the set of transitions for which the firing condition is true and
 	 * sorts it on priority value
@@ -182,13 +182,13 @@ public class PetriSim implements Serializable, Mutable, Cloneable {
 	 */
 	private ArrayList<PetriT> findActiveT() {
 		ArrayList<PetriT> transitions = new ArrayList<>();
-		
+
 		for (PetriT transition : listT) {
 			if ((transition.condition(listP)) && (transition.getProbability() != 0)) {
 				transitions.add(transition);
 			}
 		}
-		
+
 		if (transitions.size() > 1) {
 			transitions.sort((o1, o2) -> {
 				if (o1.getPriority() < o2.getPriority()) {
@@ -202,17 +202,17 @@ public class PetriSim implements Serializable, Mutable, Cloneable {
 		}
 		return transitions;
 	}
-	
+
 	/**
 	 * It does one step of simulation: transitions input markers, then finding next event moment, and then transitions input markers
 	 */
 	private void step() { //один крок ,використовується для одного об'єкту мережа Петрі
-		
+
 		System.out.println("Next Step  " + "time=" + getTimeCurr());
-		
+
 		this.printMark();//друкувати поточне маркування
 		ArrayList<PetriT> activeTransitions = this.findActiveT();     //формування списку активних переходів
-		
+
 		if ((activeTransitions.isEmpty() && isBufferEmpty()) || getTimeCurr() >= getTimeMod()) { //зупинка імітації за умови, що
 			//немає переходів, які запускаються,
 			// і немає маркерів у переходах, або вичерпаний час моделювання
@@ -221,42 +221,42 @@ public class PetriSim implements Serializable, Mutable, Cloneable {
 			for (PetriP p : listP) {
 				p.changeMean((timeMin - getTimeCurr()) / getTimeMod());
 			}
-			
+
 			for (PetriT transition : listT) {
 				transition.changeMean((timeMin - getTimeCurr()) / getTimeMod());
 			}
-			
+
 			setTimeCurr(timeMin);         //просування часу
 		} else {
 			while (activeTransitions.size() > 0) { //вхід маркерів в переходи доки можливо
-				
+
 				this.solveConflicts(activeTransitions).actIn(listP, getTimeCurr()); //розв'язання конфліктів
 				activeTransitions = this.findActiveT(); //оновлення списку активних переходів
-				
+
 			}
-			
+
 			this.eventMin();//знайти найближчу подію та ії час
-			
+
 			for (PetriP position : listP) {
 				position.changeMean((timeMin - getTimeCurr()) / getTimeMod());
 			}
-			
+
 			for (PetriT transition : listT) {
 				transition.changeMean((timeMin - getTimeCurr()) / getTimeMod());
 			}
-			
+
 			setTimeCurr(timeMin);         //просування часу
 			output();
-			
+
 		}
 	}
-	
+
 	/**
 	 * один крок,використовується для одного об'єкту мережа Петрі(наприклад, покрокова імітація мережі Петрі в графічному редакторі)
 	 */
 	public void step(JTextArea area) {
 		area.append("\n Next event, current time = " + getTimeCurr());
-		
+
 		this.printMark();//друкувати поточне маркування
 		ArrayList<PetriT> activeT = this.findActiveT();     //формування списку активних переходів
 		for (PetriT T : activeT) {
@@ -271,44 +271,44 @@ public class PetriSim implements Serializable, Mutable, Cloneable {
 			for (PetriP position : listP) {
 				position.changeMean((timeMin - getTimeCurr()) / getTimeMod());
 			}
-			
+
 			for (PetriT transition : listT) {
 				transition.changeMean((timeMin - getTimeCurr()) / getTimeMod());
 			}
-			
+
 			setTimeCurr(timeMin);         //просування часу
 		} else {
-			
+
 			while (activeT.size() > 0) {      //вхід маркерів в переходи доки можливо
-				
+
 				area.append("\n Choosing a transition to activate " + this.solveConflicts(activeT).getName());
 				this.solveConflicts(activeT).actIn(listP, getTimeCurr()); //розв'язання конфліктів
 				activeT = this.findActiveT(); //оновлення списку активних переходів
 			}
 			area.append("\n Markers enter transitions:");
 			this.printMark(area);//друкувати поточне маркування
-			
+
 			this.eventMin();//знайти найближчу подію та ії час
 			for (PetriP position : listP) {
 				position.changeMean((timeMin - getTimeCurr()) / getTimeMod());
 			}
-			
+
 			for (PetriT transition : listT) {
 				transition.changeMean((timeMin - getTimeCurr()) / getTimeMod());
 			}
-			
+
 			setTimeCurr(timeMin);         //просування часу
-			
+
 			if (getTimeCurr() <= getTimeMod()) {
-				
+
 				area.append("\n current time =" + getTimeCurr() + "   " + eventMin.getName());
 				//Вихід маркерів
 				eventMin.actOut(listP);//Вихід маркерів з переходу, що відповідає найближчому моменту часу
 				area.append("\n Markers leave a transition " + eventMin.getName());
 				this.printMark(area);//друкувати поточне маркування
-				
+
 				if (eventMin.getBuffer() > 0) {
-					
+
 					boolean u = true;
 					while (u) {
 						eventMin.minEvent();
@@ -343,16 +343,16 @@ public class PetriSim implements Serializable, Mutable, Cloneable {
 				}
 			}
 		}
-		
+
 	}
-	
+
 	/**
 	 * It does the transitions input markers
 	 */
 	void input() {//вхід маркерів в переходи Петрі-об'єкта
-		
+
 		ArrayList<PetriT> activeT = this.findActiveT();     //формування списку активних переходів
-		
+
 		if (activeT.isEmpty() && isBufferEmpty()) { //зупинка імітації за умови, що
 			//не має переходів, які запускаються,
 			timeMin = Double.MAX_VALUE;
@@ -361,15 +361,15 @@ public class PetriSim implements Serializable, Mutable, Cloneable {
 				this.solveConflicts(activeT).actIn(listP, getTimeCurr()); //розв'язання конфліктів
 				activeT = this.findActiveT(); //оновлення списку активних переходів
 			}
-			
+
 			this.eventMin();//знайти найближчу подію та ії час
 		}
 	}
-	
+
 	/**
 	 * It does the transitions output markers
 	 */
-	
+
 	private void output() {
 		if (getTimeCurr() <= getTimeMod()) {
 			eventMin.actOut(listP);//здійснення події
@@ -385,7 +385,7 @@ public class PetriSim implements Serializable, Mutable, Cloneable {
 				}
 			}
 			for (PetriT transition : listT) { //ВАЖЛИВО!!Вихід з усіх переходів, що час виходу маркерів == поточний момент час.
-				
+
 				if (transition.getBuffer() > 0 && transition.getMinTime() == getTimeCurr()) {
 					transition.actOut(listP);//Вихід маркерів з переходу, що відповідає найближчому моменту часу
 					if (transition.getBuffer() > 0) {
@@ -403,20 +403,20 @@ public class PetriSim implements Serializable, Mutable, Cloneable {
 			}
 		}
 	}
-	
+
 	/**
 	 * It does one event in current moment: the transitions output and input  markers
 	 */
 	void stepEvent() {  //один крок,вихід та вхід маркерів в переходи Петрі-об"єкта, використовується для множини Петрі-об'єктів
 		if (isStop()) {
 			timeMin = Double.MAX_VALUE;
-			
+
 			return; //зупинка імітації
 		}
 		output();
 		input();
 	}
-	
+
 	/**
 	 * Calculates mean value of quantity of markers in places and quantity of
 	 * active channels of transitions
@@ -428,9 +428,9 @@ public class PetriSim implements Serializable, Mutable, Cloneable {
 		for (PetriT transition : listT) {
 			transition.changeMean((timeMin - getTimeCurr()) / getTimeMod());
 		}
-		
+
 	}
-	
+
 	/**
 	 * @param dt - the time interval
 	 */
@@ -446,13 +446,13 @@ public class PetriSim implements Serializable, Mutable, Cloneable {
 			}
 		}
 	}
-	
+
 	/**
 	 * This method use for simulating Petri-object
 	 */
 	public void go() {
 		setTimeCurr(0);
-		
+
 		while (getTimeCurr() <= getTimeMod() && !isStop()) {
 			PetriSim.this.step();
 			if (isStop()) {
@@ -461,7 +461,7 @@ public class PetriSim implements Serializable, Mutable, Cloneable {
 			this.printMark();//друкувати поточне маркування
 		}
 	}
-	
+
 	/**
 	 * This method use for simulating Petri-object until current time less then
 	 * the momemt in parametr time
@@ -469,7 +469,7 @@ public class PetriSim implements Serializable, Mutable, Cloneable {
 	 * @param time - the simulation time
 	 */
 	public void go(double time) {
-		
+
 		while (getTimeCurr() < time && !isStop()) {
 			step();
 			if (isStop()) {
@@ -477,9 +477,9 @@ public class PetriSim implements Serializable, Mutable, Cloneable {
 			}
 		}
 	}
-	
+
 	public void go(double time, JTextArea area) {
-		
+
 		while (getTimeCurr() < time && !isStop()) {
 			step(area);
 			if (isStop()) {
@@ -487,7 +487,7 @@ public class PetriSim implements Serializable, Mutable, Cloneable {
 			}
 		}
 	}
-	
+
 	/**
 	 * Determines is all of transitions has empty buffer
 	 *
@@ -503,7 +503,7 @@ public class PetriSim implements Serializable, Mutable, Cloneable {
 		}
 		return c;
 	}
-	
+
 	/**
 	 * Do printing the current marking of Petri net
 	 */
@@ -514,7 +514,7 @@ public class PetriSim implements Serializable, Mutable, Cloneable {
 		}
 		System.out.println();
 	}
-	
+
 	public void printBuffer() {
 		System.out.print("Buffer in Net  " + this.getName() + "   ");
 		for (PetriT transition : listT) {
@@ -522,7 +522,7 @@ public class PetriSim implements Serializable, Mutable, Cloneable {
 		}
 		System.out.println();
 	}
-	
+
 	public void printMark(JTextArea area) {
 		area.append("\n Mark in Net  " + this.getName() + "   \n");
 		for (PetriP position : listP) {
@@ -530,7 +530,7 @@ public class PetriSim implements Serializable, Mutable, Cloneable {
 		}
 		area.append("\n");
 	}
-	
+
 	/**
 	 * @return the nearest event
 	 */
@@ -538,7 +538,7 @@ public class PetriSim implements Serializable, Mutable, Cloneable {
 		this.eventMin();
 		return eventMin;
 	}
-	
+
 	/**
 	 * This method solves conflict between transitions given in parametr transitions
 	 *
@@ -561,13 +561,13 @@ public class PetriSim implements Serializable, Mutable, Cloneable {
 				double sum = 0;
 				double prob;
 				while (j < transitions.size() && transitions.get(j).getPriority() == transition.getPriority()) {
-					
+
 					if (transitions.get(j).getProbability() == 1.0) {
 						prob = 1.0 / i;
 					} else {
 						prob = transitions.get(j).getProbability();
 					}
-					
+
 					sum = sum + prob;
 					if (r < sum) {
 						transition = transitions.get(j);
@@ -579,10 +579,10 @@ public class PetriSim implements Serializable, Mutable, Cloneable {
 				}
 			}
 		}
-		
+
 		return transition;
 	}
-	
+
 	/**
 	 * @return the stop
 	 */
@@ -590,36 +590,36 @@ public class PetriSim implements Serializable, Mutable, Cloneable {
 		this.eventMin();
 		return (eventMin == null);
 	}
-	
+
 	/**
 	 * @return the timeCurr
 	 */
 	public static double getTimeCurr() {
 		return timeCurr;
 	}
-	
+
 	/**
 	 * @param aTimeCurr the timeCurr to set
 	 */
 	public static void setTimeCurr(double aTimeCurr) {
 		timeCurr = aTimeCurr;
 	}
-	
+
 	/**
 	 * @return the timeMod
 	 */
 	private static double getTimeMod() {
 		return timeMod;
 	}
-	
+
 	/**
 	 * @param aTimeMod the timeMod to set
 	 */
 	public static void setTimeMod(double aTimeMod) {
 		timeMod = aTimeMod;
 	}
-	
-	
+
+
 	static Comparator<PetriSim> getComparatorByPriority() {
 		return (o1, o2) -> {
 			if (o1.getPriority() < o2.getPriority()) {
@@ -631,20 +631,20 @@ public class PetriSim implements Serializable, Mutable, Cloneable {
 			}
 		};
 	}
-	
-	
+
+
 	@Override
 	public void mutate(double mutableRange) {
 		priority = OptimizationUtils.mutateInt(priority, mutableRange);
-		
+
 		for (ArcIn aListIn : listIn) {
 			aListIn.mutate(mutableRange);
 		}
-		
+
 		for (ArcOut aListOut : listOut) {
 			aListOut.mutate(mutableRange);
 		}
-		
+
 		for (PetriT aListT : listT) {
 			aListT.mutate(mutableRange);
 		}
