@@ -47,6 +47,8 @@ public class NetLibrary {
 		PetriNet net = new PetriNet("user", places, transitions, arcsIn, arcsOut);
 		PetriP.initNext();
 		PetriT.initNext();
+		ArcOut.initNext();
+		ArcIn.initNext();
 		
 		return net;
 	}

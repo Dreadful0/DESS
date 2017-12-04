@@ -313,7 +313,9 @@ public class PetriNet implements Cloneable, Serializable {
 		
 		PetriP.initNext();
 		PetriT.initNext();
-		
+		ArcIn.initNext();
+		ArcOut.initNext();
+
 		return net;
 	}
 	

@@ -39,6 +39,8 @@ public class NetLibrary {
 		PetriNet d_Net = new PetriNet("SMOwithoutQueue" + name, d_P, d_T, d_In, d_Out);
 		PetriP.initNext();
 		PetriT.initNext();
+		ArcOut.initNext();
+		ArcIn.initNext();
 
 		return d_Net;
 	}
@@ -67,6 +69,8 @@ public class NetLibrary {
 		PetriNet d_Net = new PetriNet("Generator", d_P, d_T, d_In, d_Out);
 		PetriP.initNext();
 		PetriT.initNext();
+		ArcOut.initNext();
+		ArcIn.initNext();
 
 		return d_Net;
 	}
@@ -110,6 +114,8 @@ public class NetLibrary {
 		PetriNet d_Net = new PetriNet("Fork", d_P, d_T, d_In, d_Out);
 		PetriP.initNext();
 		PetriT.initNext();
+		ArcOut.initNext();
+		ArcIn.initNext();
 
 		return d_Net;
 	}

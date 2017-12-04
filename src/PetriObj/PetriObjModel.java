@@ -1,9 +1,9 @@
 package PetriObj;
 
+import javax.swing.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
-import javax.swing.JTextArea;
 
 /**
  * This class provides constructing Petri objective model.<br>
@@ -152,6 +152,7 @@ public class PetriObjModel implements Serializable, Cloneable {
 	 */
 	public void go(double timeModeling) {
 		PetriSim.setTimeMod(timeModeling);
+        PetriSim.setTimeCurr(0);
 
 		t = 0;
 		double min;
