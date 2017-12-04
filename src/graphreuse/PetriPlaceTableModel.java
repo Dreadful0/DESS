@@ -5,13 +5,13 @@
 package graphreuse;
 
 import PetriObj.PetriP;
-import java.util.ArrayList;
-import javax.swing.table.AbstractTableModel;
 import graphnet.GraphPetriPlace;
 import utils.Utils;
 
+import javax.swing.table.AbstractTableModel;
+import java.util.ArrayList;
+
 /**
- *
  * @author Ольга
  */
 public class PetriPlaceTableModel extends AbstractTableModel {
@@ -21,12 +21,12 @@ public class PetriPlaceTableModel extends AbstractTableModel {
     private int column = PLACE_PARAMETERS + 1;
     private Object[][] mass;
     private String[] COLUMN_NAMES = {"Place", "Name", "Markers"};
-    private ArrayList<GraphPetriPlace> graphPetriPlaceList;   
+    private ArrayList<GraphPetriPlace> graphPetriPlaceList;
 
-    public PetriPlaceTableModel(){
+    public PetriPlaceTableModel() {
 
     }
-    
+
     public void setGraphPetriPlaceList(ArrayList<GraphPetriPlace> list) {
         row = list.size();
         graphPetriPlaceList = list;
@@ -36,8 +36,8 @@ public class PetriPlaceTableModel extends AbstractTableModel {
             mass[i][0] = pp.getName();
             mass[i][1] = pp.getName();
             mass[i][2] = pp.markIsParam() // modified by Katya 08.12.2016
-                ? pp.getMarkParamName()
-                : pp.getMark();
+                    ? pp.getMarkParamName()
+                    : pp.getMark();
         }
     }
 
@@ -84,7 +84,7 @@ public class PetriPlaceTableModel extends AbstractTableModel {
         for (int i = 0; i < graphPetriPlaceList.size(); i++) {
             PetriP petriPlace = graphPetriPlaceList.get(i).getPetriPlace();
             petriPlace.setName(getValueAt(i, 1).toString());
-            
+
             String markValueStr = getValueAt(i, 2).toString();
             if (Utils.tryParseInt(markValueStr)) {
                 petriPlace.setMark(Integer.valueOf(markValueStr));

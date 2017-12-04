@@ -1,7 +1,6 @@
 package utils;
 
 /**
- *
  * @author Katya; added 08.12.2016
  */
 public class Utils {
@@ -13,7 +12,7 @@ public class Utils {
             return false;
         }
     }
-    
+
     public static boolean tryParseDouble(String value) {
         try {
             Double.parseDouble(value);

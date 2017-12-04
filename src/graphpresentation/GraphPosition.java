@@ -4,19 +4,20 @@
  */
 package graphpresentation;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 
 /**
- *
  * @author Ольга
  */
 public class GraphPosition extends GraphElement {
-    
-    private static  int diameter = 40;       // діаметр кола
+
+    private static int diameter = 40;       // діаметр кола
+    private Ellipse2D graphElement = new Ellipse2D.Double(0, 0, getDiameter(), getDiameter());  // координати розташування кола
+
+    public GraphPosition() {
+    }
 
     /**
      * @return the diameter
@@ -31,10 +32,9 @@ public class GraphPosition extends GraphElement {
     public static void setDiameter(int aDiameter) {
         diameter = aDiameter;
     }
- 
-    private Ellipse2D graphElement=new Ellipse2D.Double(0,0, getDiameter(), getDiameter());  // координати розташування кола
 
-   public  GraphPosition() {
+    public static int getDIAMETER() {
+        return getDiameter();
     }
 
     @Override
@@ -45,22 +45,16 @@ public class GraphPosition extends GraphElement {
         g2.fill(graphElement);
         g2.setStroke(new BasicStroke(1));
         g2.setColor(Color.BLACK);
-     
+
     }
 
-    
-    public static int getDIAMETER() {
-        return getDiameter();
-    }
-
-    
     @Override
     public void setNewCoordinates(Point2D p) {
-            graphElement.setFrame(p.getX() - getDiameter() / 2, p.getY() - getDiameter() / 2, getDiameter(), getDiameter());
-            
+        graphElement.setFrame(p.getX() - getDiameter() / 2, p.getY() - getDiameter() / 2, getDiameter(), getDiameter());
+
     }
 
-        
+
     @Override
     public boolean isGraphElement(Point2D p) {
         if (graphElement.contains(p)) {
@@ -74,18 +68,18 @@ public class GraphPosition extends GraphElement {
         return new Point2D.Double(graphElement.getX() + getDiameter() / 2, graphElement.getY() + getDiameter() / 2);
     }
 
-  
+
     @Override
     public String getType() {
         return graphElement.getClass().toString();
     }
 
-   
+
     @Override
-    public  int getBorder() {
+    public int getBorder() {
         return getDiameter() / 2;
     }
-    
+
 
     public Ellipse2D getGraphElement() {
         return graphElement;
@@ -94,7 +88,6 @@ public class GraphPosition extends GraphElement {
     public void setGraphElement(Ellipse2D graphElement) {
         this.graphElement = graphElement;
     }
-    
-    
-    
+
+
 }
