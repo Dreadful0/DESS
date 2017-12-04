@@ -118,12 +118,13 @@ public abstract class EAOptimizer {
         return eliteIndividuums;
     }
 
-    private ArrayList<PetriObjModel> mutation() {
+    private ArrayList<PetriObjModel> mutation() throws CloneNotSupportedException {
         ArrayList<PetriObjModel> mutatedIndividuums = new ArrayList<>();
         int number = (int) (population.size() * mutationProbability);
         for (int i = 0; i < number; i++) {
-            PetriObjModel current = population.get((int) Math.floor(Math.random() * populationSize));
-            current.getListObj().forEach(petriSim -> petriSim.mutate(mutationRange));
+            int ind = (int) Math.floor(Math.random() * populationSize);
+            PetriObjModel current = population.get(ind).clone();
+            current.mutate(mutationRange);
             mutatedIndividuums.add(current);
         }
         return mutatedIndividuums;
@@ -135,21 +136,28 @@ public abstract class EAOptimizer {
 
     public PetriObjModel evolve() throws CloneNotSupportedException {
 
-        Comparator<PetriObjModel> comparator = (left, right) -> {
-            if (optType == OptType.OPT_MAX) {
+        Comparator<PetriObjModel> comparator;
+        if (optType == OptType.OPT_MAX) {
+            comparator = (left, right) -> {
                 if ((fitnessFunction(left) - fitnessFunction(right)) > 0) return 1;
                 else return 0;
-            } else {
+            };
+        } else {
+            comparator = (left, right) -> {
                 if ((fitnessFunction(left) - fitnessFunction(right)) < 0) return 1;
                 else return 0;
-            }
-        };
+            };
+        }
 
         generatePopulation();
 
         for (int i = 0; i < generationsNumber; i++) {
 
-            population.forEach(model -> model.go(timeModeling));
+//            population.forEach(model -> model.go(timeModeling));
+            for (PetriObjModel model: population){
+                model.go(timeModeling);
+                EAOptimizerUsingExample.getResults(model);
+            }
 
             ArrayList<PetriObjModel> eliteIndividuums = elitism(comparator);
 //            System.out.format("Elite size: %d\n", eliteIndividuums.size());

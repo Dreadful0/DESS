@@ -1,5 +1,7 @@
 package PetriObj;
 
+import EvolutionaryAlgorithmOptimization.Mutable;
+
 import javax.swing.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,10 +17,10 @@ import java.util.Random;
  *
  * @author Инна
  */
-public class PetriObjModel implements Serializable, Cloneable {
+public class PetriObjModel implements Serializable, Cloneable, Mutable {
 
     private ArrayList<PetriSim> listObj = new ArrayList<>();
-    private ArrayList<PetriSim> initialListObj = new ArrayList<>();
+    private PetriObjModel initialState;
     private double t;
     private boolean isProtocolPrint = true;
     private boolean shouldGetStatistics = true;
@@ -36,29 +38,55 @@ public class PetriObjModel implements Serializable, Cloneable {
 
     @Override
     public PetriObjModel clone() throws CloneNotSupportedException {  //added 29.11.2017 by Inna
-        super.clone();
-        ArrayList<PetriSim> copyList = new ArrayList<>();
+//        super.clone();
 
-        for (PetriSim sim : this.listObj) {
-            copyList.add(sim.clone());  //  error: we must reproduce shared places
-        }
-        PetriObjModel clone = new PetriObjModel(copyList);
-        //  reproduce combine places
+        if (initialState == null) {
+            ArrayList<PetriSim> copyList = new ArrayList<>();
 
-        for (LinkByPlaces li : links) {
-            int one = this.getNumInList(li.getOne());
-            int other = this.getNumInList(li.getOther());
-
-            if (one >= 0 && other >= 0) {
-                PetriSim oneClone = clone.getListObj().get(one);
-                PetriSim otherClone = clone.getListObj().get(other);
-                clone.linkObjectsCombiningPlaces(oneClone, li.getNumPlaceOne(),
-                        otherClone, li.getNumPlaceOther());
+            for (PetriSim sim : this.listObj) {
+                copyList.add(sim.clone());  //  error: we must reproduce shared places
             }
+            PetriObjModel clone = new PetriObjModel(copyList);
+            //  reproduce combine places
+
+            for (LinkByPlaces li : links) {
+                int one = this.getNumInList(li.getOne());
+                int other = this.getNumInList(li.getOther());
+
+                if (one >= 0 && other >= 0) {
+                    PetriSim oneClone = clone.getListObj().get(one);
+                    PetriSim otherClone = clone.getListObj().get(other);
+                    clone.linkObjectsCombiningPlaces(oneClone, li.getNumPlaceOne(),
+                            otherClone, li.getNumPlaceOther());
+                }
+            }
+            clone.setIsProtoсol(isProtocolPrint);
+            clone.setShouldGetStatistics(shouldGetStatistics);
+            return clone;
+        } else {
+            ArrayList<PetriSim> copyList = new ArrayList<>();
+
+            for (PetriSim sim : initialState.listObj) {
+                copyList.add(sim.clone());  //  error: we must reproduce shared places
+            }
+            PetriObjModel clone = new PetriObjModel(copyList);
+            //  reproduce combine places
+
+            for (LinkByPlaces li : initialState.links) {
+                int one = initialState.getNumInList(li.getOne());
+                int other = initialState.getNumInList(li.getOther());
+
+                if (one >= 0 && other >= 0) {
+                    PetriSim oneClone = clone.getListObj().get(one);
+                    PetriSim otherClone = clone.getListObj().get(other);
+                    clone.linkObjectsCombiningPlaces(oneClone, li.getNumPlaceOne(),
+                            otherClone, li.getNumPlaceOther());
+                }
+            }
+            clone.setIsProtoсol(initialState.isProtocolPrint);
+            clone.setShouldGetStatistics(initialState.shouldGetStatistics);
+            return clone;
         }
-        clone.setIsProtoсol(isProtocolPrint);
-        clone.setShouldGetStatistics(shouldGetStatistics);
-        return clone;
     }
 
     public int getNumInList(PetriSim sim) {
@@ -126,7 +154,9 @@ public class PetriObjModel implements Serializable, Cloneable {
      *
      * @param timeModeling time modeling
      */
-    public void go(double timeModeling) {
+    public void go(double timeModeling) throws CloneNotSupportedException {
+        if (initialState == null) initialState = this.clone();
+
         PetriSim.setTimeMod(timeModeling);
         PetriSim.setTimeCurr(0);
 
@@ -388,6 +418,13 @@ public class PetriObjModel implements Serializable, Cloneable {
                 area.append("\n Transition '" + T.getName() + "'  " + Double.toString(T.getMean()));
             }
         }
+    }
+
+    @Override
+    public void mutate(double mutableRange) throws CloneNotSupportedException {
+        getListObj().forEach(petriSim -> petriSim.mutate(mutableRange));
+        if (initialState == null) initialState = this.clone();
+//        initialState.getListObj().forEach(petriSim -> petriSim.mutate(mutableRange));
     }
 
     private class LinkByPlaces { //added 29.11.2017 by Inna

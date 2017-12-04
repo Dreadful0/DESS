@@ -84,7 +84,7 @@ public class TestPetriObjPaint {  //Результати співпадають 
 
     // метод для конструювання моделі масового обслуговування з 4 СМО
 
-    public static PetriObjModel getModel() throws ExceptionInvalidTimeDelay, ExceptionInvalidNetStructure {
+    public static PetriObjModel getModel() throws ExceptionInvalidTimeDelay, ExceptionInvalidNetStructure, CloneNotSupportedException {
         ArrayList<PetriSim> list = new ArrayList<PetriSim>();
         list.add(new PetriSim(NetLibrary.CreateNetGenerator(2.0)));
         list.add(new PetriSim(NetLibrary.CreateNetSMOwithoutQueue(1, 0.6, "First")));
