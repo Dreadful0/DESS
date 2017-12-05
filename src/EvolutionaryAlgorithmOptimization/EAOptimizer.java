@@ -50,6 +50,8 @@ public abstract class EAOptimizer {
         this.mutationRange = 0.5;
     }
 
+    // todo add verbose parameter
+
     public PetriObjModel getInitialModel() {
         return initialModel;
     }
@@ -93,6 +95,7 @@ public abstract class EAOptimizer {
         if (elitismProbability + mutationProbability + crossoverProbability != 1) {
             throw new Exception("Sum of probabilities doesn't equal to 1.00");
         }
+        // todo set number of individuums instead of probabilities
         this.elitismProbability = elitismProbability;
         this.mutationProbability = mutationProbability;
         this.crossoverProbability = crossoverProbability;
@@ -111,10 +114,13 @@ public abstract class EAOptimizer {
         int number = (int) (population.size() * elitismProbability);
 
         Collections.sort(population, comparator);
+        // todo use verbose parameter
+        System.out.format("Best result: %f\n", fitnessFunction(population.get(0)));
 
         for (int i = 0; i < number; i++) {
             eliteIndividuums.add(population.get(i).clone());
         }
+
         return eliteIndividuums;
     }
 
@@ -139,12 +145,12 @@ public abstract class EAOptimizer {
         Comparator<PetriObjModel> comparator;
         if (optType == OptType.OPT_MAX) {
             comparator = (left, right) -> {
-                if ((fitnessFunction(left) - fitnessFunction(right)) > 0) return 1;
+                if ((fitnessFunction(left) - fitnessFunction(right)) < 0) return 1;
                 else return 0;
             };
         } else {
             comparator = (left, right) -> {
-                if ((fitnessFunction(left) - fitnessFunction(right)) < 0) return 1;
+                if ((fitnessFunction(left) - fitnessFunction(right)) > 0) return 1;
                 else return 0;
             };
         }
@@ -153,23 +159,21 @@ public abstract class EAOptimizer {
 
         for (int i = 0; i < generationsNumber; i++) {
 
-//            population.forEach(model -> model.go(timeModeling));
-            for (PetriObjModel model: population){
+            for (int j = 0; j < population.size(); j++) {
+                PetriObjModel model = population.get(j);
                 model.go(timeModeling);
-                EAOptimizerUsingExample.getResults(model);
+                // todo use verbose parameter
+                System.out.format("Model: %d. Fitness: %f.\n", j, fitnessFunction(model));
             }
 
+            System.out.format("Generation: %d.\n", i);
             ArrayList<PetriObjModel> eliteIndividuums = elitism(comparator);
-//            System.out.format("Elite size: %d\n", eliteIndividuums.size());
-            System.out.format("Generation: %d. Best result: %f\n", i, fitnessFunction(eliteIndividuums.get(0)));
 
             ArrayList<PetriObjModel> mutatedIndividuums = mutation();
-//            System.out.format("Mutated size: %d\n", mutatedIndividuums.size());
 
             ArrayList<PetriObjModel> crossoverIndividuums = null;
             if (crossoverProbability != 0) {
                 crossoverIndividuums = crossover();
-//                System.out.format("Crossover size: %d\n", crossoverIndividuums.size());
             }
 
             population = new ArrayList<>();
@@ -178,7 +182,7 @@ public abstract class EAOptimizer {
             if (crossoverProbability != 0) {
                 population.addAll(crossoverIndividuums);
             }
-//            System.out.format("Population size: %d\n", population.size());
+
         }
 
         return population.get(0);
