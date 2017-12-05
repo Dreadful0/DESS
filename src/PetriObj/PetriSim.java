@@ -1,6 +1,8 @@
 package PetriObj;
 
 import EvolutionaryAlgorithmOptimization.Mutable;
+import EvolutionaryAlgorithmOptimization.MutableHolder;
+import EvolutionaryAlgorithmOptimization.MutableProperty;
 import utils.OptimizationUtils;
 
 import javax.swing.*;
@@ -8,6 +10,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 
 /**
  * This class is Petri simulator. <br>
@@ -16,7 +19,12 @@ import java.util.Comparator;
  *
  * @author Стеценко Інна
  */
-public class PetriSim implements Serializable, Mutable, Cloneable {
+public class PetriSim implements Serializable, MutableHolder, Cloneable {
+
+    /**
+     * Index of priority, used for mutation
+     */
+    private static final int PRIORITY = 0;
 
     private static double timeCurr = 0;
     private static double timeMod = Double.MAX_VALUE - 1;
@@ -38,7 +46,6 @@ public class PetriSim implements Serializable, Mutable, Cloneable {
     private PetriNet net;
     private PetriNet initialNet = net;
     private ArrayList<PetriP> listPositionsForStatistics = new ArrayList<>();
-
 
     /**
      * Constructs the Petri simulator with given Petri net and time modeling
@@ -613,20 +620,77 @@ public class PetriSim implements Serializable, Mutable, Cloneable {
         return (eventMin == null);
     }
 
+    public boolean contains(MutableHolder mutableProperty) {
+        if (mutableProperty instanceof ArcIn) return containsArcIn((ArcIn) mutableProperty);
+        if (mutableProperty instanceof ArcOut) return containsArcOut((ArcOut) mutableProperty);
+        if (mutableProperty instanceof PetriP) return containsPlace((PetriP) mutableProperty);
+        if (mutableProperty instanceof PetriT) return containsTransition((PetriT) mutableProperty);
+
+        return false;
+    }
+
+    private boolean containsArcIn(ArcIn arcIn) {
+        for (ArcIn arc : listIn) {
+            if (arc.equals(arcIn)) return true;
+        }
+        return false;
+    }
+
+    private boolean containsArcOut(ArcOut arcOut) {
+        for (ArcOut arc : listOut) {
+            if (arc.equals(arcOut)) return true;
+        }
+        return false;
+    }
+
+    private boolean containsPlace(PetriP place) {
+        for (PetriP p : listP) {
+            if (p.equals(place)) return true;
+        }
+        return false;
+    }
+
+    private boolean containsTransition(PetriT transition) {
+        for (PetriT t : listT) {
+            if (t.equals(transition)) return true;
+        }
+        return false;
+    }
+
+    ArcIn getArcIn(int number) {
+        for (ArcIn arcIn : listIn) {
+            if (arcIn.getNumber() == number) return arcIn;
+        }
+        return null;
+    }
+
+    ArcOut getArcOut(int number) {
+        for (ArcOut arcOut : listOut) {
+            if (arcOut.getNumber() == number) return arcOut;
+        }
+        return null;
+    }
+
+    PetriP getPlace(int number) {
+        for (PetriP place : listP) {
+            if (place.getNumber() == number) return place;
+        }
+        return null;
+    }
+
+    PetriT getTransition(int number) {
+        for (PetriT t : listT) {
+            if (t.equals(number)) return t;
+        }
+        return null;
+    }
+
     @Override
-    public void mutate(double mutableRange) {
-        priority = OptimizationUtils.mutateInt(priority, mutableRange);
-
-        for (ArcIn aListIn : listIn) {
-            aListIn.mutate(mutableRange);
-        }
-
-        for (ArcOut aListOut : listOut) {
-            aListOut.mutate(mutableRange);
-        }
-
-        for (PetriT aListT : listT) {
-            aListT.mutate(mutableRange);
+    public void mutate(int property, double mutationRange) {
+        if (property == PRIORITY) {
+            do {
+                priority = OptimizationUtils.mutateInt(priority, mutationRange);
+            } while (priority < 0);
         }
     }
 }

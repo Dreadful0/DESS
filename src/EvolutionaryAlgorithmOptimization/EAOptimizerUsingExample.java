@@ -6,6 +6,7 @@
 package EvolutionaryAlgorithmOptimization;
 
 import LibTest.TestPetriObjPaint;
+import PetriObj.ArcIn;
 import PetriObj.ExceptionInvalidNetStructure;
 import PetriObj.ExceptionInvalidTimeDelay;
 import PetriObj.PetriObjModel;
@@ -43,7 +44,10 @@ public class EAOptimizerUsingExample {
         optimizer.setPopulationSize(5);
         optimizer.setGenerationsNumber(10);
         optimizer.setOptType(OptType.OPT_MIN);
-        optimizer.setProbabilities(0.4, 0.6, 0, 0.05);
+        optimizer.setMutableProperties(new MutationBuilder()
+                .add(new MutableProperty(model.getListObj().get(1).getNet().getArcIn()[0], ArcIn.K, 0.1))
+                .build());
+        optimizer.setProbabilities(0.4, 0.6, 0, 0.1);
 
         PetriObjModel best = optimizer.evolve();
 

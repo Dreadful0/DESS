@@ -1,6 +1,7 @@
 package PetriObj;
 
 import EvolutionaryAlgorithmOptimization.Mutable;
+import EvolutionaryAlgorithmOptimization.MutableHolder;
 import utils.OptimizationUtils;
 
 import java.io.Serializable;
@@ -13,7 +14,16 @@ import java.util.logging.Logger;
  *
  * @author Стеценко Інна
  */
-public class PetriT extends PetriMainElement implements Cloneable, Serializable, Mutable {
+public class PetriT extends PetriMainElement implements Cloneable, Serializable, MutableHolder {
+
+    /**
+     * Indexes of mutable fields, used for mutation
+     */
+    public static final int PRIORITY = 0;
+    public static final int PROBABILITY = 1;
+    public static final int PARAM_DEVIATION = 2;
+    public static final int PARAMETER = 3;
+    public static final int MIN_TIME = 4;
 
     private static double timeModeling = Double.MAX_VALUE - 1;
     private static int next = 0;
@@ -685,27 +695,36 @@ public class PetriT extends PetriMainElement implements Cloneable, Serializable,
     }
 
     @Override
-    public void mutate(double mutableRange) {
-        double[] mutableProperties = getMutableProperties();
-        int mutatedProperty = (int) Math.floor(Math.random() * mutableProperties.length);
-        switch (mutatedProperty) {
-            case 0:
-                priority = OptimizationUtils.mutateInt(priority, mutableRange);
+    public void mutate(int property, double mutationRange) {
+        switch (property) {
+            case PRIORITY:
+                do {
+                    priority = OptimizationUtils.mutateInt(priority, mutationRange);
+                } while (priority < 0);
                 break;
-            case 1:
-                probability = OptimizationUtils.mutateDouble(probability, mutableRange);
+            case PROBABILITY:
+                do {
+                    probability = OptimizationUtils.mutateDouble(probability, mutationRange);
+                } while (probability < 0);
                 break;
-            case 2:
-                paramDeviation = OptimizationUtils.mutateDouble(paramDeviation, mutableRange);
+            case PARAM_DEVIATION:
+                do {
+                    paramDeviation = OptimizationUtils.mutateDouble(paramDeviation, mutationRange);
+                } while (paramDeviation < 0);
                 break;
-            case 3:
-                parametr = OptimizationUtils.mutateDouble(parametr, mutableRange);
+            case PARAMETER:
+                do {
+                    parametr = OptimizationUtils.mutateDouble(parametr, mutationRange);
+                } while (parametr < 0);
                 break;
+            case MIN_TIME:
+                do {
+                    minTime = OptimizationUtils.mutateDouble(minTime, mutationRange);
+                } while (minTime < 0);
+                break;
+            default:
+                break;
+
         }
     }
-
-    private double[] getMutableProperties() {
-        return new double[]{priority, probability, paramDeviation, parametr};
-    }
-
 }

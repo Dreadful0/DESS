@@ -1,6 +1,7 @@
 package PetriObj;
 
 import EvolutionaryAlgorithmOptimization.Mutable;
+import EvolutionaryAlgorithmOptimization.MutableHolder;
 import utils.OptimizationUtils;
 
 import java.io.Serializable;
@@ -17,7 +18,12 @@ import java.io.Serializable;
  *
  * @author Стеценко Інна
  */
-public class ArcIn implements Cloneable, Serializable, Mutable {
+public class ArcIn implements Cloneable, Serializable, MutableHolder {
+
+    /**
+     * Index of K property, used for mutation
+     */
+    public static final int K = 0;
 
     private static int next = 0;
     boolean inf;
@@ -263,12 +269,27 @@ public class ArcIn implements Cloneable, Serializable, Mutable {
     public ArcIn clone() throws CloneNotSupportedException {
         super.clone();
         ArcIn arc = new ArcIn(numP, numT, k);  // коректніть номерів дуже важлива!!!
+        arc.number = number;
         return arc;
 
     }
 
     @Override
-    public void mutate(double mutableRange) {
-        k = OptimizationUtils.mutateInt(k, mutableRange);
+    public void mutate(int property, double mutationRange) {
+        // TODO should we add any special probabilities for increasing/decreasing K?
+        if (property == K) {
+            double changeIndex = Math.random();
+            if (changeIndex < 0.33) {
+                k += 1;
+            } else if (changeIndex < 0.67 && k - 1 > 0) {
+                k -= 1;
+            } else {
+                k = 0;
+            }
+        }
+    }
+
+    public int getNumber() {
+        return number;
     }
 }

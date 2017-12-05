@@ -1,10 +1,12 @@
 package PetriObj;
 
 import EvolutionaryAlgorithmOptimization.Mutable;
+import EvolutionaryAlgorithmOptimization.MutableProperty;
 
 import javax.swing.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -25,6 +27,7 @@ public class PetriObjModel implements Serializable, Cloneable, Mutable {
     private boolean isProtocolPrint = true;
     private boolean shouldGetStatistics = true;
     private ArrayList<LinkByPlaces> links; //added 29.11.2017 by Inna
+    private List<MutableProperty> mutableProperties;
 
     /**
      * Constructs model with given list of Petri objects
@@ -34,6 +37,7 @@ public class PetriObjModel implements Serializable, Cloneable, Mutable {
     public PetriObjModel(ArrayList<PetriSim> List) {
         listObj = List;
         links = new ArrayList<>(); //added 29.11.2017 by Inna
+        mutableProperties = new ArrayList<>();
     }
 
     @Override
@@ -60,6 +64,8 @@ public class PetriObjModel implements Serializable, Cloneable, Mutable {
                             otherClone, li.getNumPlaceOther());
                 }
             }
+
+            cloneMutableProperties(clone);
             clone.setIsProtoсol(isProtocolPrint);
             clone.setShouldGetStatistics(shouldGetStatistics);
             return clone;
@@ -83,10 +89,70 @@ public class PetriObjModel implements Serializable, Cloneable, Mutable {
                             otherClone, li.getNumPlaceOther());
                 }
             }
+
+            cloneMutableProperties(clone);
             clone.setIsProtoсol(initialState.isProtocolPrint);
             clone.setShouldGetStatistics(initialState.shouldGetStatistics);
             return clone;
         }
+    }
+
+    private void cloneMutableProperties(PetriObjModel clone) {
+        mutableProperties.forEach(property -> {
+            if (property.mutableProperty instanceof PetriSim) {
+                PetriSim mutable = (PetriSim) property.mutableProperty;
+                PetriSim sim = clone.getListObj().get(mutable.getNumObj());
+                clone.mutableProperties.add(new MutableProperty(sim, property.propertyKey, property.mutationRange));
+
+            } else if (property.mutableProperty instanceof ArcIn) {
+                ArcIn arcIn = (ArcIn) property.mutableProperty;
+                for (PetriSim sim : getListObj()) {
+                    if (sim.contains(property.mutableProperty)) {
+                        int simIndex = getListObj().indexOf(sim);
+                        ArcIn in = clone.getListObj().get(simIndex).getArcIn(arcIn.getNumber());
+                        clone.mutableProperties.add(
+                                new MutableProperty(in, property.propertyKey, property.mutationRange));
+                        return;
+                    }
+                }
+            } else if (property.mutableProperty instanceof ArcOut) {
+                ArcOut arcIn = (ArcOut) property.mutableProperty;
+                for (PetriSim sim : getListObj()) {
+                    if (sim.contains(property.mutableProperty)) {
+                        int simIndex = getListObj().indexOf(sim);
+
+                        ArcOut out = clone.getListObj().get(simIndex).getArcOut(arcIn.getNumber());
+                        clone.mutableProperties.add(
+                                new MutableProperty(out, property.propertyKey, property.mutationRange));
+                        return;
+                    }
+                }
+            } else if (property.mutableProperty instanceof PetriP) {
+                PetriP place = (PetriP) property.mutableProperty;
+                for (PetriSim sim : getListObj()) {
+                    if (sim.contains(property.mutableProperty)) {
+                        int simIndex = getListObj().indexOf(sim);
+
+                        PetriP p = clone.getListObj().get(simIndex).getPlace(place.getNumber());
+                        clone.mutableProperties.add(
+                                new MutableProperty(p, property.propertyKey, property.mutationRange));
+                        return;
+                    }
+                }
+            } else if (property.mutableProperty instanceof PetriT) {
+                PetriT transition = (PetriT) property.mutableProperty;
+                for (PetriSim sim : getListObj()) {
+                    if (sim.contains(property.mutableProperty)) {
+                        int simIndex = getListObj().indexOf(sim);
+
+                        PetriT t = clone.getListObj().get(simIndex).getTransition(transition.getNumber());
+                        clone.mutableProperties.add(
+                                new MutableProperty(t, property.propertyKey, property.mutationRange));
+                        return;
+                    }
+                }
+            }
+        });
     }
 
     public int getNumInList(PetriSim sim) {
@@ -421,10 +487,20 @@ public class PetriObjModel implements Serializable, Cloneable, Mutable {
     }
 
     @Override
-    public void mutate(double mutableRange) throws CloneNotSupportedException {
-        getListObj().forEach(petriSim -> petriSim.mutate(mutableRange));
+    public void mutate() throws CloneNotSupportedException {
+        for (MutableProperty mutableProperty : mutableProperties) {
+            mutableProperty.mutableProperty.mutate(mutableProperty.propertyKey, mutableProperty.mutationRange);
+        }
         if (initialState == null) initialState = this.clone();
 //        initialState.getListObj().forEach(petriSim -> petriSim.mutate(mutableRange));
+    }
+
+    public void addMutableProperty(MutableProperty property) {
+        mutableProperties.add(property);
+    }
+
+    public void setMutableProperties(List<MutableProperty> mutableProperties) {
+        this.mutableProperties = mutableProperties;
     }
 
     private class LinkByPlaces { //added 29.11.2017 by Inna

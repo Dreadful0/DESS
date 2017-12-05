@@ -5,11 +5,12 @@
  */
 package EvolutionaryAlgorithmOptimization;
 
-import PetriObj.PetriObjModel;
+import PetriObj.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 /**
  * @author masha
@@ -130,7 +131,7 @@ public abstract class EAOptimizer {
         for (int i = 0; i < number; i++) {
             int ind = (int) Math.floor(Math.random() * populationSize);
             PetriObjModel current = population.get(ind).clone();
-            current.mutate(mutationRange);
+            current.mutate();
             mutatedIndividuums.add(current);
         }
         return mutatedIndividuums;
@@ -188,4 +189,7 @@ public abstract class EAOptimizer {
         return population.get(0);
     }
 
+    void setMutableProperties(List<MutableProperty> properties) {
+        properties.forEach(initialModel::addMutableProperty);
+    }
 }

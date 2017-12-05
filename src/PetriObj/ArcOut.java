@@ -1,14 +1,9 @@
 package PetriObj;
 
-import EvolutionaryAlgorithmOptimization.Mutable;
+import EvolutionaryAlgorithmOptimization.MutableHolder;
 import utils.OptimizationUtils;
 
 import java.io.Serializable;
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
  * This class for creating the arc(arc) between transition and place of Petri
@@ -16,7 +11,12 @@ import java.io.Serializable;
  *
  * @author Стеценко Інна
  */
-public class ArcOut implements Cloneable, Serializable, Mutable {
+public class ArcOut implements Cloneable, Serializable, MutableHolder {
+
+    /**
+     * Index of K property, used for mutation
+     */
+    public static final int K = 0;
 
     private static int next = 0;
     private int numP;
@@ -185,6 +185,7 @@ public class ArcOut implements Cloneable, Serializable, Mutable {
     public ArcOut clone() throws CloneNotSupportedException {
         super.clone();
         ArcOut arc = new ArcOut(numT, numP, k); // коректніть номерів дуже важлива!!!
+        arc.number = number;
         return arc;
 
     }
@@ -195,7 +196,22 @@ public class ArcOut implements Cloneable, Serializable, Mutable {
     }
 
     @Override
-    public void mutate(double mutableRange) {
-        k = OptimizationUtils.mutateInt(k, mutableRange);
+    public void mutate(int property, double mutationRange) {
+        // TODO should we add any special probabilities for increasing/decreasing K?
+
+        if (property == K) {
+            double changeIndex = Math.random();
+            if (changeIndex < 0.33) {
+                k += 1;
+            } else if (changeIndex < 0.67 && k - 1 > 0) {
+                k -= 1;
+            } else {
+                k = 0;
+            }
+        }
+    }
+
+    public int getNumber() {
+        return number;
     }
 }

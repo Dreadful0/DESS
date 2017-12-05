@@ -1,5 +1,8 @@
 package PetriObj;
 
+import EvolutionaryAlgorithmOptimization.MutableHolder;
+import utils.OptimizationUtils;
+
 import java.io.Serializable;
 
 /**
@@ -7,7 +10,12 @@ import java.io.Serializable;
  *
  * @author Стеценко Інна
  */
-public class PetriP extends PetriMainElement implements Cloneable, Serializable {
+public class PetriP extends PetriMainElement implements Cloneable, Serializable, MutableHolder {
+
+    /**
+     * Index of mark property, user for mutation
+     */
+    public static final int MARK = 0;
 
     private static int next = 0;
     private int mark;
@@ -190,4 +198,19 @@ public class PetriP extends PetriMainElement implements Cloneable, Serializable 
                 + " number " + number + ", mark " + mark);
     }
 
+    @Override
+    public void mutate(int property, double mutationRange) {
+        // TODO should we add any special probabilities for increasing/decreasing mark?
+
+        if (property == MARK) {
+            double changeIndex = Math.random();
+            if (changeIndex < 0.33) {
+                mark += 1;
+            } else if(changeIndex < 0.67 && mark - 1 > 0) {
+                mark -=1;
+            } else {
+                mark =0;
+            }
+        }
+    }
 }
