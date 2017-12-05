@@ -680,7 +680,7 @@ public class PetriSim implements Serializable, MutableHolder, Cloneable {
 
     PetriT getTransition(int number) {
         for (PetriT t : listT) {
-            if (t.equals(number)) return t;
+            if (t.getNumber() == number) return t;
         }
         return null;
     }
