@@ -25,9 +25,9 @@ public abstract class EAOptimizer {
     private int generationsNumber;
 
     private double mutationRange;
-    private double elitismProbability;
-    private double mutationProbability;
-    private double crossoverProbability;
+    private int elitismNumber;
+    private int mutationNumber;
+    private int crossoverNumber;
 
     private boolean verbose;
 
@@ -46,9 +46,9 @@ public abstract class EAOptimizer {
         this.optType = OptType.OPT_MAX;
         this.populationSize = 10;
         this.generationsNumber = 10;
-        this.elitismProbability = 0.2;
-        this.mutationProbability = 0.8;
-        this.crossoverProbability = 0;
+        this.crossoverNumber = 0;
+        this.mutationNumber = (int) (0.8 * populationSize);
+        this.elitismNumber = populationSize - mutationNumber - crossoverNumber;
         this.mutationRange = 0.5;
     }
 
@@ -91,18 +91,23 @@ public abstract class EAOptimizer {
      * @param mutationProbability
      * @param crossoverProbability
      * @param mutationRange
-     * @throws Exception if sum of probabilities doesn't equal to 1.00
+     * @throws Exception if any probability less than 0
      */
     public void setProbabilities(double elitismProbability, double mutationProbability,
                                  double crossoverProbability,
                                  double mutationRange) throws Exception {
-        if (elitismProbability + mutationProbability + crossoverProbability != 1) {
-            throw new Exception("Sum of probabilities doesn't equal to 1.00");
+        if (elitismProbability < 0 || mutationProbability < 0 || crossoverProbability < 0) {
+            throw new Exception("Probability can't be less than 0");
         }
-        // todo set number of individuums instead of probabilities
-        this.elitismProbability = elitismProbability;
-        this.mutationProbability = mutationProbability;
-        this.crossoverProbability = crossoverProbability;
+        if (elitismProbability + mutationProbability + crossoverProbability != 1) {
+            double diff = 1 / (elitismProbability + mutationProbability + crossoverProbability);
+            elitismProbability *= diff;
+            mutationProbability *= diff;
+            crossoverProbability *= diff;
+        }
+        this.mutationNumber = (int) (mutationProbability * populationSize);
+        this.crossoverNumber = (int) (crossoverProbability * populationSize);
+        this.elitismNumber = populationSize - mutationNumber - crossoverNumber;
         this.mutationRange = mutationRange;
     }
 
@@ -115,9 +120,8 @@ public abstract class EAOptimizer {
 
     private ArrayList<PetriObjModel> elitism(Comparator<PetriObjModel> comparator) throws CloneNotSupportedException {
         ArrayList<PetriObjModel> eliteIndividuums = new ArrayList<>();
-        int number = (int) (population.size() * elitismProbability);
         population.sort(comparator);
-        for (int i = 0; i < number; i++) {
+        for (int i = 0; i < elitismNumber; i++) {
             eliteIndividuums.add(population.get(i).clone());
         }
 
@@ -134,8 +138,7 @@ public abstract class EAOptimizer {
 
     private ArrayList<PetriObjModel> mutation() throws CloneNotSupportedException {
         ArrayList<PetriObjModel> mutatedIndividuums = new ArrayList<>();
-        int number = (int) (population.size() * mutationProbability);
-        for (int i = 0; i < number; i++) {
+        for (int i = 0; i < mutationNumber; i++) {
             int ind = (int) Math.floor(Math.random() * populationSize);
             PetriObjModel current = population.get(ind).clone();
             current.mutate();
@@ -150,7 +153,7 @@ public abstract class EAOptimizer {
 
     public PetriObjModel evolve() throws CloneNotSupportedException {
 
-        if (!verbose){
+        if (!verbose) {
             System.out.println("No verbose");
         }
 
@@ -181,14 +184,14 @@ public abstract class EAOptimizer {
             ArrayList<PetriObjModel> mutatedIndividuums = mutation();
 
             ArrayList<PetriObjModel> crossoverIndividuums = null;
-            if (crossoverProbability != 0) {
+            if (crossoverNumber > 0) {
                 crossoverIndividuums = crossover();
             }
 
             population = new ArrayList<>();
             population.addAll(eliteIndividuums);
             population.addAll(mutatedIndividuums);
-            if (crossoverProbability != 0) {
+            if (crossoverNumber > 0) {
                 population.addAll(crossoverIndividuums);
             }
 
