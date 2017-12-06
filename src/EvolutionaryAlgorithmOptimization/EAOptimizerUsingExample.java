@@ -48,6 +48,7 @@ public class EAOptimizerUsingExample {
                 .add(new MutableProperty(model.getListObj().get(1).getNet().getArcIn()[0], ArcIn.K, 0.1))
                 .build());
         optimizer.setProbabilities(0.4, 0.6, 0, 0.1);
+        optimizer.setVerbose(true);
 
         PetriObjModel best = optimizer.evolve();
 

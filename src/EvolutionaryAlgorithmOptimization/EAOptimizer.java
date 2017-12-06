@@ -29,6 +29,8 @@ public abstract class EAOptimizer {
     private double mutationProbability;
     private double crossoverProbability;
 
+    private boolean verbose;
+
     /**
      * Create optimization tool for PetriObjModel.
      * Default population size = 10, generations number = 10. Set other values if needed.
@@ -50,7 +52,9 @@ public abstract class EAOptimizer {
         this.mutationRange = 0.5;
     }
 
-    // todo add verbose parameter
+    public void setVerbose(boolean verbose) {
+        this.verbose = verbose;
+    }
 
     public PetriObjModel getInitialModel() {
         return initialModel;
@@ -117,12 +121,13 @@ public abstract class EAOptimizer {
             eliteIndividuums.add(population.get(i).clone());
         }
 
-        // todo use verbose parameter
-        for (int j = 0; j < population.size(); j++) {
-            PetriObjModel model = population.get(j);
-            System.out.format("Model: %d. Fitness: %f.\n", j, fitnessFunction(model));
+        if (verbose) {
+            for (int j = 0; j < population.size(); j++) {
+                PetriObjModel model = population.get(j);
+                System.out.format("Model: %d. Fitness: %f.\n", j, fitnessFunction(model));
+            }
+            System.out.format("Best result: %f\n", fitnessFunction(population.get(0)));
         }
-        System.out.format("Best result: %f\n", fitnessFunction(population.get(0)));
 
         return eliteIndividuums;
     }
@@ -145,6 +150,10 @@ public abstract class EAOptimizer {
 
     public PetriObjModel evolve() throws CloneNotSupportedException {
 
+        if (!verbose){
+            System.out.println("No verbose");
+        }
+
         Comparator<PetriObjModel> comparator = (left, right) -> {
             double leftRank = fitnessFunction(left);
             double rightRank = fitnessFunction(right);
@@ -163,7 +172,10 @@ public abstract class EAOptimizer {
                 model.go(timeModeling);
             }
 
-            System.out.format("Generation: %d.\n", i);
+            if (verbose) {
+                System.out.format("Generation: %d.\n", i);
+            }
+
             ArrayList<PetriObjModel> eliteIndividuums = elitism(comparator);
 
             ArrayList<PetriObjModel> mutatedIndividuums = mutation();
