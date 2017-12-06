@@ -5,10 +5,9 @@
  */
 package EvolutionaryAlgorithmOptimization;
 
-import PetriObj.*;
+import PetriObj.PetriObjModel;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -113,14 +112,17 @@ public abstract class EAOptimizer {
     private ArrayList<PetriObjModel> elitism(Comparator<PetriObjModel> comparator) throws CloneNotSupportedException {
         ArrayList<PetriObjModel> eliteIndividuums = new ArrayList<>();
         int number = (int) (population.size() * elitismProbability);
-
-        Collections.sort(population, comparator);
-        // todo use verbose parameter
-        System.out.format("Best result: %f\n", fitnessFunction(population.get(0)));
-
+        population.sort(comparator);
         for (int i = 0; i < number; i++) {
             eliteIndividuums.add(population.get(i).clone());
         }
+
+        // todo use verbose parameter
+        for (int j = 0; j < population.size(); j++) {
+            PetriObjModel model = population.get(j);
+            System.out.format("Model: %d. Fitness: %f.\n", j, fitnessFunction(model));
+        }
+        System.out.format("Best result: %f\n", fitnessFunction(population.get(0)));
 
         return eliteIndividuums;
     }
@@ -143,28 +145,22 @@ public abstract class EAOptimizer {
 
     public PetriObjModel evolve() throws CloneNotSupportedException {
 
-        Comparator<PetriObjModel> comparator;
-        if (optType == OptType.OPT_MAX) {
-            comparator = (left, right) -> {
-                if ((fitnessFunction(left) - fitnessFunction(right)) < 0) return 1;
-                else return 0;
-            };
-        } else {
-            comparator = (left, right) -> {
-                if ((fitnessFunction(left) - fitnessFunction(right)) > 0) return 1;
-                else return 0;
-            };
-        }
+        Comparator<PetriObjModel> comparator = (left, right) -> {
+            double leftRank = fitnessFunction(left);
+            double rightRank = fitnessFunction(right);
+            if (optType == OptType.OPT_MAX) {
+                return Double.compare(rightRank, leftRank);
+            } else {
+                return Double.compare(leftRank, rightRank);
+            }
+        };
 
         generatePopulation();
 
         for (int i = 0; i < generationsNumber; i++) {
 
-            for (int j = 0; j < population.size(); j++) {
-                PetriObjModel model = population.get(j);
+            for (PetriObjModel model : population) {
                 model.go(timeModeling);
-                // todo use verbose parameter
-                System.out.format("Model: %d. Fitness: %f.\n", j, fitnessFunction(model));
             }
 
             System.out.format("Generation: %d.\n", i);
