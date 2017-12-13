@@ -101,7 +101,7 @@ public class PetriObjModel implements Serializable, Cloneable, Mutable {
         mutableProperties.forEach(property -> {
             if (property.mutableProperty instanceof PetriSim) {
                 PetriSim mutable = (PetriSim) property.mutableProperty;
-                PetriSim sim = clone.getListObj().get(mutable.getNumObj());
+                PetriSim sim = clone.getListObj().get(this.getListObj().indexOf(mutable));
                 clone.mutableProperties.add(new MutableProperty(sim, property.propertyKey, property.mutationRange));
 
             } else if (property.mutableProperty instanceof ArcIn) {
