@@ -24,7 +24,7 @@ public class PetriSim implements Serializable, MutableHolder, Cloneable {
     /**
      * Index of priority, used for mutation
      */
-    private static final int PRIORITY = 0;
+    public static final int PRIORITY = 0;
 
     private static double timeCurr = 0;
     private static double timeMod = Double.MAX_VALUE - 1;

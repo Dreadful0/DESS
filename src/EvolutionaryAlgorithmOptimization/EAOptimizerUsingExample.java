@@ -6,10 +6,7 @@
 package EvolutionaryAlgorithmOptimization;
 
 import LibTest.TestPetriObjPaint;
-import PetriObj.ArcIn;
-import PetriObj.ExceptionInvalidNetStructure;
-import PetriObj.ExceptionInvalidTimeDelay;
-import PetriObj.PetriObjModel;
+import PetriObj.*;
 
 /**
  * @author masha
@@ -35,13 +32,18 @@ public class EAOptimizerUsingExample {
             }
         };
 
+        ArcIn mutableArc = model.getListObj().get(1).getNet().getArcIn()[0];
+        PetriSim mutableSim = model.getListObj().get(0);
+        PetriT mutableT = model.getListObj().get(0).getNet().getListT()[0];
         optimizer.setPopulationSize(5);
         optimizer.setGenerationsNumber(10);
         optimizer.setOptType(OptType.OPT_MIN);
         optimizer.setMutableProperties(new MutationBuilder()
-                .add(new MutableProperty(model.getListObj().get(1).getNet().getArcIn()[0], ArcIn.K, 0.1))
+                .add(new MutableProperty(mutableArc, ArcIn.K, 0.1))
+                .add(new MutableProperty(mutableSim, PetriSim.PRIORITY, 0.5))
+                .add(new MutableProperty(mutableT, PetriT.MIN_TIME, 0.3))
                 .build());
-        optimizer.setProbabilities(0.2, 0, 0.2);
+        optimizer.setProbabilities(0.3, 0.3, 0.4);
         optimizer.setVerbose(true);
 
         PetriObjModel best = optimizer.evolve();
