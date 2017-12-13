@@ -97,7 +97,7 @@ public class PetriObjModel implements Serializable, Cloneable, Mutable {
         }
     }
 
-    private void cloneMutableProperties(PetriObjModel clone) {
+    public void cloneMutableProperties(PetriObjModel clone) {
         mutableProperties.forEach(property -> {
             if (property.mutableProperty instanceof PetriSim) {
                 PetriSim mutable = (PetriSim) property.mutableProperty;
@@ -155,6 +155,10 @@ public class PetriObjModel implements Serializable, Cloneable, Mutable {
         });
     }
 
+    public ArrayList<LinkByPlaces> getLinks() {
+        return links;
+    }
+
     public int getNumInList(PetriSim sim) {
         int num = -1;
         for (int j = 0; j < listObj.size(); j++) {
@@ -199,6 +203,10 @@ public class PetriObjModel implements Serializable, Cloneable, Mutable {
         isProtocolPrint = b;
     }
 
+    public boolean isProtocolPrint() {
+        return isProtocolPrint;
+    }
+
     /**
      * Set need in statistics
      *
@@ -206,6 +214,10 @@ public class PetriObjModel implements Serializable, Cloneable, Mutable {
      */
     public void setShouldGetStatistics(boolean shouldGetStatistics) {
         this.shouldGetStatistics = shouldGetStatistics;
+    }
+
+    public boolean isShouldGetStatistics() {
+        return shouldGetStatistics;
     }
 
     /**
@@ -503,7 +515,7 @@ public class PetriObjModel implements Serializable, Cloneable, Mutable {
         this.mutableProperties = mutableProperties;
     }
 
-    private class LinkByPlaces { //added 29.11.2017 by Inna
+    public class LinkByPlaces { //added 29.11.2017 by Inna
         PetriSim one, other;
         int numOne, numOther;
 
@@ -515,19 +527,19 @@ public class PetriObjModel implements Serializable, Cloneable, Mutable {
 
         }
 
-        private PetriSim getOne() {
+        public PetriSim getOne() {
             return one;
         }
 
-        private PetriSim getOther() {
+        public PetriSim getOther() {
             return other;
         }
 
-        private int getNumPlaceOne() {
+        public int getNumPlaceOne() {
             return numOne;
         }
 
-        private int getNumPlaceOther() {
+        public int getNumPlaceOther() {
             return numOther;
         }
 

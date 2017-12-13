@@ -6,6 +6,7 @@
 package EvolutionaryAlgorithmOptimization;
 
 import PetriObj.PetriObjModel;
+import PetriObj.PetriSim;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -25,11 +26,18 @@ public abstract class EAOptimizer {
     private int generationsNumber;
 
     private double mutationRange;
+    private double elitismProbability = 0.2;
     private int elitismNumber;
+    private double mutationProbability = 0.4;
     private int mutationNumber;
+    private double crossoverProbability = 0.4;
     private int crossoverNumber;
+    private int biasedCrossoverNumber;
+    private double tournamentProbability;
 
     private boolean verbose;
+
+    private Comparator<PetriObjModel> comparator;
 
     /**
      * Create optimization tool for PetriObjModel.
@@ -46,10 +54,16 @@ public abstract class EAOptimizer {
         this.optType = OptType.OPT_MAX;
         this.populationSize = 10;
         this.generationsNumber = 10;
-        this.crossoverNumber = 0;
-        this.mutationNumber = (int) (0.8 * populationSize);
-        this.elitismNumber = populationSize - mutationNumber - crossoverNumber;
         this.mutationRange = 0.5;
+        this.tournamentProbability = 0.75;
+        recountPartNumbers();
+    }
+
+    private void recountPartNumbers() {
+        this.crossoverNumber = (int) (crossoverProbability * populationSize);
+        this.biasedCrossoverNumber = crossoverNumber % 2 == 0 ? crossoverNumber : crossoverNumber + 1;
+        this.mutationNumber = (int) (mutationProbability * populationSize);
+        this.elitismNumber = populationSize - mutationNumber - crossoverNumber;
     }
 
     public void setVerbose(boolean verbose) {
@@ -74,6 +88,7 @@ public abstract class EAOptimizer {
 
     public void setPopulationSize(int populationSize) {
         this.populationSize = populationSize;
+        recountPartNumbers();
     }
 
     public int getGenerationsNumber() {
@@ -90,12 +105,10 @@ public abstract class EAOptimizer {
      * @param elitismProbability
      * @param mutationProbability
      * @param crossoverProbability
-     * @param mutationRange
      * @throws Exception if any probability less than 0
      */
     public void setProbabilities(double elitismProbability, double mutationProbability,
-                                 double crossoverProbability,
-                                 double mutationRange) throws Exception {
+                                 double crossoverProbability) throws Exception {
         if (elitismProbability < 0 || mutationProbability < 0 || crossoverProbability < 0) {
             throw new Exception("Probability can't be less than 0");
         }
@@ -105,10 +118,18 @@ public abstract class EAOptimizer {
             mutationProbability *= diff;
             crossoverProbability *= diff;
         }
-        this.mutationNumber = (int) (mutationProbability * populationSize);
-        this.crossoverNumber = (int) (crossoverProbability * populationSize);
-        this.elitismNumber = populationSize - mutationNumber - crossoverNumber;
+        this.elitismProbability = elitismProbability;
+        this.mutationProbability = mutationProbability;
+        this.crossoverProbability = crossoverProbability;
+        recountPartNumbers();
+    }
+
+    public void setMutationRange(double mutationRange) {
         this.mutationRange = mutationRange;
+    }
+
+    public void setTournamentProbability(double tournamentProbability) {
+        this.tournamentProbability = tournamentProbability;
     }
 
     private void generatePopulation() throws CloneNotSupportedException {
@@ -118,7 +139,7 @@ public abstract class EAOptimizer {
         }
     }
 
-    private ArrayList<PetriObjModel> elitism(Comparator<PetriObjModel> comparator) throws CloneNotSupportedException {
+    private ArrayList<PetriObjModel> elitism() throws CloneNotSupportedException {
         ArrayList<PetriObjModel> eliteIndividuums = new ArrayList<>();
         population.sort(comparator);
         for (int i = 0; i < elitismNumber; i++) {
@@ -147,7 +168,106 @@ public abstract class EAOptimizer {
         return mutatedIndividuums;
     }
 
-    protected abstract ArrayList<PetriObjModel> crossover();
+    private ArrayList<PetriObjModel> crossover() throws CloneNotSupportedException {
+        int numberParticipants = populationSize / biasedCrossoverNumber;
+        ArrayList<PetriObjModel> tournamentWinners = new ArrayList<>();
+        for (int i = 0; i < biasedCrossoverNumber; i++) {
+            PetriObjModel winner = tournamentWinner(new ArrayList<>(population.subList(i * numberParticipants, (i + 1) * numberParticipants)));
+            tournamentWinners.add(winner.clone());
+        }
+        ArrayList<PetriObjModel> children = new ArrayList<>();
+        for (int i = 0; i < tournamentWinners.size(); i++) {
+            if (i % 2 == 0) {
+                children.addAll(produceChildren(tournamentWinners.get(i), tournamentWinners.get(i + 1)));
+            }
+        }
+        return new ArrayList<>(children.subList(0, crossoverNumber));
+    }
+
+    private PetriObjModel tournamentWinner(ArrayList<PetriObjModel> participants) throws CloneNotSupportedException {
+        participants.sort(comparator);
+        double current_probability = tournamentProbability;
+        for (PetriObjModel model : participants) {
+            double current = Math.random();
+            if (current < current_probability) {
+                return model;
+            }
+            current_probability *= (1 - tournamentProbability);
+        }
+        return participants.get(participants.size() - 1);
+    }
+
+    private ArrayList<PetriObjModel> produceChildren(PetriObjModel parent1, PetriObjModel parent2) throws CloneNotSupportedException {
+        ArrayList<PetriObjModel> children = new ArrayList<>();
+        ArrayList<PetriSim> listParent1 = parent1.getListObj();
+        ArrayList<PetriSim> listParent2 = parent2.getListObj();
+        ArrayList<PetriSim> listChild1 = new ArrayList<>();
+        ArrayList<PetriSim> listChild2 = new ArrayList<>();
+        int n1 = 0;
+        int n2 = 0;
+        int total = listParent1.size();
+        for (int i = 0; i < total; i++) {
+            double rand;
+            if (n1 <= total / 2 && n2 <= total / 2) {
+                rand = Math.random();
+            } else {
+                if (n1 > total / 2) {
+                    rand = 1;
+                } else {
+                    rand = 0;
+                }
+            }
+            if (rand < 0.5) {
+                n1++;
+                listChild1.add(listParent1.get(i).clone());
+                listChild2.add(listParent2.get(i).clone());
+            } else {
+                n2++;
+                listChild1.add(listParent2.get(i).clone());
+                listChild2.add(listParent1.get(i).clone());
+            }
+        }
+
+        PetriObjModel child1 = new PetriObjModel(listChild1);
+        child1.setShouldGetStatistics(initialModel.isShouldGetStatistics());
+        child1.setIsProtoсol(initialModel.isProtocolPrint());
+        for (PetriObjModel.LinkByPlaces li : parent1.getLinks()) {
+            int one = parent1.getNumInList(li.getOne());
+            int other = parent1.getNumInList(li.getOther());
+            if (one >= 0 && other >= 0) {
+                PetriSim oneClone = child1.getListObj().get(one);
+                PetriSim otherClone = child1.getListObj().get(other);
+                child1.linkObjectsCombiningPlaces(oneClone, li.getNumPlaceOne(),
+                        otherClone, li.getNumPlaceOther());
+            }
+        }
+        parent1.cloneMutableProperties(child1);
+        child1.setIsProtoсol(parent1.isProtocolPrint());
+        child1.setShouldGetStatistics(parent1.isShouldGetStatistics());
+        children.add(child1);
+
+
+        PetriObjModel child2 = new PetriObjModel(listChild2);
+        child2.setShouldGetStatistics(initialModel.isShouldGetStatistics());
+        child2.setIsProtoсol(initialModel.isProtocolPrint());
+        for (PetriObjModel.LinkByPlaces li : parent1.getLinks()) {
+            int one = parent1.getNumInList(li.getOne());
+            int other = parent1.getNumInList(li.getOther());
+
+            if (one >= 0 && other >= 0) {
+                PetriSim oneClone = child2.getListObj().get(one);
+                PetriSim otherClone = child2.getListObj().get(other);
+                child2.linkObjectsCombiningPlaces(oneClone, li.getNumPlaceOne(),
+                        otherClone, li.getNumPlaceOther());
+            }
+        }
+        parent1.cloneMutableProperties(child2);
+        child2.setIsProtoсol(parent1.isProtocolPrint());
+        child2.setShouldGetStatistics(parent1.isShouldGetStatistics());
+        children.add(child2);
+
+        return children;
+    }
 
     public abstract double fitnessFunction(PetriObjModel model);
 
@@ -157,7 +277,7 @@ public abstract class EAOptimizer {
             System.out.println("No verbose");
         }
 
-        Comparator<PetriObjModel> comparator = (left, right) -> {
+        comparator = (left, right) -> {
             double leftRank = fitnessFunction(left);
             double rightRank = fitnessFunction(right);
             if (optType == OptType.OPT_MAX) {
@@ -179,19 +299,29 @@ public abstract class EAOptimizer {
                 System.out.format("Generation: %d.\n", i);
             }
 
-            ArrayList<PetriObjModel> eliteIndividuums = elitism(comparator);
-
-            ArrayList<PetriObjModel> mutatedIndividuums = mutation();
-
             ArrayList<PetriObjModel> crossoverIndividuums = null;
             if (crossoverNumber > 0) {
                 crossoverIndividuums = crossover();
             }
 
+            ArrayList<PetriObjModel> mutatedIndividuums = null;
+            if (mutationNumber > 0) {
+                mutatedIndividuums = mutation();
+            }
+
+            ArrayList<PetriObjModel> eliteIndividuums = null;
+            if (elitismNumber > 0) {
+                eliteIndividuums = elitism();
+            }
+
             population = new ArrayList<>();
-            population.addAll(eliteIndividuums);
-            population.addAll(mutatedIndividuums);
-            if (crossoverNumber > 0) {
+            if (eliteIndividuums != null) {
+                population.addAll(eliteIndividuums);
+            }
+            if (mutatedIndividuums != null) {
+                population.addAll(mutatedIndividuums);
+            }
+            if (crossoverIndividuums != null) {
                 population.addAll(crossoverIndividuums);
             }
 

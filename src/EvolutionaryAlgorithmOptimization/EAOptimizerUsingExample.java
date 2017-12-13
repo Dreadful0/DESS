@@ -11,13 +11,11 @@ import PetriObj.ExceptionInvalidNetStructure;
 import PetriObj.ExceptionInvalidTimeDelay;
 import PetriObj.PetriObjModel;
 
-import java.util.ArrayList;
-
 /**
  * @author masha
  */
 public class EAOptimizerUsingExample {
-    public static void main(String[] args) throws ExceptionInvalidTimeDelay, ExceptionInvalidNetStructure, Exception {
+    public static void main(String[] args) throws Exception {
         PetriObjModel model = TestPetriObjPaint.getModel();
         model.setIsProtoсol(false);
         model.setShouldGetStatistics(true);
@@ -25,10 +23,6 @@ public class EAOptimizerUsingExample {
         int timeModeling = 1000000;
 
         EAOptimizer optimizer = new EAOptimizer(model, timeModeling) {
-            @Override
-            protected ArrayList<PetriObjModel> crossover() {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
 
             @Override
             public double fitnessFunction(PetriObjModel model) {
@@ -47,7 +41,7 @@ public class EAOptimizerUsingExample {
         optimizer.setMutableProperties(new MutationBuilder()
                 .add(new MutableProperty(model.getListObj().get(1).getNet().getArcIn()[0], ArcIn.K, 0.1))
                 .build());
-        optimizer.setProbabilities(0.4, 0.6, 0, 0.1);
+        optimizer.setProbabilities(0.2, 0, 0.2);
         optimizer.setVerbose(true);
 
         PetriObjModel best = optimizer.evolve();
