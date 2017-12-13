@@ -201,12 +201,10 @@ public class ArcOut implements Cloneable, Serializable, MutableHolder {
 
         if (property == K) {
             double changeIndex = Math.random();
-            if (changeIndex < 0.33) {
+            if (changeIndex < 0.5) {
                 k += 1;
-            } else if (changeIndex < 0.67 && k - 1 > 0) {
-                k -= 1;
             } else {
-                k = 0;
+                k = (k - 1 > 0) ? k - 1 : k;
             }
         }
     }

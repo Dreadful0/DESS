@@ -204,12 +204,10 @@ public class PetriP extends PetriMainElement implements Cloneable, Serializable,
 
         if (property == MARK) {
             double changeIndex = Math.random();
-            if (changeIndex < 0.33) {
+            if (changeIndex < 0.5) {
                 mark += 1;
-            } else if(changeIndex < 0.67 && mark - 1 > 0) {
-                mark -=1;
             } else {
-                mark =0;
+                mark = (mark - 1 > 0) ? mark - 1 : mark;
             }
         }
     }
