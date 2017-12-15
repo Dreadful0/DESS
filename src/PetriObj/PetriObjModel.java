@@ -528,6 +528,24 @@ public class PetriObjModel implements Serializable, Cloneable, Mutable {
         }
     }
 
+    public boolean customEquals(Object obj) {
+        if (!(obj instanceof PetriObjModel)) return false;
+        for (int i = 0; i < listObj.size(); i++) {
+            if (!listObj.get(i).equals(((PetriObjModel) obj).listObj.get(i))) return false;
+        }
+        for (int i = 0; i < links.size(); i++) {
+            if (!links.get(i).equals(((PetriObjModel) obj).links.get(i))) return false;
+        }
+        return true;
+    }
+
+    public void printDiff(PetriObjModel obj) {
+        System.out.println("Difference");
+        for (int i = 0; i < listObj.size(); i++) {
+            listObj.get(i).printDiff(obj.listObj.get(i));
+        }
+    }
+
     public class LinkByPlaces { //added 29.11.2017 by Inna
         PetriSim one, other;
         int numOne, numOther;
@@ -556,6 +574,14 @@ public class PetriObjModel implements Serializable, Cloneable, Mutable {
             return numOther;
         }
 
+        public boolean customEquals(Object obj) {
+            return (obj instanceof LinkByPlaces &&
+                    this.one.equals(((LinkByPlaces) obj).one) &&
+                    this.other.equals(((LinkByPlaces) obj).other) &&
+                    this.numOne == ((LinkByPlaces) obj).numOne &&
+                    this.numOther == ((LinkByPlaces) obj).numOther
+            );
+        }
     }
 
 }

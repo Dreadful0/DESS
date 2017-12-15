@@ -1,6 +1,5 @@
 package PetriObj;
 
-import EvolutionaryAlgorithmOptimization.Mutable;
 import EvolutionaryAlgorithmOptimization.MutableHolder;
 import utils.OptimizationUtils;
 
@@ -726,5 +725,48 @@ public class PetriT extends PetriMainElement implements Cloneable, Serializable,
                 break;
 
         }
+    }
+
+    public boolean customEquals(Object obj) {
+        return (obj instanceof PetriT &&
+                this.name.equals(((PetriT) obj).name) &&
+//                this.buffer == ((PetriT) obj).buffer &&
+                this.priority == ((PetriT) obj).priority &&
+                this.probability == ((PetriT) obj).probability &&
+//                this.minTime == ((PetriT) obj).minTime &&
+                this.timeServ == ((PetriT) obj).timeServ &&
+                this.parametr == ((PetriT) obj).parametr &&
+//                this.paramDeviation == ((PetriT) obj).paramDeviation &&
+                (this.distribution == null ||
+                        this.distribution.equals(((PetriT) obj).distribution)) &&
+
+//                this.timeOut.containsAll(((PetriT) obj).timeOut) &&
+                this.inP.containsAll(((PetriT) obj).inP) &&
+//                this.inPwithInf.containsAll(((PetriT) obj).inPwithInf) &&
+//                this.quantIn.containsAll(((PetriT) obj).quantIn) &&
+//                this.quantInwithInf.containsAll(((PetriT) obj).quantInwithInf) &&
+                this.outP.containsAll(((PetriT) obj).outP) &&
+//                this.quantOut.containsAll(((PetriT) obj).quantOut) &&
+
+//                this.num == ((PetriT) obj).num &&
+                this.number == ((PetriT) obj).number
+//                this.mean == ((PetriT) obj).mean &&
+//                this.observedMax == ((PetriT) obj).observedMax &&
+//                this.observedMin == ((PetriT) obj).observedMin &&
+
+//                this.parametrIsParam == ((PetriT) obj).parametrIsParam &&
+//                this.distributionIsParam == ((PetriT) obj).distributionIsParam &&
+//                this.priorityIsParam == ((PetriT) obj).priorityIsParam &&
+//                this.probabilityIsParam == ((PetriT) obj).probabilityIsParam &&
+//
+//                (this.parametrParamName == null ||
+//                        this.parametrParamName.equals(((PetriT) obj).parametrParamName)) &&
+//                (this.distributionParamName == null ||
+//                        this.distributionParamName.equals(((PetriT) obj).distributionParamName)) &&
+//                (this.priorityParamName == null ||
+//                        this.priorityParamName.equals(((PetriT) obj).priorityParamName)) &&
+//                (this.probabilityParamName == null ||
+//                        this.probabilityParamName.equals(((PetriT) obj).probabilityParamName))
+        );
     }
 }

@@ -23,8 +23,6 @@ public class EAOptimizerUsingExample {
         model.setIsProtoсol(false);
         model.setShouldGetStatistics(true);
 
-        model.print();
-
         int timeModeling = 1000000;
 
         EAOptimizer optimizer = new EAOptimizer(model, timeModeling) {
@@ -55,7 +53,7 @@ public class EAOptimizerUsingExample {
         optimizer.setVerbose(true);
 
         PetriObjModel best = optimizer.evolve();
-        best.print();
+        best.printDiff(model);
 
     }
 

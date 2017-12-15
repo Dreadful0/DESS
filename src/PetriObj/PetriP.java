@@ -1,7 +1,6 @@
 package PetriObj;
 
 import EvolutionaryAlgorithmOptimization.MutableHolder;
-import utils.OptimizationUtils;
 
 import java.io.Serializable;
 
@@ -194,7 +193,7 @@ public class PetriP extends PetriMainElement implements Cloneable, Serializable,
     }
 
     public void printParameters() {
-        System.out.println("Place " + name + "has such parametrs: \n"
+        System.out.println("Place " + name + " has such parametrs: \n"
                 + " number " + number + ", mark " + mark);
     }
 
@@ -210,5 +209,19 @@ public class PetriP extends PetriMainElement implements Cloneable, Serializable,
                 mark = (mark - 1 > 0) ? mark - 1 : mark;
             }
         }
+    }
+
+    public boolean customEquals(Object obj) {
+        return (obj instanceof PetriP &&
+                this.mark == ((PetriP) obj).mark &&
+                this.name.equals(((PetriP) obj).name) &&
+                this.number == ((PetriP) obj).number
+//                this.mean == ((PetriP) obj).mean &&
+//                this.observedMax == ((PetriP) obj).observedMax &&
+//                this.observedMin == ((PetriP) obj).observedMin &&
+//                this.markIsParam == ((PetriP) obj).markIsParam &&
+//                (this.markParamName == null ||
+//                        this.markParamName.equals(((PetriP) obj).markParamName))
+        );
     }
 }

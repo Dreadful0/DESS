@@ -705,4 +705,61 @@ public class PetriSim implements Serializable, MutableHolder, Cloneable {
             listOut[i].printParameters();
         }
     }
+
+    public void printDiff(PetriSim obj) {
+        for (int i = 0; i < listP.length; i++) {
+            if (!listP[i].customEquals(obj.listP[i])) {
+                System.out.println("Original");
+                listP[i].printParameters();
+                System.out.println("Given");
+                obj.listP[i].printParameters();
+            }
+        }
+        for (int i = 0; i < listT.length; i++) {
+            if (!listT[i].customEquals(obj.listT[i])) {
+                System.out.println("Original");
+                listT[i].printParameters();
+                System.out.println("Given");
+                obj.listT[i].printParameters();
+            }
+        }
+        for (int i = 0; i < listIn.length; i++) {
+            if (!listIn[i].customEquals(obj.listIn[i])) {
+                System.out.println("Original");
+                listIn[i].printParameters();
+                System.out.println("Given");
+                obj.listIn[i].printParameters();
+
+            }
+        }
+        for (int i = 0; i < listOut.length; i++) {
+            if (!listOut[i].customEquals(obj.listOut[i])) {
+                System.out.println("Original");
+                listOut[i].printParameters();
+                System.out.println("Given");
+                obj.listOut[i].printParameters();
+            }
+        }
+    }
+
+    public boolean customEquals(Object obj) {
+        if (!(obj instanceof PetriSim)) return false;
+        if (listP.length != ((PetriSim) obj).listP.length) return false;
+        for (int i = 0; i < listP.length; i++) {
+            if (!listP[i].customEquals(((PetriSim) obj).listP[i])) return false;
+        }
+        if (listT.length != ((PetriSim) obj).listT.length) return false;
+        for (int i = 0; i < listT.length; i++) {
+            if (!listT[i].customEquals(((PetriSim) obj).listT[i])) return false;
+        }
+        if (listIn.length != ((PetriSim) obj).listIn.length) return false;
+        for (int i = 0; i < listIn.length; i++) {
+            if (!listIn[i].customEquals(((PetriSim) obj).listIn[i])) return false;
+        }
+        if (listOut.length != ((PetriSim) obj).listOut.length) return false;
+        for (int i = 0; i < listOut.length; i++) {
+            if (!listOut[i].customEquals(((PetriSim) obj).listOut[i])) return false;
+        }
+        return true;
+    }
 }

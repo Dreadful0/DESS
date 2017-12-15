@@ -1,8 +1,6 @@
 package PetriObj;
 
-import EvolutionaryAlgorithmOptimization.Mutable;
 import EvolutionaryAlgorithmOptimization.MutableHolder;
-import utils.OptimizationUtils;
 
 import java.io.Serializable;
 
@@ -283,10 +281,31 @@ public class ArcIn implements Cloneable, Serializable, MutableHolder {
                 k += 1;
             } else
                 k = (k - 1 > 0) ? k - 1 : k;
-            }
+        }
     }
 
     public int getNumber() {
         return number;
+    }
+
+    public boolean customEquals(Object obj) {
+        return (obj instanceof ArcIn &&
+                this.inf == ((ArcIn) obj).inf &&
+                this.numP == ((ArcIn) obj).numP &&
+                this.numT == ((ArcIn) obj).numT &&
+                this.k == ((ArcIn) obj).k
+
+//                this.nameP.equals(((ArcIn) obj).nameP) &&
+//                this.nameT.equals(((ArcIn) obj).nameT) &&
+//                this.number == ((ArcIn) obj).number &&
+//
+//                this.kIsParam == ((ArcIn) obj).kIsParam &&
+//                this.infIsParam == ((ArcIn) obj).infIsParam &&
+//
+//                (this.kParamName == null ||
+//                        this.kParamName.equals(((ArcIn) obj).kParamName)) &&
+//                (this.infParamName == null ||
+//                        this.infParamName.equals(((ArcIn) obj).infParamName))
+        );
     }
 }

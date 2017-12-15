@@ -1,7 +1,6 @@
 package PetriObj;
 
 import EvolutionaryAlgorithmOptimization.MutableHolder;
-import utils.OptimizationUtils;
 
 import java.io.Serializable;
 
@@ -211,5 +210,21 @@ public class ArcOut implements Cloneable, Serializable, MutableHolder {
 
     public int getNumber() {
         return number;
+    }
+
+    public boolean customEquals(Object obj) {
+        return (obj instanceof ArcOut &&
+                this.numP == ((ArcOut) obj).numP &&
+                this.numT == ((ArcOut) obj).numT &&
+                this.k == ((ArcOut) obj).k
+
+//                this.nameP.equals(((ArcOut) obj).nameP) &&
+//                this.nameT.equals(((ArcOut) obj).nameT) &&
+//                this.number == ((ArcOut) obj).number &&
+//
+//                this.kIsParam == ((ArcOut) obj).kIsParam &&
+//                (this.kParamName == null ||
+//                        this.kParamName.equals(((ArcOut) obj).kParamName))
+        );
     }
 }
