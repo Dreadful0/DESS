@@ -6,16 +6,24 @@
 package EvolutionaryAlgorithmOptimization;
 
 import LibTest.TestPetriObjPaint;
-import PetriObj.*;
+import PetriObj.ArcIn;
+import PetriObj.PetriObjModel;
+import PetriObj.PetriSim;
+import PetriObj.PetriT;
+
 
 /**
  * @author masha
  */
 public class EAOptimizerUsingExample {
+
     public static void main(String[] args) throws Exception {
+
         PetriObjModel model = TestPetriObjPaint.getModel();
         model.setIsProtoсol(false);
         model.setShouldGetStatistics(true);
+
+        model.print();
 
         int timeModeling = 1000000;
 
@@ -47,6 +55,7 @@ public class EAOptimizerUsingExample {
         optimizer.setVerbose(true);
 
         PetriObjModel best = optimizer.evolve();
+        best.print();
 
     }
 
@@ -56,4 +65,5 @@ public class EAOptimizerUsingExample {
             System.out.println(model.getListObj().get(j).getNet().getListP()[0].getMean());
         }
     }
+
 }

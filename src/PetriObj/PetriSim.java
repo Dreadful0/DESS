@@ -1,8 +1,6 @@
 package PetriObj;
 
-import EvolutionaryAlgorithmOptimization.Mutable;
 import EvolutionaryAlgorithmOptimization.MutableHolder;
-import EvolutionaryAlgorithmOptimization.MutableProperty;
 import utils.OptimizationUtils;
 
 import javax.swing.*;
@@ -10,7 +8,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.List;
 
 /**
  * This class is Petri simulator. <br>
@@ -691,6 +688,21 @@ public class PetriSim implements Serializable, MutableHolder, Cloneable {
             do {
                 priority = OptimizationUtils.mutateInt(priority, mutationRange);
             } while (priority < 0);
+        }
+    }
+
+    public void print() {
+        for (int i = 0; i < listP.length; i++) {
+            listP[i].printParameters();
+        }
+        for (int i = 0; i < listT.length; i++) {
+            listT[i].printParameters();
+        }
+        for (int i = 0; i < listIn.length; i++) {
+            listIn[i].printParameters();
+        }
+        for (int i = 0; i < listOut.length; i++) {
+            listOut[i].printParameters();
         }
     }
 }

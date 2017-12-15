@@ -515,6 +515,19 @@ public class PetriObjModel implements Serializable, Cloneable, Mutable {
         this.mutableProperties = mutableProperties;
     }
 
+    public void print() {
+        printLinks();
+        printObjects();
+    }
+
+    public void printObjects() {
+        if (initialState == null) {
+            listObj.forEach(obj -> obj.print());
+        } else {
+            initialState.listObj.forEach(obj -> obj.print());
+        }
+    }
+
     public class LinkByPlaces { //added 29.11.2017 by Inna
         PetriSim one, other;
         int numOne, numOther;
