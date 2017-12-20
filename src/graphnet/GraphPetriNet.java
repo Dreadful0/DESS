@@ -4,20 +4,13 @@
  */
 package graphnet;
 
-import PetriObj.ExceptionInvalidNetStructure;
-import PetriObj.PetriNet;
-import PetriObj.PetriP;
-import PetriObj.PetriT;
-import PetriObj.ArcIn;
-import PetriObj.ArcOut;
+import PetriObj.*;
 import graphpresentation.GraphElement;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Point;
+
+import javax.swing.*;
+import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
-import javax.swing.JTextArea;
 //import java.util.List;  замінено на ArrayList 19.11.2012
 
 /**
@@ -28,17 +21,15 @@ import javax.swing.JTextArea;
  */
 public class GraphPetriNet implements Cloneable, Serializable {
 
-    private int idElements; // додано 19. 10. 12 Олею . потрібен для відновлення id позицій і переходів, коли відкриваємо файл 
     //але НЕ використовується ...поки що ?...
     private static final long serialVersionUID = 1238766L; //  але НЕ використовується ...поки що ?...
+    private static final int bigNumber = 10000; // для правильного коригування нумерації позицій та переходів; added by Katya 08.12.2016
+    private int idElements; // додано 19. 10. 12 Олею . потрібен для відновлення id позицій і переходів, коли відкриваємо файл
     // added by Olha 14.11.2012 GraphPetriNet повинен зберігати не лише PetriNet, а й графічні елементи
     private ArrayList<GraphPetriPlace> graphPetriPlaceList;
     private ArrayList<GraphPetriTransition> graphPetriTransitionList;
     private ArrayList<GraphArcIn> graphArcInList;
     private ArrayList<GraphArcOut> graphArcOutList;
-    
-    private static final int bigNumber = 10000; // для правильного коригування нумерації позицій та переходів; added by Katya 08.12.2016
-    
     private PetriNet pNet;
 
     public GraphPetriNet() {
@@ -51,9 +42,9 @@ public class GraphPetriNet implements Cloneable, Serializable {
 
     //цей конструктор використовується під час копіювання added by Inna 19.11.2012
     public GraphPetriNet(PetriNet net, ArrayList<GraphPetriPlace> grPlaces,
-            ArrayList<GraphPetriTransition> grTransitions,
-            ArrayList<GraphArcIn> grArcIns,
-            ArrayList<GraphArcOut> grArcOuts) {
+                         ArrayList<GraphPetriTransition> grTransitions,
+                         ArrayList<GraphArcIn> grArcIns,
+                         ArrayList<GraphArcOut> grArcOuts) {
         graphPetriPlaceList = grPlaces;
         graphPetriTransitionList = grTransitions;
         graphArcInList = grArcIns;
@@ -64,7 +55,7 @@ public class GraphPetriNet implements Cloneable, Serializable {
     }
 
     @Override
-    public GraphPetriNet clone() throws CloneNotSupportedException { // added by Inna 19.11.2012, corrected by Inna 6.12.2015 
+    public GraphPetriNet clone() throws CloneNotSupportedException { // added by Inna 19.11.2012, corrected by Inna 6.12.2015
 
         super.clone();
         ArrayList<GraphPetriPlace> copyGraphPlaceList = new ArrayList<GraphPetriPlace>();
@@ -86,20 +77,20 @@ public class GraphPetriNet implements Cloneable, Serializable {
 
         return net;
     }
-    
+
     public boolean hasParameters() { // added by Katya 08.12.2016
         return pNet.hasParameters();
     }
 
     public void print() { //цей фрагмент виділений в окремий метод
-        // added by Olha 14.11.2012, corrected by Inna 28.11.2012 
+        // added by Olha 14.11.2012, corrected by Inna 28.11.2012
         System.out.println("Information about GraphPetriNet");
         for (PetriP pp : this.getPetriPList()) {
             pp.printParameters();
         }
         for (PetriT pt : this.getPetriTList()) {
             pt.printParameters();
-           //  System.out.println("inP size ="+pt.getInP().size());
+            //  System.out.println("inP size ="+pt.getInP().size());
 
         }
         for (ArcIn ti : this.getArcInList()) {
@@ -131,28 +122,28 @@ public class GraphPetriNet implements Cloneable, Serializable {
         return graphPetriPlaceList;
     }
 
-    public ArrayList<GraphPetriTransition> getGraphPetriTransitionList() {
-        return graphPetriTransitionList;
-    }
-
-    public ArrayList<GraphArcIn> getGraphArcInList() {
-        return graphArcInList;
-    }
-
-    public ArrayList<GraphArcOut> getGraphArcOutList() {
-        return graphArcOutList;
-    }
-
     public void setGraphPetriPlaceList(ArrayList<GraphPetriPlace> graphPetriPlaceList) {
         this.graphPetriPlaceList = graphPetriPlaceList;
+    }
+
+    public ArrayList<GraphPetriTransition> getGraphPetriTransitionList() {
+        return graphPetriTransitionList;
     }
 
     public void setGraphPetriTransitionList(ArrayList<GraphPetriTransition> graphPetriTransitionList) {
         this.graphPetriTransitionList = graphPetriTransitionList;
     }
 
+    public ArrayList<GraphArcIn> getGraphArcInList() {
+        return graphArcInList;
+    }
+
     public void setGraphArcInList(ArrayList<GraphArcIn> graphArcInList) {
         this.graphArcInList = graphArcInList;
+    }
+
+    public ArrayList<GraphArcOut> getGraphArcOutList() {
+        return graphArcOutList;
     }
 
     public void setGraphArcOutList(ArrayList<GraphArcOut> graphArcOutList) {
@@ -227,7 +218,7 @@ public class GraphPetriNet implements Cloneable, Serializable {
         return b;
     }
 
-    public void createPetriNet(String s) throws ExceptionInvalidNetStructure //added by Inna 4.12.2012 //створюється мережа Петрі у відповідності до графічних елементів 
+    public void createPetriNet(String s) throws ExceptionInvalidNetStructure //added by Inna 4.12.2012 //створюється мережа Петрі у відповідності до графічних елементів
     {// added by Inna 4.12.2012
         correctingNumP();
         correctingNumT();
@@ -258,15 +249,14 @@ public class GraphPetriNet implements Cloneable, Serializable {
         return b;
     }
 
-    public void correctingNumP() //added by Inna 5.12.2012
-    {
-        if (isCorrectNumberP() == true) {
+    public void correctingNumP() {
+        if (isCorrectNumberP()) {
             return;
         } else {
             for (int j = 0; j < this.getPetriPList().size(); j++) {
                 if (this.getPetriPList().get(j).getNumber() != j) {
                     int actualNumber = getPetriPList().get(j).getNumber();
-                    
+
                     for (ArcIn in : this.getArcInList()) {
                         if (in.getNumP() == actualNumber) {
                             in.setNumP(j + bigNumber);
@@ -280,7 +270,7 @@ public class GraphPetriNet implements Cloneable, Serializable {
                     this.getPetriPList().get(j).setNumber(j + bigNumber); //встановлення номера позиції по порядку слідування в списку
                 }
             }
-            
+
             for (int j = 0; j < this.getPetriPList().size(); j++) { // added by Katya 08.12.2016
                 if (this.getPetriPList().get(j).getNumber() >= bigNumber) {
                     this.getPetriPList().get(j).setNumber(this.getPetriPList().get(j).getNumber() - bigNumber);
@@ -299,16 +289,15 @@ public class GraphPetriNet implements Cloneable, Serializable {
         }
     }
 
-    public void correctingNumT() //added by Inna 5.12.2012
-    {
-        if (isCorrectNumberT() == true) {
+    private void correctingNumT() {
+        if (isCorrectNumberT()) {
             return;
         } else {
 
             for (int j = 0; j < this.getPetriTList().size(); j++) {
                 if (this.getPetriTList().get(j).getNumber() != j) {
                     int actualNumber = getPetriTList().get(j).getNumber();
-                    
+
                     for (ArcIn in : this.getArcInList()) {
                         if (in.getNumT() == actualNumber) {
                             in.setNumT(j + bigNumber);
@@ -322,7 +311,7 @@ public class GraphPetriNet implements Cloneable, Serializable {
                     this.getPetriTList().get(j).setNumber(j + bigNumber); //встановлення номера переходу по порядку слідування в списку
                 }
             }
-            
+
             for (int j = 0; j < this.getPetriTList().size(); j++) { // added by Katya 08.12.2016
                 if (this.getPetriTList().get(j).getNumber() >= bigNumber) {
                     this.getPetriTList().get(j).setNumber(this.getPetriTList().get(j).getNumber() - bigNumber);
@@ -361,7 +350,7 @@ public class GraphPetriNet implements Cloneable, Serializable {
                         if (arc.getBeginElement().getId() == s.getId()) {
                             graphArcInList.remove(arc);
 
-                           // System.out.append("deleting arcIn:");
+                            // System.out.append("deleting arcIn:");
                             //  arc.getArcIn().printParameters();
                             b = true;
                             break;
@@ -372,7 +361,7 @@ public class GraphPetriNet implements Cloneable, Serializable {
                 while (b) {
                     b = false;
                     for (GraphArcOut arc : graphArcOutList) {
-                       // arc.getArcOut().printParameters();
+                        // arc.getArcOut().printParameters();
                         if (arc.getEndElement().getId() == s.getId()) {
                             graphArcOutList.remove(arc);
                             //System.out.append("deleting arcIn:");
@@ -392,10 +381,10 @@ public class GraphPetriNet implements Cloneable, Serializable {
                 while (b) {
                     b = false;
                     for (GraphArcIn arc : graphArcInList) {
-                       // arc.getArcIn().printParameters();
+                        // arc.getArcIn().printParameters();
                         if (arc.getEndElement().getId() == s.getId()) {
                             graphArcInList.remove(arc);
-                           // System.out.append("deleting arcIn:");
+                            // System.out.append("deleting arcIn:");
                             // arc.getArcIn().printParameters();
                             b = true;
                             break;
@@ -406,7 +395,7 @@ public class GraphPetriNet implements Cloneable, Serializable {
                 while (b) {
                     b = false;
                     for (GraphArcOut arc : graphArcOutList) {
-                       // arc.getArcOut().printParameters();
+                        // arc.getArcOut().printParameters();
                         if (arc.getBeginElement().getId() == s.getId()) {
                             graphArcOutList.remove(arc);
                             // System.out.append("deleting arcIn:");
@@ -422,7 +411,7 @@ public class GraphPetriNet implements Cloneable, Serializable {
             }
         }
 
-      //  this.createPetriNet(name); 19.02.2016 При видаленні елемента не потрібне!!!! 
+        //  this.createPetriNet(name); 19.02.2016 При видаленні елемента не потрібне!!!!
         // System.out.println("after delete graph element we have such graph net:");
         //  this.print();
     }
@@ -519,7 +508,6 @@ public class GraphPetriNet implements Cloneable, Serializable {
         }
 
     }
-    
- 
+
 
 }

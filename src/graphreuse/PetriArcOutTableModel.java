@@ -5,28 +5,28 @@
 package graphreuse;
 
 import PetriObj.ArcOut;
-import java.util.ArrayList;
-import javax.swing.table.AbstractTableModel;
 import graphnet.GraphArcOut;
 import utils.Utils;
 
+import javax.swing.table.AbstractTableModel;
+import java.util.ArrayList;
+
 /**
- *
  * @author User
  */
 public class PetriArcOutTableModel extends AbstractTableModel {
 
+    private static String[] COLUMN_NAMES = {"Arc", "Number of links"};
     private final int TIE_PARAMETERS = 1;
     private int row;
     private int column = TIE_PARAMETERS + 1;
     private Object[][] mass;
-    private static String[] COLUMN_NAMES = {"Arc", "Number of links"};
     private ArrayList<GraphArcOut> graphPetriArcOutList;
 
-    public PetriArcOutTableModel(){
-        
+    public PetriArcOutTableModel() {
+
     }
-    
+
     public void setGraphPetriArcOutList(ArrayList<GraphArcOut> list) {
         graphPetriArcOutList = list;
         row = list.size();
@@ -35,8 +35,8 @@ public class PetriArcOutTableModel extends AbstractTableModel {
             ArcOut to = list.get(i).getArcOut();
             mass[i][0] = to.getNameT() + " -> " + to.getNameP();
             mass[i][1] = to.kIsParam() // modified by Katya 08.12.2016
-                ? to.getKParamName()
-                : to.getQuantity();
+                    ? to.getKParamName()
+                    : to.getQuantity();
         }
     }
 

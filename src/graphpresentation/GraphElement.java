@@ -4,53 +4,55 @@
  */
 package graphpresentation;
 
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.geom.Point2D;
 import java.io.Serializable;
 
 /**
- *
  * @author Ольга
  */
-public class GraphElement implements Serializable{
-    
-    public void drawGraphElement(Graphics2D g2){
-        
+public class GraphElement implements Serializable {
+
+    public void drawGraphElement(Graphics2D g2) {
+
     }
-    
+
     public void setNewCoordinates(Point2D p) {
-        
+
     }
-    
-     public boolean isGraphElement(Point2D p) {
-         return false;
-     }
-     
-      public Point2D getGraphElementCenter() {
+
+    public boolean isGraphElement(Point2D p) {
+        return false;
+    }
+
+    public Point2D getGraphElementCenter() {
         return null;
     }
-      
-      public String getType() {
+
+    public String getType() {
         return null;
     }
-      
-       public  int getBorder() {
+
+    public int getBorder() {
         return 0;
     }
-       public int getId(){
-           return 0;
-       }
-     /*  public  void addElementToArrayList(){
-           
-       }*/
-       public String getName(){
-           return null;
-       }
-       public int getNumber(){
-           return 0;
-       }
-       
-       public void resize(){
-           
-       }
+
+    public int getId() {
+        return 0;
+    }
+
+    /*  public  void addElementToArrayList(){
+
+      }*/
+    public String getName() {
+        return null;
+    }
+
+    public int getNumber() {
+        return 0;
+    }
+
+    public void resize() {
+
+    }
 }

@@ -1,32 +1,35 @@
 package PetriObj;
 
+import EvolutionaryAlgorithmOptimization.MutableHolder;
+
 import java.io.Serializable;
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
  * This class for creating the arc(arc) between transition and place of Petri
  * net (and directed from transion to place)
  *
  * @author Стеценко Інна
  */
-public class ArcOut implements Cloneable, Serializable {
+public class ArcOut implements Cloneable, Serializable, MutableHolder {
 
+    /**
+     * Index of K property, used for mutation
+     */
+    public static final int K = 0;
+
+    private static int next = 0;
     private int numP;
     private int numT;
-    private int k;
+    private int k; // for mutation
     private String nameT;
     private String nameP;
-    private static int next = 0;
     private int number;
 
     // whether k is a parameter; added by Katya 08.12.2016
     private boolean kIsParam = false;
     // param name
     private String kParamName = null;
-    
+
     /**
      *
      */
@@ -50,7 +53,6 @@ public class ArcOut implements Cloneable, Serializable {
     }
 
     /**
-     *
      * @param T number of transition
      * @param P number of place
      * @param K arc multiplicity
@@ -65,14 +67,22 @@ public class ArcOut implements Cloneable, Serializable {
         next++;
     }
 
+    /**
+     * Set the counter of output arcs to zero.
+     */
+    public static void initNext() //ініціалізація лічильника нульовим значенням
+    {
+        next = 0;
+    }
+
     public boolean kIsParam() {
         return kIsParam;
     }
-    
+
     public String getKParamName() {
         return kParamName;
     }
-    
+
     public void setKParam(String paramName) {
         if (paramName == null) {
             kIsParam = false;
@@ -83,17 +93,8 @@ public class ArcOut implements Cloneable, Serializable {
             k = 1;
         }
     }
-    
-    /**
-     * Set the counter of output arcs to zero.
-     */
-    public static void initNext() //ініціалізація лічильника нульовим значенням
-    {
-        next = 0;
-    }
 
     /**
-     *
      * @return arc multiplicity
      */
     public int getQuantity() {
@@ -101,7 +102,6 @@ public class ArcOut implements Cloneable, Serializable {
     }
 
     /**
-     *
      * @param K arc multiplicity
      */
     public void setQuantity(int K) {
@@ -109,7 +109,6 @@ public class ArcOut implements Cloneable, Serializable {
     }
 
     /**
-     *
      * @return the number of place that is end of the arc
      */
     public int getNumP() {
@@ -117,7 +116,6 @@ public class ArcOut implements Cloneable, Serializable {
     }
 
     /**
-     *
      * @param n the number of place that is end of the arc
      */
     public void setNumP(int n) {
@@ -125,7 +123,6 @@ public class ArcOut implements Cloneable, Serializable {
     }
 
     /**
-     *
      * @return number of transition that is beginning of the arc
      */
     public int getNumT() {
@@ -133,7 +130,6 @@ public class ArcOut implements Cloneable, Serializable {
     }
 
     /**
-     *
      * @param n number of transition that is beginning of the arc
      */
     public void setNumT(int n) {
@@ -141,7 +137,6 @@ public class ArcOut implements Cloneable, Serializable {
     }
 
     /**
-     *
      * @return name of transition that is the beginning of the arc
      */
     public String getNameT() {
@@ -149,7 +144,6 @@ public class ArcOut implements Cloneable, Serializable {
     }
 
     /**
-     *
      * @param s name of transition that is the beginning of the arc
      */
     public void setNameT(String s) {
@@ -157,7 +151,6 @@ public class ArcOut implements Cloneable, Serializable {
     }
 
     /**
-     *
      * @return name of place that is the end of the arc
      */
     public String getNameP() {
@@ -165,7 +158,6 @@ public class ArcOut implements Cloneable, Serializable {
     }
 
     /**
-     *
      * @param s name of place that is the end of the arc
      */
     public void setNameP(String s) {
@@ -184,7 +176,6 @@ public class ArcOut implements Cloneable, Serializable {
     }
 
     /**
-     *
      * @return TieOut object with parameters which copy current parameters of
      * this arc
      * @throws java.lang.CloneNotSupportedException if Petri net has invalid structure
@@ -193,6 +184,7 @@ public class ArcOut implements Cloneable, Serializable {
     public ArcOut clone() throws CloneNotSupportedException {
         super.clone();
         ArcOut arc = new ArcOut(numT, numP, k); // коректніть номерів дуже важлива!!!
+        arc.number = number;
         return arc;
 
     }
@@ -202,4 +194,37 @@ public class ArcOut implements Cloneable, Serializable {
                 + " and has " + k + " value of multiplicity");
     }
 
+    @Override
+    public void mutate(int property, double mutationRange) {
+        // TODO should we add any special probabilities for increasing/decreasing K?
+
+        if (property == K) {
+            double changeIndex = Math.random();
+            if (changeIndex < 0.5) {
+                k += 1;
+            } else {
+                k = (k - 1 > 0) ? k - 1 : k;
+            }
+        }
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public boolean customEquals(Object obj) {
+        return (obj instanceof ArcOut &&
+                this.numP == ((ArcOut) obj).numP &&
+                this.numT == ((ArcOut) obj).numT &&
+                this.k == ((ArcOut) obj).k
+
+//                this.nameP.equals(((ArcOut) obj).nameP) &&
+//                this.nameT.equals(((ArcOut) obj).nameT) &&
+//                this.number == ((ArcOut) obj).number &&
+//
+//                this.kIsParam == ((ArcOut) obj).kIsParam &&
+//                (this.kParamName == null ||
+//                        this.kParamName.equals(((ArcOut) obj).kParamName))
+        );
+    }
 }

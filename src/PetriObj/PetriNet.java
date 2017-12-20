@@ -9,6 +9,7 @@ import java.util.logging.Logger;
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 /**
  * This class provides constructing Petri net
  *
@@ -25,15 +26,15 @@ public class PetriNet implements Cloneable, Serializable {
     private PetriT[] ListT = new PetriT[numT];
     private ArcIn[] ListIn = new ArcIn[numIn];
     private ArcOut[] ListOut = new ArcOut[numOut];
-    
+
     /**
      * Construct Petri net for given set of places, set of transitions, set of
      * arcs and the name of Petri net
      *
-     * @param s name of Petri net
-     * @param pp set of places
-     * @param TT set of transitions
-     * @param In set of arcs directed from place to transition
+     * @param s   name of Petri net
+     * @param pp  set of places
+     * @param TT  set of transitions
+     * @param In  set of arcs directed from place to transition
      * @param Out set of arcs directed from transition to place
      */
     public PetriNet(String s, PetriP[] pp, PetriT TT[], ArcIn[] In, ArcOut[] Out) {
@@ -49,8 +50,8 @@ public class PetriNet implements Cloneable, Serializable {
 
         for (PetriT transition : ListT) {
             try {
-                transition.createInP(ListP, ListIn);
-                transition.createOutP(ListP, ListOut);
+                transition.createInP(ListIn);
+                transition.createOutP(ListOut);
                 if (transition.getInP().isEmpty()) {
                     throw new ExceptionInvalidNetStructure("Error: Transition " + transition.getName() + " has empty list of input places "); //генерувати виключення???
                 }
@@ -65,16 +66,16 @@ public class PetriNet implements Cloneable, Serializable {
     }
 
     /**
-     *
-     * @param s name of Petri net
-     * @param pp set of places
-     * @param TT set of transitions
-     * @param In set of arcs directed from place to transition
+     * @param s   name of Petri net
+     * @param pp  set of places
+     * @param TT  set of transitions
+     * @param In  set of arcs directed from place to transition
      * @param Out set of arcs directed from transition to place
      * @throws PetriObj.ExceptionInvalidNetStructure if Petri net has invalid structure
      */
-    public PetriNet(String s, ArrayList<PetriP> pp, ArrayList<PetriT> TT, ArrayList<ArcIn> In, ArrayList<ArcOut> Out) throws ExceptionInvalidNetStructure //додано 16 серпня 2011
-    {//Працює прекрасно, якщо номера у списку співпадають із номерами, що присвоюються, і з номерами, які використовувались при створенні зв"язків!!!
+    public PetriNet(String s, ArrayList<PetriP> pp, ArrayList<PetriT> TT, ArrayList<ArcIn> In, ArrayList<ArcOut> Out)
+            throws ExceptionInvalidNetStructure {
+        //Працює прекрасно, якщо номера у списку співпадають із номерами, що присвоюються, і з номерами, які використовувались при створенні зв"язків!!!
         name = s;
         numP = pp.size();
         numT = TT.size();
@@ -96,19 +97,18 @@ public class PetriNet implements Cloneable, Serializable {
         for (int j = 0; j < numIn; j++) {
             ListIn[j] = In.get(j);
         }
-        
+
         for (int j = 0; j < numOut; j++) {
             ListOut[j] = Out.get(j);
         }
 
         for (PetriT transition : ListT) {
-            transition.createInP(ListP, ListIn);
-            transition.createOutP(ListP, ListOut);
+            transition.createInP(ListIn);
+            transition.createOutP(ListOut);
         }
     }
 
     /**
-     *
      * @return name of Petri net
      */
     public String getName() {
@@ -125,7 +125,6 @@ public class PetriNet implements Cloneable, Serializable {
     }
 
     /**
-     *
      * @return array of Petri net places
      */
     public PetriP[] getListP() {
@@ -133,7 +132,6 @@ public class PetriNet implements Cloneable, Serializable {
     }
 
     /**
-     *
      * @return array of Petri net transitions
      */
     public PetriT[] getListT() {
@@ -141,7 +139,6 @@ public class PetriNet implements Cloneable, Serializable {
     }
 
     /**
-     *
      * @return array of Petri net input arcs
      */
     public ArcIn[] getArcIn() {
@@ -149,7 +146,6 @@ public class PetriNet implements Cloneable, Serializable {
     }
 
     /**
-     *
      * @return array of Petri net output arcs
      */
     public ArcOut[] getArcOut() {
@@ -221,7 +217,7 @@ public class PetriNet implements Cloneable, Serializable {
     /**
      * Finds the place of Petri net with given name and given set of places
      *
-     * @param s name of place
+     * @param s  name of place
      * @param pp array of places
      * @return the number of place
      */
@@ -275,22 +271,21 @@ public class PetriNet implements Cloneable, Serializable {
      */
     public void printMark() {
         System.out.print("Mark in Net  " + this.getName() + "   ");
-        for (PetriP position: ListP) {
+        for (PetriP position : ListP) {
             System.out.print(position.getMark() + "  ");
         }
         System.out.println();
     }
+
     public void printBuffer() {
         System.out.print("Buffer in Net  " + this.getName() + "   ");
-        for (PetriT transition: ListT) {
+        for (PetriT transition : ListT) {
             System.out.print(transition.getBuffer() + "  ");
         }
         System.out.println();
     }
-    
-    @Override
-    public PetriNet clone() throws CloneNotSupportedException //14.11.2012
-    {
+
+    public PetriNet clone() throws CloneNotSupportedException {
         super.clone();
         PetriP[] copyListP = new PetriP[numP];
         PetriT[] copyListT = new PetriT[numT];
@@ -316,9 +311,14 @@ public class PetriNet implements Cloneable, Serializable {
 
         PetriNet net = new PetriNet(name, copyListP, copyListT, copyListIn, copyListOut);
 
+        PetriP.initNext();
+        PetriT.initNext();
+        ArcIn.initNext();
+        ArcOut.initNext();
+
         return net;
     }
-    
+
     public boolean hasParameters() { // added by Katya 08.12.2016
         for (PetriP petriPlace : ListP) {
             if (petriPlace.markIsParam()) {

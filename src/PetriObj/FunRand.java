@@ -8,9 +8,9 @@ import java.util.Random;
  */
 
 
-
 /**
- *This class contains methods for generating a random value according to a given distribution
+ * This class contains methods for generating a random value according to a given distribution
+ *
  * @author Стеценко Інна
  */
 public class FunRand {
@@ -21,9 +21,9 @@ public class FunRand {
      * @param timeMean the mean value
      * @return a random value according to an exponential distribution
      * @throws PetriObj.ExceptionInvalidTimeDelay if negative time delay is
-     * generated
+     *                                            generated
      */
-    public static double exp(double timeMean) throws ExceptionInvalidTimeDelay {
+    static double exp(double timeMean) throws ExceptionInvalidTimeDelay {
         double a = 0;
         while (a == 0) {
             a = Math.random();
@@ -42,9 +42,9 @@ public class FunRand {
      * @param timeMax the maximum value of random value
      * @return a random value according to a uniform distribution
      * @throws PetriObj.ExceptionInvalidTimeDelay if negative time delay is
-     * generated
+     *                                            generated
      */
-    public static double unif(double timeMin, double timeMax) throws ExceptionInvalidTimeDelay {
+    static double unif(double timeMin, double timeMax) throws ExceptionInvalidTimeDelay {
         double a = 0;
         while (a == 0) {
             a = Math.random();
@@ -59,13 +59,13 @@ public class FunRand {
     /**
      * Generates random value according to a normal (Gauss) distribution
      *
-     * @param timeMean the mean of random value
+     * @param timeMean      the mean of random value
      * @param timeDeviation the deviation of random value
      * @return a random value according to a normal (Gauss) distribution
      * @throws PetriObj.ExceptionInvalidTimeDelay if negative time delay is
-     * generated
+     *                                            generated
      */
-    public static double norm(double timeMean, double timeDeviation) throws ExceptionInvalidTimeDelay {
+    static double norm(double timeMean, double timeDeviation) throws ExceptionInvalidTimeDelay {
         double a;
         Random r = new Random();
         a = timeMean + timeDeviation * r.nextGaussian();
@@ -82,9 +82,9 @@ public class FunRand {
      * @param x the array of x coordinates of points
      * @param y the array of y coordinates of points
      * @return a random value according to a empiric distribution
-     * @throws java.lang.Exception if maximum of y array is bigger than 1.0
+     * @throws java.lang.Exception                if maximum of y array is bigger than 1.0
      * @throws PetriObj.ExceptionInvalidTimeDelay if negative time delay is
-     * generated
+     *                                            generated
      */
     public static double empiric(double[] x, double[] y) throws Exception {
         int n = x.length;

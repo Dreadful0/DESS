@@ -1,11 +1,14 @@
 package PetriObj;
 
+import EvolutionaryAlgorithmOptimization.MutableHolder;
+
 import java.io.Serializable;
 
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 /**
  * This class for creating the arc between place and transition of Petri net
  * (and directed from place to transion) numP - number of place numT - number of
@@ -13,17 +16,22 @@ import java.io.Serializable;
  *
  * @author Стеценко Інна
  */
-public class ArcIn implements Cloneable, Serializable {
+public class ArcIn implements Cloneable, Serializable, MutableHolder {
 
+    /**
+     * Index of K property, used for mutation
+     */
+    public static final int K = 0;
+
+    private static int next = 0;
+    boolean inf;
     private int numP;
     private int numT;
-    private int k;
-    boolean inf;
+    private int k; // for mutation
     private String nameP;
     private String nameT;
-    private static int next = 0;
     private int number;
-    
+
     // whether k and inf are parameters; added by Katya 08.12.2016
     private boolean kIsParam = false;
     private boolean infIsParam = false;
@@ -44,7 +52,6 @@ public class ArcIn implements Cloneable, Serializable {
      * @param P number of place
      * @param T number of transition
      * @param K arc multiplicity
-     *
      */
     public ArcIn(int P, int T, int K) {
         numP = P;
@@ -56,7 +63,6 @@ public class ArcIn implements Cloneable, Serializable {
     }
 
     /**
-     *
      * @param P number of place
      * @param T number of transition
      */
@@ -72,7 +78,6 @@ public class ArcIn implements Cloneable, Serializable {
     }
 
     /**
-     *
      * @param P number of place
      * @param T number of transition
      * @param K arc multiplicity
@@ -89,10 +94,9 @@ public class ArcIn implements Cloneable, Serializable {
     }
 
     /**
-     *
-     * @param P number of place
-     * @param T number of transition
-     * @param K arc multiplicity
+     * @param P     number of place
+     * @param T     number of transition
+     * @param K     arc multiplicity
      * @param isInf arc is informational
      */
     public ArcIn(PetriP P, PetriT T, int K, boolean isInf) {
@@ -106,22 +110,29 @@ public class ArcIn implements Cloneable, Serializable {
         next++;
     }
 
+    /**
+     * Set the counter of input arcs to zero.
+     */
+    public static void initNext() { //ініціалізація лічильника нульовим значенням
+        next = 0;
+    }
+
     public boolean kIsParam() {
         return kIsParam;
     }
-    
+
     public boolean infIsParam() {
         return infIsParam;
     }
-    
+
     public String getKParamName() {
         return kParamName;
     }
-    
+
     public String getInfParamName() {
         return infParamName;
     }
-    
+
     public void setKParam(String paramName) {
         if (paramName == null) {
             kIsParam = false;
@@ -132,7 +143,7 @@ public class ArcIn implements Cloneable, Serializable {
             k = 1;
         }
     }
-    
+
     public void setInfParam(String paramName) {
         if (paramName == null) {
             infIsParam = false;
@@ -143,16 +154,8 @@ public class ArcIn implements Cloneable, Serializable {
             inf = false;
         }
     }
-    
-    /**
-     * Set the counter of input arcs to zero.
-     */
-    public static void initNext(){ //ініціалізація лічильника нульовим значенням
-            next = 0;
-    }
 
     /**
-     *
      * @return arc multiplicity
      */
     public int getQuantity() {
@@ -160,7 +163,6 @@ public class ArcIn implements Cloneable, Serializable {
     }
 
     /**
-     *
      * @param K value of arc multiplicity
      */
     public void setQuantity(int K) {
@@ -168,7 +170,6 @@ public class ArcIn implements Cloneable, Serializable {
     }
 
     /**
-     *
      * @return the number of place that is the beginning of the arc
      */
     public int getNumP() {
@@ -176,7 +177,6 @@ public class ArcIn implements Cloneable, Serializable {
     }
 
     /**
-     *
      * @param n number of place that is the beginning of the arc
      */
     public void setNumP(int n) {
@@ -184,7 +184,6 @@ public class ArcIn implements Cloneable, Serializable {
     }
 
     /**
-     *
      * @return number of transition that is the end of the arc
      */
     public int getNumT() {
@@ -192,7 +191,6 @@ public class ArcIn implements Cloneable, Serializable {
     }
 
     /**
-     *
      * @param n number of transition that is the end of the arc
      */
     public void setNumT(int n) {
@@ -200,7 +198,6 @@ public class ArcIn implements Cloneable, Serializable {
     }
 
     /**
-     *
      * @return transition name
      */
     public String getNameT() {
@@ -208,7 +205,6 @@ public class ArcIn implements Cloneable, Serializable {
     }
 
     /**
-     *
      * @param s transition name
      */
     public void setNameT(String s) {
@@ -216,7 +212,6 @@ public class ArcIn implements Cloneable, Serializable {
     }
 
     /**
-     *
      * @return name of place that is the beginning of the arc
      */
     public String getNameP() {
@@ -224,7 +219,6 @@ public class ArcIn implements Cloneable, Serializable {
     }
 
     /**
-     *
      * @param s name of place that is the beginning of the arc
      */
     public void setNameP(String s) {
@@ -232,7 +226,6 @@ public class ArcIn implements Cloneable, Serializable {
     }
 
     /**
-     *
      * @return true if arc is informational
      */
     public boolean getIsInf() {
@@ -240,7 +233,6 @@ public class ArcIn implements Cloneable, Serializable {
     }
 
     /**
-     *
      * @param i equals true if arc must be informational
      */
     public void setInf(boolean i) {
@@ -267,7 +259,6 @@ public class ArcIn implements Cloneable, Serializable {
     }
 
     /**
-     *
      * @return TieIn object with parameters which copy current parameters of
      * this arc
      * @throws java.lang.CloneNotSupportedException if Petri net has invalid structure
@@ -276,7 +267,45 @@ public class ArcIn implements Cloneable, Serializable {
     public ArcIn clone() throws CloneNotSupportedException {
         super.clone();
         ArcIn arc = new ArcIn(numP, numT, k);  // коректніть номерів дуже важлива!!!
+        arc.number = number;
         return arc;
 
+    }
+
+    @Override
+    public void mutate(int property, double mutationRange) {
+        // TODO should we add any special probabilities for increasing/decreasing K?
+        if (property == K) {
+            double changeIndex = Math.random();
+            if (changeIndex < 0.5) {
+                k += 1;
+            } else
+                k = (k - 1 > 0) ? k - 1 : k;
+        }
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public boolean customEquals(Object obj) {
+        return (obj instanceof ArcIn &&
+                this.inf == ((ArcIn) obj).inf &&
+                this.numP == ((ArcIn) obj).numP &&
+                this.numT == ((ArcIn) obj).numT &&
+                this.k == ((ArcIn) obj).k
+
+//                this.nameP.equals(((ArcIn) obj).nameP) &&
+//                this.nameT.equals(((ArcIn) obj).nameT) &&
+//                this.number == ((ArcIn) obj).number &&
+//
+//                this.kIsParam == ((ArcIn) obj).kIsParam &&
+//                this.infIsParam == ((ArcIn) obj).infIsParam &&
+//
+//                (this.kParamName == null ||
+//                        this.kParamName.equals(((ArcIn) obj).kParamName)) &&
+//                (this.infParamName == null ||
+//                        this.infParamName.equals(((ArcIn) obj).infParamName))
+        );
     }
 }

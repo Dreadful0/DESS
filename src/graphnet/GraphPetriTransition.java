@@ -6,45 +6,55 @@ package graphnet;
 
 import PetriObj.PetriT;
 import graphpresentation.GraphTransition;
-import java.awt.Graphics2D;
+
+import java.awt.*;
 import java.io.Serializable;
 
 /**
- *
  * @author Инна
  */
 public class GraphPetriTransition extends GraphTransition implements Serializable {
 
+    private static int simpleInd = 0; // added by Inna 18.01.2013
     private PetriT transition;
     private int id;
-    private static int simpleInd=0; // added by Inna 18.01.2013
 
     public GraphPetriTransition(PetriT T, int i) //додано Олею
     {
         transition = T;
-        id=i;
+        id = i;
     }
 
     public GraphPetriTransition(PetriT T) {
         transition = T;
         id = transition.getNumber(); // added by Katya 20.11.2016
     }
-    public PetriT getPetriTransition()
-    {
-       return transition;
+
+    public static String setSimpleName() { // added by Inna 18.01.2013
+        simpleInd++;
+        return "T" + simpleInd;
+    }
+
+    public static void setNullSimpleName() { // added by Inna 18.01.2013
+        simpleInd = 0;
+
+    }
+
+    public PetriT getPetriTransition() {
+        return transition;
     }
 
     @Override
     public void drawGraphElement(Graphics2D g2) {
         super.drawGraphElement(g2);
         int font = 10;
-        g2.drawString(transition.getName(), (float) this.getGraphElement().getCenterX() - transition.getName().length() * font / 2, (float) this.getGraphElement().getCenterY() - GraphPetriTransition.getHEIGHT()/ 2-GraphPetriTransition.getHEIGHT()/5);
+        g2.drawString(transition.getName(), (float) this.getGraphElement().getCenterX() - transition.getName().length() * font / 2, (float) this.getGraphElement().getCenterY() - GraphPetriTransition.getHEIGHT() / 2 - GraphPetriTransition.getHEIGHT() / 5);
         String parametrString = transition.parametrIsParam() // added by Katya 08.12.2016
-            ? transition.getParametrParamName()
-            : Double.toString(transition.getParametr());
+                ? transition.getParametrParamName()
+                : Double.toString(transition.getParametr());
         String distributionString = transition.distributionIsParam() // added by Katya 08.12.2016
-            ? transition.getDistributionParamName()
-            : transition.getDistribution();
+                ? transition.getDistributionParamName()
+                : transition.getDistribution();
         if (transition.getDistribution() != null || transition.distributionIsParam()) {
             g2.drawString("t=" + parametrString + "(" + distributionString + ")", (float) this.getGraphElement().getCenterX() - Double.toString(transition.getParametr()).length() * font / 2, (float) this.getGraphElement().getCenterY() + GraphPetriTransition.getHEIGHT() / 2 + 20);
         } else {
@@ -57,28 +67,20 @@ public class GraphPetriTransition extends GraphTransition implements Serializabl
     public String getType() { // added by Katya 23.10.2016
         return "GraphPetriTransition";
     }
-    
+
     @Override
-    public int getId(){
+    public int getId() {
         return id;
     }
 
-     @Override
-     public String getName(){
-           return this.getPetriTransition().getName();
-       }
     @Override
-       public int getNumber(){
-           return this.getPetriTransition().getNumber();
-       }
-   
-    public static String setSimpleName(){ // added by Inna 18.01.2013
-          simpleInd++; 
-          return "T"+simpleInd;
-       }
-    public static void setNullSimpleName(){ // added by Inna 18.01.2013
-          simpleInd = 0; 
-          
-       }
-     
+    public String getName() {
+        return this.getPetriTransition().getName();
+    }
+
+    @Override
+    public int getNumber() {
+        return this.getPetriTransition().getNumber();
+    }
+
 }

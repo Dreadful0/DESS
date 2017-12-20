@@ -1,15 +1,26 @@
 package graphpresentation;
 
-import graphnet.GraphPetriPlace;
 import PetriObj.PetriP;
-import java.awt.*;
+import graphnet.GraphPetriPlace;
 import utils.Utils;
 
+import java.awt.*;
+
 /**
- *
  * @author Оля
  */
 public class SetPosition extends javax.swing.JFrame {
+
+    private PetriNetsPanel panel;
+    private GraphPetriPlace choosenPetriP;
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cancelButton;
+    private javax.swing.JLabel markLabel;
+    private javax.swing.JTextField markTextField;
+    private javax.swing.JLabel nameLabel;
+    private javax.swing.JTextField nameTextField;
+    private javax.swing.JButton okButton;
+    private javax.swing.JPanel setPositionPanel;
 
     /**
      * Creates new form SetPosition
@@ -53,30 +64,30 @@ public class SetPosition extends javax.swing.JFrame {
         javax.swing.GroupLayout setPositionPanelLayout = new javax.swing.GroupLayout(setPositionPanel);
         setPositionPanel.setLayout(setPositionPanelLayout);
         setPositionPanelLayout.setHorizontalGroup(
-            setPositionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(setPositionPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(setPositionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(markLabel)
-                    .addComponent(nameLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(setPositionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
-                    .addComponent(markTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE))
-                .addContainerGap())
+                setPositionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(setPositionPanelLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(setPositionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(markLabel)
+                                        .addComponent(nameLabel))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(setPositionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(nameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
+                                        .addComponent(markTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE))
+                                .addContainerGap())
         );
         setPositionPanelLayout.setVerticalGroup(
-            setPositionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(setPositionPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(setPositionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nameLabel)
-                    .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(setPositionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(markLabel)
-                    .addComponent(markTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                setPositionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(setPositionPanelLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(setPositionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(nameLabel)
+                                        .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(setPositionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(markLabel)
+                                        .addComponent(markTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap())
         );
 
         okButton.setText("OK");
@@ -96,27 +107,27 @@ public class SetPosition extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(setPositionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(cancelButton)))
-                .addContainerGap())
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(setPositionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(cancelButton)))
+                                .addContainerGap())
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(setPositionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(okButton)
-                    .addComponent(cancelButton))
-                .addGap(20, 20, 20))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(setPositionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(okButton)
+                                        .addComponent(cancelButton))
+                                .addGap(20, 20, 20))
         );
 
         pack();
@@ -167,8 +178,8 @@ public class SetPosition extends javax.swing.JFrame {
     private void getPMark() { // modified by Katya 08.12.2016
         PetriP petriPlace = choosenPetriP.getPetriPlace();
         String markStr = petriPlace.markIsParam()
-            ? petriPlace.getMarkParamName()
-            : Integer.toString(petriPlace.getMark());
+                ? petriPlace.getMarkParamName()
+                : Integer.toString(petriPlace.getMark());
         markTextField.setText(markStr);
     }
 
@@ -177,15 +188,5 @@ public class SetPosition extends javax.swing.JFrame {
         getPName();
         getPMark();
     }
-    private PetriNetsPanel panel;
-    private GraphPetriPlace choosenPetriP;
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton cancelButton;
-    private javax.swing.JLabel markLabel;
-    private javax.swing.JTextField markTextField;
-    private javax.swing.JLabel nameLabel;
-    private javax.swing.JTextField nameTextField;
-    private javax.swing.JButton okButton;
-    private javax.swing.JPanel setPositionPanel;
     // End of variables declaration//GEN-END:variables
 }

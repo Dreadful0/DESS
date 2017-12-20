@@ -5,32 +5,52 @@
 package graphreuse;
 
 import PetriObj.ExceptionInvalidNetStructure;
+import graphnet.GraphPetriNet;
 import graphpresentation.FileUse;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.DefaultCellEditor;
-import javax.swing.JComboBox;
-import javax.swing.JTable;
+
+import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
-import graphnet.GraphPetriNet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
- *
  * @author Ольга
  */
 public class GraphReUseFrame extends javax.swing.JFrame {
 
+    private final int ROW_HEIGHT = 22;
+    private final String COPY_NAME = "_copy";
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane arcInScrollPane;
+    private javax.swing.JScrollPane arcOutScrollPane;
+    private javax.swing.JButton cancelButton;
+    private javax.swing.JScrollPane petriPlaceScrollPane;
+    private javax.swing.JScrollPane petriTransitionScrollPane;
+    private javax.swing.JButton saveAsButton;
+    private javax.swing.JButton saveButton;
+    // End of variables declaration//GEN-END:variables
+    private GraphPetriNet graphPetriNet;
+    private JTable petriPlaceTable;
+    private JTable petriTransitionTable;
+    private JTable arcInTable;
+    private JTable arcOutTable;
+    private PetriPlaceTableModel placeTableModel;
+    private PetriTransitionTableModel transitionTableModel;
+    private PetriArcInTableModel arcInTableModel;
+    private PetriArcOutTableModel arcOutTableModel;
+    private FileUse fileUse;
+    private String graphNetName;
     /**
      * Creates new form PetriObjectFrame
      */
     public GraphReUseFrame() throws ExceptionInvalidNetStructure {
         initComponents();
         this.setLocationRelativeTo(null);
-        
+
         fileUse = new FileUse();
         graphPetriNet = fileUse.openFile(this);
-        
+
         String netName = graphPetriNet.getPetriNet().getName();
         graphNetName = netName.substring(0, netName.length());
 
@@ -67,7 +87,6 @@ public class GraphReUseFrame extends javax.swing.JFrame {
         priorityColumn.setCellEditor(new SpinnerEditor());
 
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -112,41 +131,41 @@ public class GraphReUseFrame extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(arcOutScrollPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
-                    .addComponent(arcInScrollPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
-                    .addComponent(petriTransitionScrollPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
-                    .addComponent(petriPlaceScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(81, 81, 81)
-                .addComponent(saveAsButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(saveButton)
-                .addGap(18, 18, 18)
-                .addComponent(cancelButton)
-                .addGap(87, 87, 87))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(arcOutScrollPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
+                                        .addComponent(arcInScrollPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
+                                        .addComponent(petriTransitionScrollPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
+                                        .addComponent(petriPlaceScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE))
+                                .addContainerGap())
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(81, 81, 81)
+                                .addComponent(saveAsButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(saveButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(cancelButton)
+                                .addGap(87, 87, 87))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(petriPlaceScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(petriTransitionScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(arcInScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(arcOutScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(saveAsButton)
-                    .addComponent(cancelButton)
-                    .addComponent(saveButton))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(petriPlaceScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(petriTransitionScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(arcInScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(arcOutScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(saveAsButton)
+                                        .addComponent(cancelButton)
+                                        .addComponent(saveButton))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -184,34 +203,12 @@ public class GraphReUseFrame extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
 
-    private void stopEditing(){
-          JTable[] tables={petriPlaceTable, petriTransitionTable, arcInTable, arcOutTable};
-        for (JTable t:tables){
-            if (t.isEditing()){
+    private void stopEditing() {
+        JTable[] tables = {petriPlaceTable, petriTransitionTable, arcInTable, arcOutTable};
+        for (JTable t : tables) {
+            if (t.isEditing()) {
                 t.getCellEditor().stopCellEditing();
             }
         }
     }
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane arcInScrollPane;
-    private javax.swing.JScrollPane arcOutScrollPane;
-    private javax.swing.JButton cancelButton;
-    private javax.swing.JScrollPane petriPlaceScrollPane;
-    private javax.swing.JScrollPane petriTransitionScrollPane;
-    private javax.swing.JButton saveAsButton;
-    private javax.swing.JButton saveButton;
-    // End of variables declaration//GEN-END:variables
-    private GraphPetriNet graphPetriNet;
-    private JTable petriPlaceTable;
-    private JTable petriTransitionTable;
-    private JTable arcInTable;
-    private JTable arcOutTable;
-    private PetriPlaceTableModel placeTableModel;
-    private PetriTransitionTableModel transitionTableModel;
-    private PetriArcInTableModel arcInTableModel;
-    private PetriArcOutTableModel arcOutTableModel;
-    private FileUse fileUse;
-    private String graphNetName;
-    private final int ROW_HEIGHT=22; 
-    private final String COPY_NAME="_copy";
 }
